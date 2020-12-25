@@ -1,0 +1,36 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@include font-face(
+  $name: 'Inter',
+  $path: '/fonts/Inter/Regular',
+  $weight: normal,
+  $style: normal,
+  $locals: 'Inter Regular',
+);
+
+@include font-face(
+  $name: 'Inter',
+  $path: '/fonts/Inter/Medium',
+  $weight: normal,
+  $style: normal,
+  $locals: 'Inter Medium',
+);
+
+body {
+  font-family: "Inter Regular", 'Open Sans', sans-serif;
+  background-color: $backgroundColor;
+  margin: 0;
+  appearance: none;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+

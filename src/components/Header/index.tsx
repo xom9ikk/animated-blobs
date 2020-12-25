@@ -1,0 +1,54 @@
+import Link from 'next/link';
+import { Blob } from '@components/Blob';
+
+const LOGO_BLOB_SIZE = 250;
+
+export const Header:any = () => (
+  <header className="header">
+    <div className="header__wrapper">
+      <div className="header__inner">
+        <Link href="/">
+          <a>
+            <Blob
+              id="logo-blob"
+              width={LOGO_BLOB_SIZE}
+              height={LOGO_BLOB_SIZE}
+              colors={[{
+                r: 138,
+                g: 63,
+                b: 252,
+              }, {
+                r: 158,
+                g: 83,
+                b: 252,
+              }]}
+              isLoop
+              duration={5000}
+              blobOptions={{
+                size: LOGO_BLOB_SIZE,
+                extraPoints: 3,
+                randomness: 5,
+              }}
+            />
+            <img
+              className="header__logo"
+              src="/images/logo.png"
+              alt="logo"
+            />
+          </a>
+        </Link>
+        <span className="header__text">
+          By
+          <a
+            className="header__link"
+            href="https://github.com/xom9ikk"
+            rel="noreferrer"
+            target="_blank"
+          >
+            xom9ikk
+          </a>
+        </span>
+      </div>
+    </div>
+  </header>
+);

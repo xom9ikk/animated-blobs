@@ -1,0 +1,42 @@
+@mixin font-face(
+  $name,
+  $path,
+  $weight: null,
+  $style: null,
+  $extensions: eot woff2 woff ttf svg,
+  $locals: null
+) {
+  $src: null;
+  $mods: (
+    eot: '?#iefix',
+    svg: '#' + str-replace($name, ' ', '_'),
+  );
+  $formats: (
+    otf: 'opentype',
+    ttf: 'truetype',
+  );
+
+  @each $local in $locals {
+    $src: append($src, local($local), comma);
+  }
+
+  @each $ext in $extensions {
+    $mod: if(map-has-key($mods, $ext), $ext + map-get($mods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append(
+      $src,
+      url(quote($path + '.' + $mod)) format(quote($format)),
+      comma
+    );
+  }
+
+  @font-face {
+    font: {
+      display: swap;
+      family: quote($name);
+      style: $style;
+      weight: $weight;
+    }
+    src: $src;
+  }
+}
