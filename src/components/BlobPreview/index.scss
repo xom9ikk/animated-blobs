@@ -1,0 +1,21 @@
+.blob-preview {
+  padding: 0 48px;
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__inner {
+    margin-top: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 480px;
+    max-width: 480px;
+    border: 2px dashed $blobBorderColor;
+  }
+  canvas {
+    width: 70%;
+    height: 70%;
+  }
+}

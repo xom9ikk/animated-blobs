@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import Link from 'next/link';
 import { Blob } from '@components/Blob';
 
 const LOGO_BLOB_SIZE = 250;
 
-export const Header:any = () => (
+export const Header: FC<{}> = () => (
   <header className="header">
     <div className="header__wrapper">
       <div className="header__inner">
@@ -27,7 +28,7 @@ export const Header:any = () => (
               blobOptions={{
                 size: LOGO_BLOB_SIZE,
                 extraPoints: 3,
-                randomness: 5,
+                randomness: 3,
               }}
             />
             <img
@@ -38,7 +39,7 @@ export const Header:any = () => (
           </a>
         </Link>
         <span className="header__text">
-          By
+          by
           <a
             className="header__link"
             href="https://github.com/xom9ikk"

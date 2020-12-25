@@ -7,7 +7,7 @@
 }
 
 @include font-face(
-  $name: 'Inter',
+  $name: 'Inter Regular',
   $path: '/fonts/Inter/Regular',
   $weight: normal,
   $style: normal,
@@ -15,16 +15,23 @@
 );
 
 @include font-face(
-  $name: 'Inter',
+  $name: 'Inter Medium',
   $path: '/fonts/Inter/Medium',
   $weight: normal,
   $style: normal,
   $locals: 'Inter Medium',
 );
 
+@include font-face(
+  $name: 'Inter Bold',
+  $path: '/fonts/Inter/Bold',
+  $weight: normal,
+  $style: normal,
+  $locals: 'Inter Bold',
+);
+
 body {
   font-family: "Inter Regular", 'Open Sans', sans-serif;
-  background-color: $backgroundColor;
   margin: 0;
   appearance: none;
   user-select: none;

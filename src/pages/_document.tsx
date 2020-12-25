@@ -1,5 +1,5 @@
 import Document, {
-  Html, Head, Main, NextScript,
+  Html, Head, Main, NextScript, DocumentContext,
 } from 'next/document';
 
 import pkg from '../../package.json';
@@ -7,7 +7,7 @@ import pkg from '../../package.json';
 const faviconSizes = [48, 72, 96, 144, 192, 256, 384, 512];
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
   }

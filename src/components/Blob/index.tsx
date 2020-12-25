@@ -2,6 +2,7 @@ import {
   FC, useEffect, useRef, useMemo,
 } from 'react';
 import * as blobs2Animate from 'blobs/v2/animate';
+import { useUtils } from '@use/utils';
 
 interface IColor {
   r: number;
@@ -31,11 +32,6 @@ interface IBlob {
   onFrame?: (id: string, imageData: ImageData, canvasElement: HTMLCanvasElement) => void,
 }
 
-const getRandomInt = (min: number, max: number) => Math.floor(
-  Math.random() * (Math.floor(max) - Math.ceil(min)
-  ) + Math.ceil(min),
-);
-
 export const Blob: FC<IBlob> = ({
   id,
   width,
@@ -50,6 +46,8 @@ export const Blob: FC<IBlob> = ({
   delay = 0,
   onFrame,
 }) => {
+  const { getRandomInt } = useUtils();
+
   const canvas = useRef<HTMLCanvasElement>(null);
 
   const defaultBlobOptions = {
@@ -122,7 +120,7 @@ export const Blob: FC<IBlob> = ({
       });
     };
 
-    const config = {
+    const config: blobs2Animate.CanvasKeyframe = {
       duration: delay,
       blobOptions: {
         ...defaultBlobOptions,
