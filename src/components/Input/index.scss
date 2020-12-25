@@ -1,0 +1,35 @@
+.input {
+  position: relative;
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+
+  &__field {
+    color: $textColor;
+    font-family: "Inter Medium", 'Open Sans', sans-serif;
+    font-size: 16px;
+    padding: 12px 16px;
+    background: $backgroundPrimaryColor;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: background .1s ease-in-out, border .1s ease-in-out, box-shadow .1s ease-in-out;
+
+    &:active, &:focus {
+      border: 2px solid $primaryColor;
+    }
+
+    &:focus {
+      box-shadow: $box-shadow;
+    }
+
+    &:hover {
+      background: #eeeeee;
+    }
+  }
+}

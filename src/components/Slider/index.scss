@@ -43,7 +43,7 @@
     }
 
     &:active, &:focus {
-      box-shadow: rgba(120, 63, 252, 0.5) 0 0 0 4px;
+      box-shadow: $box-shadow;
       border-color: #fff;
     }
 

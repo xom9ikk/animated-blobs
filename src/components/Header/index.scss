@@ -2,16 +2,23 @@
   &__wrapper {
     padding: 48px 48px 0;
   }
+
   &__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
   &__logo {
     height: 50px;
-    transition: 0.3s ease-in-out;
-    z-index: 222222;
+    opacity: 0.7;
+    transition: opacity .2s ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
   }
+
   canvas {
     height: 100px;
     width: 100px;
@@ -20,11 +27,13 @@
     left: 15px;
     top: 23px;
   }
+
   &__text {
     font-size: 16px;
     font-family: "Inter Medium", 'Open Sans', sans-serif;
     color: $textColor;
   }
+
   &__link {
     padding-left: 4px;
     font-size: 16px;

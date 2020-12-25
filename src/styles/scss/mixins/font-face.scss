@@ -18,14 +18,14 @@
 ) {
   $src: null;
   $mods: (
-    eot: '?#iefix',
-    svg: '#' + str-replace($name, ' ', '_'),
+          eot: '?#iefix',
+          svg: '#' + str-replace($name, ' ', '_'),
   );
   $formats: (
-    woff2: 'woff2',
-    woff: 'woff',
-    otf: 'opentype',
-    ttf: 'truetype',
+          woff2: 'woff2',
+          woff: 'woff',
+          otf: 'opentype',
+          ttf: 'truetype',
   );
 
   @each $local in $locals {

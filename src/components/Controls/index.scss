@@ -2,14 +2,17 @@
   position: relative;
   margin-bottom: -10px;
   padding: 0;
+
   &__wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   &-panel {
     display: flex;
     flex-direction: row;
+    align-items: center;
     height: 115px;
     position: absolute;
     top: 40%;
@@ -17,6 +20,6 @@
     background: #fff;
     padding: 24px 20px;
     border-radius: 10px;
-    box-shadow: rgba(0,0,0,0.01) 0px 1px 0px, rgba(0,0,0,0.025) 0px 0px 8px, rgba(0,0,0,0.075) 0px 20px 30px;
+    box-shadow: rgba(0, 0, 0, 0.01) 0 1px 0, rgba(0, 0, 0, 0.025) 0 0 8px, rgba(0, 0, 0, 0.075) 0 20px 30px;
   }
 }

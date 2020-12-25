@@ -1,0 +1,12 @@
+.color-picker {
+  &__pointer {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: background .2s ease-in-out, opacity .2s ease-in-out;
+  }
+}

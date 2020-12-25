@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Slider } from '@components/Slider';
 import { useUtils } from '@use/utils';
+import { ColorPicker } from '@components/ColorPicker';
 
 export const Controls: FC<{}> = () => {
   const { getRandomInt } = useUtils();
@@ -11,6 +12,7 @@ export const Controls: FC<{}> = () => {
     <div className="controls">
       <div className="controls__wrapper">
         <div className="controls-panel">
+          <ColorPicker />
           <Slider
             minImageSrc="/svg/slider-randomness-min.svg"
             maxImageSrc="/svg/slider-randomness-max.svg"
