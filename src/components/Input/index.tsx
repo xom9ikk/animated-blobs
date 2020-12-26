@@ -38,7 +38,7 @@ export const Input: FC<IInput> = ({
   children,
   // ...attrs
 }) => (
-  <div className="input" style={style}>
+  <div className="input">
     <input
       type={type}
       name={name}
@@ -46,6 +46,7 @@ export const Input: FC<IInput> = ({
       onChange={onChange}
       onFocus={onFocus}
       onBlur={onBlur}
+      style={style}
       className="input__field"
     />
     <div className="input__overlay">

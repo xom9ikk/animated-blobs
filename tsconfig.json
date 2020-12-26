@@ -21,7 +21,9 @@
     "paths": {
       "@components/*": ["components/*"],
       "@layouts/*": ["layouts/*"],
-      "@use/*": ["use/*"]
+      "@use/*": ["use/*"],
+      "@store/*": ["store/*"],
+      "@type/*": ["types/*"]
     }
   },
   "exclude": ["node_modules"],

@@ -5,6 +5,7 @@ import { Input } from '@components/Input';
 import { ColorPalette } from '@components/ColorPalette';
 import { useHexValidator } from '@use/hex-validator';
 import { useOutsideHandler } from '@use/outsideHandler';
+import { IColor } from '@type/entitines';
 
 const palette = [
   '#8A3FFC',
@@ -23,9 +24,19 @@ const palette = [
   '#F2F4F8',
 ];
 
-export const ColorPicker: FC<{}> = () => {
+interface IColorPicker {
+  currentColor: IColor;
+  onColorPick: (color: IColor) => void;
+  isRemovableColor?: boolean;
+}
+
+export const ColorPicker: FC<IColorPicker> = ({
+  currentColor,
+  onColorPick,
+  isRemovableColor,
+}) => {
   const ref = useRef<HTMLDivElement>();
-  const [currentColor, setCurrentColor] = useState<string>('#8A3FFC');
+
   const [isValidColor, setIsValidColor] = useState<boolean>(true);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -47,28 +58,29 @@ export const ColorPicker: FC<{}> = () => {
       return;
     }
     setIsValidColor(isValid(newValue));
-    setCurrentColor(newValue);
+    onColorPick(newValue);
   };
 
-  const handlePickColor = (color: string) => {
-    setCurrentColor(color);
+  const handlePickColor = (color: IColor) => {
+    onColorPick(color);
   };
 
   return (
     <div
-      className="color-picker"
       ref={ref}
+      className="color-picker"
     >
       <Input
         type="text"
-        value={currentColor}
+        value={currentColor || ''}
         onChange={handleColorChange}
         onFocus={handleFocus}
+        style={{ width: 140 }}
       >
         <div
           className="color-picker__pointer"
           style={{
-            background: currentColor,
+            background: currentColor || undefined,
             opacity: isValidColor ? 1 : 0.5,
           }}
         />
@@ -79,6 +91,7 @@ export const ColorPicker: FC<{}> = () => {
             palette={palette}
             activeColor={currentColor}
             onPickColor={handlePickColor}
+            isRemovableColor={isRemovableColor}
           />
         )
       }

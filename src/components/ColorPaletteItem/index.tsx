@@ -1,16 +1,19 @@
 import { FC, useMemo, useState } from 'react';
 import { useConverter } from '@use/converter';
+import { IColor } from '@type/entitines';
 
 interface IColorPaletteItem {
-  color: string;
+  color: IColor;
   isActive: boolean;
-  onPickColor: (color: string) => void;
+  onPickColor: (color: IColor) => void;
+  isRemovableColor?: boolean;
 }
 
 export const ColorPaletteItem: FC<IColorPaletteItem> = ({
   color,
   isActive,
   onPickColor,
+  isRemovableColor,
 }) => {
   const [isPressed, setIsPressed] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -33,25 +36,34 @@ export const ColorPaletteItem: FC<IColorPaletteItem> = ({
     setIsFocused(false);
   };
 
-  const focusedRgba = useMemo(() => hexToRgb(color, 0.8), [color]);
-  const activeRgba = useMemo(() => hexToRgb(color, 0.3), [color]);
+  const handleColorPick = () => {
+    if (isRemovableColor && isActive) {
+      handleBlur();
+      return onPickColor(null);
+    }
+    onPickColor(color);
+  };
+
+  const focusedRgba = useMemo(() => color && hexToRgb(color, 0.8), [color]);
+  const activeRgba = useMemo(() => color && hexToRgb(color, 0.3), [color]);
 
   return (
     <button
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onFocus={handleFocus}
+      onMouseDownCapture={handleFocus}
       onBlur={handleBlur}
       className={`color-palette-item 
       ${isFocused && !isPressed ? 'color-palette-item--focused' : ''}
       ${isActive && !isFocused ? 'color-palette-item--active' : ''}
       `}
       style={{
-        background: color,
+        background: color || undefined,
         ['--focused-box-shadow-color' as any]: focusedRgba,
         ['--active-box-shadow-color' as any]: activeRgba,
       }}
-      onClick={() => onPickColor(color)}
+      onClick={handleColorPick}
     />
   );
 };

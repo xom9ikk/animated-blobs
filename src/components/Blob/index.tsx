@@ -1,14 +1,10 @@
 import {
-  FC, useEffect, useRef, useMemo,
+  FC, useEffect, useRef, useMemo, useState,
 } from 'react';
 import * as blobs2Animate from 'blobs/v2/animate';
 import { useUtils } from '@use/utils';
-
-interface IColor {
-  r: number;
-  g: number;
-  b: number;
-}
+import { IColors } from '@type/entitines';
+import { useBlob } from '@use/blob';
 
 interface IBlobOptions {
   seed?: number | string;
@@ -21,8 +17,7 @@ interface IBlob {
   id: string,
   width: number,
   height: number,
-  color?: IColor,
-  colors?: Array<IColor>,
+  colors: IColors,
   blobOptions?: IBlobOptions,
   duration?: number,
   opacity?: number,
@@ -36,7 +31,6 @@ export const Blob: FC<IBlob> = ({
   id,
   width,
   height,
-  color,
   colors,
   blobOptions,
   duration = 5000,
@@ -47,8 +41,18 @@ export const Blob: FC<IBlob> = ({
   onFrame,
 }) => {
   const { getRandomInt } = useUtils();
+  const { setColors } = useBlob();
 
   const canvas = useRef<HTMLCanvasElement>(null);
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>();
+
+  useEffect(() => {
+    if (!canvas.current) {
+      return;
+    }
+    const context = canvas.current?.getContext('2d');
+    setCtx(context);
+  }, [canvas]);
 
   const defaultBlobOptions = {
     extraPoints: getRandomInt(3, 5),
@@ -73,24 +77,19 @@ export const Blob: FC<IBlob> = ({
   };
 
   useEffect(() => {
-    if (!canvas.current) {
+    if (!ctx) {
       return;
     }
-    const canvasCtx = canvas.current.getContext('2d');
-    if (!canvasCtx) {
+
+    setColors(ctx, colors, opacity, height);
+  }, [colors]);
+
+  useEffect(() => {
+    if (!ctx) {
       return;
     }
-    let gradient;
-    if (color) {
-      const { r, g, b } = color;
-      canvasCtx.fillStyle = `rgba(${r},${g},${b},${opacity})`;
-    } else if (colors) {
-      const [{ r: r1, g: g1, b: b1 }, { r: r2, g: g2, b: b2 }] = colors;
-      gradient = canvasCtx.createLinearGradient(0, 0, height, 0);
-      gradient.addColorStop(0, `rgba(${r1},${g1},${b1},${opacity})`);
-      gradient.addColorStop(1, `rgba(${r2},${g2},${b2},${opacity})`);
-      canvasCtx.fillStyle = gradient;
-    }
+
+    setColors(ctx, colors, opacity, height);
 
     const animation = blobs2Animate.canvasPath();
 
@@ -98,10 +97,10 @@ export const Blob: FC<IBlob> = ({
       if (!canvas.current) {
         return;
       }
-      const imageData = canvasCtx.getImageData(0, 0, width, height);
+      const imageData = ctx.getImageData(0, 0, width, height);
       onFrame?.(id, imageData, canvas.current);
-      canvasCtx.clearRect(0, 0, width, height);
-      canvasCtx.fill(animation.renderFrame());
+      ctx.clearRect(0, 0, width, height);
+      ctx.fill(animation.renderFrame());
       requestAnimationFrame(renderAnimation);
     };
 
@@ -127,12 +126,13 @@ export const Blob: FC<IBlob> = ({
         ...blobOptions,
       },
     };
+
     if (isLoop) {
       config.callback = loopAnimation;
     }
 
     animation.transition(config);
-  }, []);
+  }, [ctx]);
 
   useEffect(() => {
     if (isRec) {

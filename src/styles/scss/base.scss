@@ -60,3 +60,10 @@ a {
     box-shadow: $box-shadow;
   }
 }
+
+svg {
+  path {
+    transition: fill, .5s cubic-bezier(.52,.01,.47,1.93);
+    //transition: fill, .3s ease-in-out;
+  }
+}

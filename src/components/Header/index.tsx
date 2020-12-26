@@ -14,15 +14,7 @@ export const Header: FC<{}> = () => (
               id="logo-blob"
               width={LOGO_BLOB_SIZE}
               height={LOGO_BLOB_SIZE}
-              colors={[{
-                r: 138,
-                g: 63,
-                b: 252,
-              }, {
-                r: 158,
-                g: 83,
-                b: 252,
-              }]}
+              colors={['#8A3FFC', '#8332FC']}
               isLoop
               duration={5000}
               blobOptions={{
