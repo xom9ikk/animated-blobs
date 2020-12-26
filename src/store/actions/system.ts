@@ -3,7 +3,7 @@ import {
   ISetSystemColor,
   ISetSystemColors,
   ISetSystemExtraPoints,
-  ISetSystemRandomness, ISetSystemSeed,
+  ISetSystemRandomness, ISetSystemSeed, ISetSystemSvg,
 } from '@type/actions';
 
 enum Type {
@@ -12,6 +12,7 @@ enum Type {
   SET_RANDOMNESS = 'SYSTEM/SET_RANDOMNESS',
   SET_EXTRA_POINTS = 'SYSTEM/SET_EXTRA_POINTS',
   SET_SEED = 'SYSTEM/SET_SEED',
+  SET_SVG = 'SYSTEM/SET_SVG',
 }
 
 const setColors = createAction(Type.SET_COLORS, (colors: ISetSystemColors) => ({ colors }));
@@ -25,6 +26,9 @@ const setExtraPoints = createAction(
 const setSeed = createAction(
   Type.SET_SEED, (seed: ISetSystemSeed) => ({ seed }),
 );
+const setSvg = createAction(
+  Type.SET_SVG, (svg: ISetSystemSvg) => ({ svg }),
+);
 
 export const SystemActions = {
   Type,
@@ -33,4 +37,5 @@ export const SystemActions = {
   setRandomness,
   setExtraPoints,
   setSeed,
+  setSvg,
 };

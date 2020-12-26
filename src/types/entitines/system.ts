@@ -6,4 +6,5 @@ export interface ISystem {
   randomness: number;
   extraPoints: number;
   seed: number;
+  svg: string;
 }

@@ -6,6 +6,8 @@ import * as blobs2 from 'blobs/v2';
 import { useUtils } from '@use/utils';
 import { IColors } from '@type/entitines';
 import { useSvgBlob } from '@use/svg-blob';
+import { SystemActions } from '@store/actions';
+import { useDispatch } from 'react-redux';
 
 interface IBlobOptions {
   seed?: number | string;
@@ -29,6 +31,7 @@ export const BlobSvg: FC<IBlobSvg> = ({
   blobOptions,
   seed,
 }) => {
+  const dispatch = useDispatch();
   const { getRandomInt } = useUtils();
   const { generateSvg } = useSvgBlob();
 
@@ -52,6 +55,7 @@ export const BlobSvg: FC<IBlobSvg> = ({
 
   useEffect(() => {
     const svg = generateSvg(path, width, height, colors);
+    dispatch(SystemActions.setSvg(svg));
     console.log(svg);
   }, [path, width, height, colors]);
 

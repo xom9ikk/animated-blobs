@@ -7,16 +7,20 @@ import { RandomButton } from '@components/RandomButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { SystemActions } from '@store/actions';
 import { IColor } from '@type/entitines';
-import { getColors } from '@store/selectors';
+import { getColors, getSvg } from '@store/selectors';
 import { useThrottle } from '@use/throttle';
+import { useDownload } from '@use/download';
+
+const { getRandomInt } = useUtils();
+
+const backgroundSrc = `/svg/wave-${getRandomInt(0, 6)}.svg`;
 
 export const Controls: FC<{}> = () => {
   const dispatch = useDispatch();
   const currentColors = useSelector(getColors);
+  const svg = useSelector(getSvg);
 
-  const { getRandomInt } = useUtils();
-
-  const backgroundSrc = `/svg/wave-${getRandomInt(0, 6)}.svg`;
+  const { downloadText } = useDownload();
 
   const handleRandomClick = useThrottle(() => {
     dispatch(SystemActions.setSeed(Math.random()));
@@ -46,6 +50,14 @@ export const Controls: FC<{}> = () => {
     // handleRandomClick();
   };
 
+  const handleDownload = () => {
+    downloadText(svg, 'svg-blob', 'svg');
+  };
+
+  const handleShowCode = () => {
+    console.log(svg);
+  };
+
   return (
     <div className="controls">
       <div className="controls__wrapper">
@@ -73,8 +85,16 @@ export const Controls: FC<{}> = () => {
             max={30}
             onChange={handleRandomnessChange}
           />
-          <Button><img src="/svg/download.svg" alt="download" /></Button>
-          <Button><img src="/svg/code.svg" alt="code" /></Button>
+          <Button
+            onClick={handleDownload}
+          >
+            <img src="/svg/download.svg" alt="download" />
+          </Button>
+          <Button
+            onClick={handleShowCode}
+          >
+            <img src="/svg/code.svg" alt="code" />
+          </Button>
           <RandomButton
             onClick={handleRandomClick}
           >

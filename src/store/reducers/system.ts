@@ -7,6 +7,7 @@ const initialState = {
   randomness: 3,
   extraPoints: 5,
   seed: Math.random(),
+  svg: '',
 };
 
 export const SystemReducer = handleActions<ISystem, any>({
@@ -27,4 +28,6 @@ export const SystemReducer = handleActions<ISystem, any>({
         (state, action) => ({ ...state, extraPoints: action.payload.extraPoints }),
   [SystemActions.Type.SET_SEED]:
         (state, action) => ({ ...state, seed: action.payload.seed }),
+  [SystemActions.Type.SET_SVG]:
+        (state, action) => ({ ...state, svg: action.payload.svg }),
 }, initialState);

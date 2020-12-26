@@ -1,9 +1,14 @@
-import { FC } from 'react';
+import { BaseSyntheticEvent, FC } from 'react';
 
-export const Button: FC<{}> = ({
+interface IButton {
+  onClick: (e: BaseSyntheticEvent) => void
+}
+
+export const Button: FC<IButton> = ({
+  onClick,
   children,
 }) => (
-  <button className="button button--circle">
+  <button className="button button--circle" onClick={onClick}>
     <div className="button__inner">
       {children}
     </div>

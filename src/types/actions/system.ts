@@ -8,3 +8,4 @@ export interface ISetSystemColor {
 export type ISetSystemRandomness = number;
 export type ISetSystemExtraPoints = number;
 export type ISetSystemSeed = number;
+export type ISetSystemSvg = string;
