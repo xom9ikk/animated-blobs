@@ -11,6 +11,14 @@
 }
 
 @include font-face(
+  $name: 'Inter Light',
+  $path: '/fonts/Inter/Light',
+  $weight: normal,
+  $style: normal,
+  $locals: 'Inter Light',
+);
+
+@include font-face(
   $name: 'Inter Regular',
   $path: '/fonts/Inter/Regular',
   $weight: normal,
@@ -43,5 +51,12 @@ body {
 
 a {
   text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  color: $text-primary-color;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    box-shadow: $box-shadow;
+  }
 }
-

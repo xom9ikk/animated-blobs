@@ -3,6 +3,7 @@ import { BlobPreview } from '@components/BlobPreview';
 import { Blob } from '@components/Blob';
 import { Controls } from '@components/Controls';
 import { Info } from '@components/Info';
+import { Footer } from '@components/Footer';
 
 const BLOB_SIZE = 480;
 
@@ -33,6 +34,7 @@ const Index = () => (
     </BlobPreview>
     <Controls />
     <Info />
+    <Footer />
   </Layout>
 );
 

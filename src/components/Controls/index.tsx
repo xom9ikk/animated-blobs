@@ -17,7 +17,7 @@ export const Controls: FC<{}> = () => {
   return (
     <div className="controls">
       <div className="controls__wrapper">
-        <div className="controls-panel">
+        <div className="controls__panel">
           <ColorPicker />
           <Slider
             minImageSrc="/svg/slider-randomness-min.svg"

@@ -11,17 +11,17 @@
   }
 
   &__field {
-    color: $textColor;
+    color: $text-color;
     font-family: "Inter Medium", 'Open Sans', sans-serif;
     font-size: 16px;
     padding: 12px 16px;
-    background: $backgroundPrimaryColor;
+    background: $background-primary-color;
     border: 2px solid transparent;
     border-radius: 8px;
     transition: background .1s ease-in-out, border .1s ease-in-out, box-shadow .1s ease-in-out;
 
     &:active, &:focus {
-      border: 2px solid $primaryColor;
+      border: 2px solid $primary-color;
     }
 
     &:focus {

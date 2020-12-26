@@ -4,7 +4,7 @@
 
   &:hover {
     cursor: pointer;
-    background: rgba($primaryColor, 0.2);
+    background: rgba($primary-color, 0.2);
   }
 
   &:active, &:focus {
@@ -18,7 +18,7 @@
     align-items: center;
     padding: 14px;
     pointer-events: none;
-    border: 2px solid $primaryColor;
+    border: 2px solid $primary-color;
     border-radius: 50%;
   }
 

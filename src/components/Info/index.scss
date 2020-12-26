@@ -1,4 +1,24 @@
 .info {
-  height: 50vh;
-  background: $backgroundPrimaryColor;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  background: $background-primary-color;
+  &__inner {
+    width: 77%;
+  }
+  &__text {
+    font-family: "Inter Light", 'Open Sans', sans-serif;;
+    max-width: 720px;
+    font-size: 20px;
+    color: $text-color;
+    line-height: 1.5;
+    margin: 20px 0;
+    &--main {
+      font-size: 24px;
+      margin-bottom: 100px;
+    }
+  }
+  h2 {
+    font-family: "Inter Light", 'Open Sans', sans-serif;
+  }
 }

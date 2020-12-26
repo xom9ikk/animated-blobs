@@ -4,7 +4,7 @@
   margin: 5px;
   border-radius: 50%;
   overflow: hidden;
-  background: $primaryColor;
+  background: $primary-color;
   transition: background .2s linear, transform .2s linear;
 
   img {
@@ -14,7 +14,7 @@
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
-    background: darken($primaryColor, 5);
+    background: darken($primary-color, 5);
 
     img {
       transform: rotate(-15deg);
