@@ -1,11 +1,14 @@
-import { BaseSyntheticEvent, FC, useState } from 'react';
+import {
+  BaseSyntheticEvent, FC, useRef, useState,
+} from 'react';
 import { Input } from '@components/Input';
-import { useHexValidator } from '@use/hex-validator';
 import { ColorPalette } from '@components/ColorPalette';
+import { useHexValidator } from '@use/hex-validator';
+import { useOutsideHandler } from '@use/outsideHandler';
 
 const palette = [
-  '#FF0066',
   '#8A3FFC',
+  '#FF0066',
   '#FA4D56',
   '#F1C21B',
   '#08BDBA',
@@ -21,7 +24,8 @@ const palette = [
 ];
 
 export const ColorPicker: FC<{}> = () => {
-  const [currentColor, setCurrentColor] = useState<string>('#FF3344');
+  const ref = useRef<HTMLDivElement>();
+  const [currentColor, setCurrentColor] = useState<string>('#8A3FFC');
   const [isValidColor, setIsValidColor] = useState<boolean>(true);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -31,9 +35,11 @@ export const ColorPicker: FC<{}> = () => {
     setIsFocused(true);
   };
 
-  const handleBlur = () => {
+  const outsideClickHandler = () => {
     setIsFocused(false);
   };
+
+  useOutsideHandler(ref, outsideClickHandler);
 
   const handleColorChange = (e: BaseSyntheticEvent) => {
     const newValue = e.target.value.toUpperCase();
@@ -49,13 +55,15 @@ export const ColorPicker: FC<{}> = () => {
   };
 
   return (
-    <div className="color-picker">
+    <div
+      className="color-picker"
+      ref={ref}
+    >
       <Input
         type="text"
         value={currentColor}
         onChange={handleColorChange}
         onFocus={handleFocus}
-        onBlur={handleBlur}
       >
         <div
           className="color-picker__pointer"

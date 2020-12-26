@@ -46,7 +46,7 @@ export const Header: FC<{}> = () => (
             rel="noreferrer"
             target="_blank"
           >
-            xom9ikk
+            @xom9ikk
           </a>
         </span>
       </div>

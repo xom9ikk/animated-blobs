@@ -1,0 +1,44 @@
+.random-button {
+
+  border: 1px solid #ffffff;
+  margin: 5px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: $primaryColor;
+  transition: background .2s linear, transform .2s linear;
+
+  img {
+    transition: transform .2s linear;
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    background: darken($primaryColor, 5);
+
+    img {
+      transform: rotate(-15deg);
+    }
+  }
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+    pointer-events: none;
+  }
+
+  &--pressed {
+    transform: scale(0.9) !important;
+
+    img {
+      transform: rotate(180deg) !important;
+    }
+  }
+
+  &:active, &:focus {
+    box-shadow: $box-shadow;
+    border-color: #fff;
+  }
+}

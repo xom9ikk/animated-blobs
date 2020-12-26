@@ -1,0 +1,29 @@
+.button {
+  margin: 5px;
+  transition: background .2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background: rgba($primaryColor, 0.2);
+  }
+
+  &:active, &:focus {
+    box-shadow: $box-shadow;
+    border-color: #fff;
+  }
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+    pointer-events: none;
+    border: 2px solid $primaryColor;
+    border-radius: 50%;
+  }
+
+  &--circle {
+    border-radius: 50%;
+    overflow: hidden;
+  }
+}
