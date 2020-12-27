@@ -1,0 +1,33 @@
+.code-preview {
+  background: #424242;
+  border-radius: 8px;
+  &__inner {
+    padding: 20px 16px;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      height: 15px;
+      width: 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: lighten($primary-color, 10) !important;
+      border: 5px solid #424242 !important;
+      border-radius: 10px !important;
+      transition: background .5s ease-in-out !important;
+
+      &:hover {
+        background: darken($primary-color, 10) !important;
+      }
+    }
+  }
+  pre {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: "IBM Plex Mono", Menlo, monospace;
+    user-select: text;
+    &::selection {
+      background: $background-primary-color;
+    }
+  }
+}

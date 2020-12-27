@@ -1,0 +1,56 @@
+$first-breakpoint: 1368px;
+$second-breakpoint: 1100px;
+$third-breakpoint: 768px;
+
+@media screen and (max-width: $first-breakpoint) {
+  .color-picker {
+    width: 100% !important;
+  }
+  .controls {
+    &__panel {
+      max-width: 90%;
+    }
+  }
+  .blob-preview {
+    &__inner {
+      margin-top: 0;
+    }
+  }
+}
+
+@media screen and (max-width: $second-breakpoint) {
+  .controls {
+    &__panel {
+      flex-flow: column wrap;
+      align-items: flex-start;
+      &--picker {
+        margin-bottom: 20px;
+        width: 100%;
+        input {
+          width: 100%;
+        }
+      }
+      &--slider {
+        margin-bottom: 20px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $third-breakpoint) {
+  .controls {
+    &__panel {
+      max-width: 100%;
+      &--slider {
+        flex-direction: column;
+      }
+    }
+  }
+  .slider {
+    &:first-child {
+      margin-bottom: 20px;
+    }
+  }
+}
+

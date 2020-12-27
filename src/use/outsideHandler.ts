@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { BaseSyntheticEvent, useEffect } from 'react';
 
-export const useOutsideHandler = (ref: any, handler: Function) => {
+export const useOutsideHandler = (ref: any, handler: (e: BaseSyntheticEvent) => void) => {
   const handleClickOutside = (event: any) => {
     if (ref.current && !ref.current.contains(event.target)) {
-      handler();
+      handler(event);
     }
   };
 

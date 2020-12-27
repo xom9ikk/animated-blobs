@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Slider } from '@components/Slider';
 import { useUtils } from '@use/utils';
 import { ColorPicker } from '@components/ColorPicker';
@@ -10,16 +10,17 @@ import { IColor } from '@type/entitines';
 import { getColors, getSvg } from '@store/selectors';
 import { useThrottle } from '@use/throttle';
 import { useDownload } from '@use/download';
-
-const { getRandomInt } = useUtils();
-
-const backgroundSrc = `/svg/wave-${getRandomInt(0, 6)}.svg`;
+import { Modal } from '@components/Modal';
+import { CodePreview } from '@components/CodePreview';
 
 export const Controls: FC<{}> = () => {
   const dispatch = useDispatch();
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
   const currentColors = useSelector(getColors);
   const svg = useSelector(getSvg);
 
+  const { getRandomInt } = useUtils();
   const { downloadText } = useDownload();
 
   const handleRandomClick = useThrottle(() => {
@@ -47,7 +48,6 @@ export const Controls: FC<{}> = () => {
 
   const handleExtraPointsChange = (extraPoints: number) => {
     dispatch(SystemActions.setExtraPoints(extraPoints));
-    // handleRandomClick();
   };
 
   const handleDownload = () => {
@@ -55,58 +55,102 @@ export const Controls: FC<{}> = () => {
   };
 
   const handleShowCode = () => {
-    console.log(svg);
+    setIsOpenModal(true);
   };
+
+  const handleCopy = () => {
+    setIsCopied(true);
+  };
+
+  const handleCloseModel = () => {
+    setIsOpenModal(false);
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (isCopied) {
+        setIsCopied(false);
+      }
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [isCopied]);
+
+  const backgroundSrc = `/svg/wave-${getRandomInt(0, 6)}.svg`;
 
   return (
     <div className="controls">
-      <div className="controls__wrapper">
+      <div
+        className="controls__wrapper"
+        style={{
+          backgroundImage: `url("${backgroundSrc}")`,
+        }}
+      >
         <div className="controls__panel">
-          <ColorPicker
-            currentColor={currentColors[0]}
-            onColorPick={handleFirstColorPick}
-          />
-          <ColorPicker
-            currentColor={currentColors[1]}
-            onColorPick={handleSecondColorPick}
-            isRemovableColor
-          />
-          <Slider
-            minImageSrc="/svg/slider-randomness-min.svg"
-            maxImageSrc="/svg/slider-randomness-max.svg"
-            min={1}
-            max={30}
-            onChange={handleExtraPointsChange}
-          />
-          <Slider
-            minImageSrc="/svg/slider-points-min.svg"
-            maxImageSrc="/svg/slider-points-max.svg"
-            min={2}
-            max={30}
-            onChange={handleRandomnessChange}
-          />
-          <Button
-            onClick={handleDownload}
-          >
-            <img src="/svg/download.svg" alt="download" />
-          </Button>
-          <Button
-            onClick={handleShowCode}
-          >
-            <img src="/svg/code.svg" alt="code" />
-          </Button>
-          <RandomButton
-            onClick={handleRandomClick}
-          >
-            <img src="/svg/dice.svg" alt="dice" />
-          </RandomButton>
+          <div className="controls__panel--picker">
+            <ColorPicker
+              currentColor={currentColors[0]}
+              onColorPick={handleFirstColorPick}
+            />
+            <ColorPicker
+              currentColor={currentColors[1]}
+              onColorPick={handleSecondColorPick}
+              isRemovableColor
+            />
+          </div>
+          <div className="controls__panel--slider">
+            <Slider
+              minImageSrc="/svg/slider-randomness-min.svg"
+              maxImageSrc="/svg/slider-randomness-max.svg"
+              min={1}
+              max={30}
+              onChange={handleExtraPointsChange}
+            />
+            <Slider
+              minImageSrc="/svg/slider-points-min.svg"
+              maxImageSrc="/svg/slider-points-max.svg"
+              min={2}
+              max={30}
+              onChange={handleRandomnessChange}
+            />
+          </div>
+          <div className="controls__panel--buttons">
+            <Button
+              onClick={handleDownload}
+              mode="circle"
+            >
+              <img src="/svg/download.svg" alt="download" />
+            </Button>
+            <Button
+              onClick={handleShowCode}
+              mode="circle"
+            >
+              <img src="/svg/code.svg" alt="code" />
+            </Button>
+            <RandomButton
+              onClick={handleRandomClick}
+            >
+              <img src="/svg/dice.svg" alt="dice" />
+            </RandomButton>
+          </div>
         </div>
       </div>
-      <img
-        className="controls__background"
-        src={backgroundSrc}
-        alt="wave"
-      />
+      {/* <img */}
+      {/*  className="controls__background" */}
+      {/*  src={backgroundSrc} */}
+      {/*  alt="wave" */}
+      {/* /> */}
+      <Modal
+        isOpen={isOpenModal}
+        title="Copy SVG code"
+        positive={isCopied ? '👌 SVG copied to clipboard' : '🤙 Copy SVG to clipboard'}
+        onPositive={handleCopy}
+        onNegative={handleCloseModel}
+        onClose={handleCloseModel}
+      >
+        <CodePreview>
+          {svg}
+        </CodePreview>
+      </Modal>
     </div>
   );
 };

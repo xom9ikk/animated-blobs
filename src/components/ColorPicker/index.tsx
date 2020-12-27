@@ -75,7 +75,6 @@ export const ColorPicker: FC<IColorPicker> = ({
         value={currentColor || ''}
         onChange={handleColorChange}
         onFocus={handleFocus}
-        style={{ width: 140 }}
       >
         <div
           className="color-picker__pointer"

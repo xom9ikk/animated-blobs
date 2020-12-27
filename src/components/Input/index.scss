@@ -1,5 +1,6 @@
 .input {
   position: relative;
+  width: 100%;
 
   &__overlay {
     position: absolute;
@@ -11,6 +12,7 @@
   }
 
   &__field {
+    width: 100%;
     color: $text-color;
     font-family: "Inter Medium", 'Open Sans', sans-serif;
     font-size: 16px;
