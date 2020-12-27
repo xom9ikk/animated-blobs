@@ -12,6 +12,7 @@ import { useThrottle } from '@use/throttle';
 import { useDownload } from '@use/download';
 import { Modal } from '@components/Modal';
 import { CodePreview } from '@components/CodePreview';
+import { Tabs } from '@components/Tabs';
 
 export const Controls: FC<{}> = () => {
   const dispatch = useDispatch();
@@ -86,6 +87,29 @@ export const Controls: FC<{}> = () => {
         }}
       >
         <div className="controls__panel">
+          <Tabs
+              // @ts-ignore
+            items={[
+              {
+                name: 'SVG static',
+                route: 'svg',
+                render: () => (
+                  <p>
+                    1
+                  </p>
+                ),
+              },
+              {
+                name: 'GIF animation',
+                route: 'gif',
+                render: () => (
+                  <p>
+                    2
+                  </p>
+                ),
+              },
+            ]}
+          />
           <div className="controls__panel--picker">
             <ColorPicker
               currentColor={currentColors[0]}
@@ -134,11 +158,6 @@ export const Controls: FC<{}> = () => {
           </div>
         </div>
       </div>
-      {/* <img */}
-      {/*  className="controls__background" */}
-      {/*  src={backgroundSrc} */}
-      {/*  alt="wave" */}
-      {/* /> */}
       <Modal
         isOpen={isOpenModal}
         title="Copy SVG code"

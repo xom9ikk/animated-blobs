@@ -9,6 +9,7 @@
   opacity: 0;
   visibility: hidden;
   display: none;
+  z-index: 2;
 
   &__header {
     display: flex;
