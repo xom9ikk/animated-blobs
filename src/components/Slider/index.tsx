@@ -9,6 +9,7 @@ interface ISlider {
   defaultValue?: number;
   onChange: (value: number)=>void;
   label?: string;
+  tooltip?: string;
   size?: 'small' | 'large';
   isShowCurrentValue?: boolean;
   valueTransformer?: (value: number) => string | number;
@@ -23,6 +24,7 @@ export const Slider: FC<ISlider> = ({
   defaultValue,
   onChange,
   label,
+  tooltip,
   size = 'large',
   isShowCurrentValue,
   valueTransformer,
@@ -39,7 +41,13 @@ export const Slider: FC<ISlider> = ({
       { label && (
         <label className="slider__label">
           {label}
-          <img className="slider__info" src="/svg/info.svg" alt="info" />
+          <img
+            className="slider__info"
+            src="/svg/info.svg"
+            alt="info"
+            data-for="tooltip"
+            data-tip={tooltip}
+          />
         </label>
       )}
       { minImageSrc && <img className="slider__image" src={minImageSrc} alt="min" />}

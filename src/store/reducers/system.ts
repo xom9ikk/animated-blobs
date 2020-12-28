@@ -10,7 +10,7 @@ const initialState = {
     randomness: 3,
     extraPoints: 5,
     seed: Math.random(),
-    opacity: 10,
+    opacity: 100,
     duration: 1000,
     delay: 0,
   }, {
@@ -27,6 +27,7 @@ const initialState = {
   quality: 70,
   fps: 30,
   size: 440,
+  isRec: false,
 };
 
 export const SystemReducer = handleActions<ISystem, any>({
@@ -160,4 +161,6 @@ export const SystemReducer = handleActions<ISystem, any>({
         (state, action) => ({ ...state, fps: action.payload.fps }),
   [SystemActions.Type.SET_SIZE]:
         (state, action) => ({ ...state, size: action.payload.size }),
+  [SystemActions.Type.SWITCH_IS_REC]:
+        (state) => ({ ...state, isRec: !state.isRec }),
 }, initialState);

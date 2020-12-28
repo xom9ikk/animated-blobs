@@ -5,7 +5,7 @@ export const useBlob = () => {
   const { hexToRgb } = useConverter();
 
   const setColors = (
-    ctx: CanvasRenderingContext2D,
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     colors: IColors,
     opacity: number,
     height: number,
@@ -20,7 +20,6 @@ export const useBlob = () => {
       ctx.fillStyle = gradient;
     } else if (colors[0] !== null) {
       ctx.fillStyle = hexToRgb(colors[0], opacity);
-      console.log(hexToRgb(colors[0], opacity));
     }
   };
 

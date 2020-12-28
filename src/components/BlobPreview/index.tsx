@@ -7,24 +7,31 @@ import { BlobSvg } from '@components/BlobSvg';
 import { useRouter } from 'next/router';
 import { BlobAggregator } from '@components/BlobAggregator';
 
-const BLOB_SIZE = 440;
+const BLOB_PREVIEW_SIZE = 440;
 
 export const BlobPreview : FC<{}> = () => {
   const router = useRouter();
   const isGif = router.asPath === '/gif';
-
-  const resultedCanvas = useRef<HTMLCanvasElement | null>(null);
-  const resultedCanvasCtx = useRef<CanvasRenderingContext2D | null>(null);
+  //
+  // const resultedCanvas = useRef<HTMLCanvasElement | null>(null);
+  // const resultedCanvasCtx = useRef<CanvasRenderingContext2D | null>(null);
 
   const blobs = useSelector(getBlobs);
-
-  const handleMergedFrames = (frame: CanvasImageSource) => {
-    resultedCanvasCtx.current!.drawImage(frame, 0, 0);
-  };
-
-  const handleNextFrame = () => {
-    resultedCanvasCtx.current!.clearRect(0, 0, BLOB_SIZE, BLOB_SIZE);
-  };
+  //
+  // const handleMergedFrames = (frame: CanvasImageSource) => {
+  //   try {
+  //     console.log(' handleMergedFrames');
+  //     resultedCanvasCtx.current.drawImage(frame, 0, 0, BLOB_PREVIEW_SIZE, BLOB_PREVIEW_SIZE);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+  //
+  // const handleNextFrame = () => {
+  //   if (resultedCanvasCtx.current instanceof CanvasRenderingContext2D) {
+  //     resultedCanvasCtx.current?.clearRect(0, 0, BLOB_PREVIEW_SIZE, BLOB_PREVIEW_SIZE);
+  //   }
+  // };
 
   return (
     <div className="blob-preview">
@@ -33,26 +40,11 @@ export const BlobPreview : FC<{}> = () => {
           {
             isGif ? (
               <>
-                <BlobAggregator
-                  onFrames={handleMergedFrames}
-                  onNextFrame={handleNextFrame}
-                />
-                <canvas
-                  ref={(ref) => {
-                    if (resultedCanvas.current === null) {
-                      resultedCanvas.current = ref;
-                      resultedCanvas.current!.width = BLOB_SIZE;
-                      resultedCanvas.current!.height = BLOB_SIZE;
-                      resultedCanvasCtx.current = resultedCanvas.current!.getContext('2d');
-                    }
-                  }}
-                  width={BLOB_SIZE}
-                  height={BLOB_SIZE}
-                />
+                <BlobAggregator previewSize={BLOB_PREVIEW_SIZE} />
                 {/* <Blob */}
                 {/*  id="blob-preview" */}
-                {/*  width={BLOB_SIZE} */}
-                {/*  height={BLOB_SIZE} */}
+                {/*  width={BLOB_PREVIEW_SIZE} */}
+                {/*  height={BLOB_PREVIEW_SIZE} */}
                 {/*  colors={colors} */}
                 {/*  duration={duration} */}
                 {/*  opacity={opacity} */}
@@ -61,8 +53,8 @@ export const BlobPreview : FC<{}> = () => {
                 {/* /> */}
                 {/* <Blob */}
                 {/*  id="blob-1preview" */}
-                {/*  width={BLOB_SIZE} */}
-                {/*  height={BLOB_SIZE} */}
+                {/*  width={BLOB_PREVIEW_SIZE} */}
+                {/*  height={BLOB_PREVIEW_SIZE} */}
                 {/*  colors={colors} */}
                 {/*  duration={duration} */}
                 {/*  opacity={opacity} */}
@@ -72,11 +64,11 @@ export const BlobPreview : FC<{}> = () => {
               </>
             ) : (
               <BlobSvg
-                width={BLOB_SIZE}
-                height={BLOB_SIZE}
+                width={BLOB_PREVIEW_SIZE}
+                height={BLOB_PREVIEW_SIZE}
                 colors={blobs[0].colors}
                 blobOptions={{
-                  size: BLOB_SIZE,
+                  size: BLOB_PREVIEW_SIZE,
                   extraPoints: blobs[0].extraPoints,
                   randomness: blobs[0].randomness,
                   seed: blobs[0].seed,

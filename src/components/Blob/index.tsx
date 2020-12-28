@@ -6,32 +6,25 @@ import * as blobs2Animate from 'blobs/v2/animate';
 import { useUtils } from '@use/utils';
 import { IColors } from '@type/entitines';
 import { useBlob } from '@use/blob';
-
-interface IBlobOptions {
-  seed?: number | string;
-  randomness?: number;
-  extraPoints?: number;
-  size?: number;
-}
+import { CaptureCanvas } from '../../plugins/capture-canvas';
 
 interface IBlob {
   id: string,
   width: number,
   height: number,
   colors: IColors,
-  // blobOptions?: IBlobOptions,
-
   seed?: number | string;
   randomness?: number;
   extraPoints?: number;
   size?: number;
-
   duration?: number,
   opacity?: number,
   isLoop?: boolean,
   isRec?: boolean,
   delay?: number,
-  onFrame?: (id: string, imageData: ImageData, canvasElement: HTMLCanvasElement) => void,
+  fps?: number,
+  quality?: number,
+  onFrame?: (id: string, canvasElement: HTMLCanvasElement) => void,
   style?: CSSProperties;
 }
 
@@ -40,18 +33,17 @@ export const Blob: FC<IBlob> = ({
   width,
   height,
   colors,
-  // blobOptions,
-
-  seed,
+  seed = Math.random(),
   randomness,
   extraPoints,
   size,
-
   duration = 5000,
-  opacity = 1,
+  opacity = 100,
   isLoop = true,
   isRec = false,
   delay = 0,
+  fps = 30,
+  quality = 70,
   onFrame,
   style,
 }) => {
@@ -64,7 +56,30 @@ export const Blob: FC<IBlob> = ({
   const renderAnimation = useRef<any>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
 
+  const prevIsRecRef = useRef<boolean>(false);
+  const isRecRef = useRef<boolean>(isRec);
+  const captureCanvas = useRef<CaptureCanvas>();
+
+  useEffect(() => {
+    isRecRef.current = isRec;
+  }, [isRec]);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>();
+
+  const defaultBlobOptions = useMemo(() => ({
+    timingFunction: 'ease',
+    extraPoints: getRandomInt(3, 5),
+    randomness: getRandomInt(15, 30),
+    size: getRandomInt(width - width / 5, width),
+  }), [width]);
+
+  useEffect(() => () => {
+    seedRef.current = null;
+    loopAnimation.current = null;
+    canvas.current = null;
+    prevIsRecRef.current = null;
+    isRecRef.current = null;
+    captureCanvas.current = null;
+  }, []);
 
   useEffect(() => {
     if (!canvas.current) {
@@ -82,18 +97,17 @@ export const Blob: FC<IBlob> = ({
     setColors(ctx, colors, opacity, height);
   }, [ctx, colors, opacity, height]);
 
-  const defaultBlobOptions = useMemo(() => ({
-    timingFunction: 'ease',
-    extraPoints: getRandomInt(3, 5),
-    randomness: getRandomInt(15, 30),
-    size: getRandomInt(width - width / 5, width),
-  }), [width]);
+  const handleFrame = () => {
+    onFrame?.(id, canvas.current!);
+    if (isRecRef.current) {
+      captureCanvas.current.recordFrame(canvas.current);
+    }
+  };
 
   useEffect(() => {
     if (!ctx) {
       return;
     }
-
     animation.current = blobs2Animate.canvasPath();
 
     seedRef.current = Math.random();
@@ -110,12 +124,14 @@ export const Blob: FC<IBlob> = ({
         seed: seedRef.current,
       },
     };
+    console.log('start', id, config);
 
     renderAnimation.current = (prevSeedValue: number, currentSeed: MutableRefObject<number>) => {
-      onFrame?.(id, ctx.getImageData(0, 0, width, height), canvas.current!);
+      handleFrame();
       ctx.clearRect(0, 0, width, height);
       ctx.fill(animation.current.renderFrame());
       if (prevSeedValue === currentSeed.current) {
+        console.log('requestAnimationFrame');
         requestAnimationFrame(() => renderAnimation.current(prevSeedValue, currentSeed));
       }
     };
@@ -124,7 +140,7 @@ export const Blob: FC<IBlob> = ({
 
     if (isLoop) {
       loopAnimation.current = () => {
-        animation.current.transition({
+        const a = {
           duration,
           timingFunction: 'ease',
           callback: loopAnimation.current,
@@ -135,7 +151,9 @@ export const Blob: FC<IBlob> = ({
             size: size || defaultBlobOptions.size,
             seed: Math.random(), // new shape for transition
           },
-        });
+        };
+        console.log('trs', a);
+        animation.current.transition(a);
       };
       config.callback = loopAnimation.current;
     }
@@ -143,27 +161,28 @@ export const Blob: FC<IBlob> = ({
     animation.current.transition(config);
   }, [ctx, width, height, duration, delay, seed, randomness, extraPoints, size]);
 
-  // const captureCanvas = useMemo(() => new CaptureCanvas({
-  //   fps: 30,
-  //   quality: 10,
-  //   downloadFileName: `blob-${id}-opacity-${opacity}.gif`,
-  //   loopToInitialState: true,
-  // }), [id, opacity]);
-
-  const handleRec = () => {
-    // captureCanvas.startRecording(canvas.current);
-  };
+  useEffect(() => {
+    captureCanvas.current = new CaptureCanvas({
+      id,
+      fps,
+      quality,
+      width,
+      height,
+      downloadFileName: `blob-${id}-opacity-${opacity}.gif`,
+      loopToInitialState: true,
+    });
+  }, [id, opacity, fps, quality, width, height]);
 
   const handleStop = () => {
-    // captureCanvas.endRecording();
+    console.log('stop recording');
+    captureCanvas.current.endRecording();
   };
 
   useEffect(() => {
-    if (isRec) {
-      handleRec();
-    } else if (!isRec) {
+    if (!isRec && prevIsRecRef.current) {
       handleStop();
     }
+    prevIsRecRef.current = isRec;
   }, [isRec]);
 
   return useMemo(() => (

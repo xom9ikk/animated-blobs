@@ -20,3 +20,4 @@ export const getSvg = (state: IRootState) => state.system.svg;
 export const getQuality = (state: IRootState) => state.system.quality;
 export const getFps = (state: IRootState) => state.system.fps;
 export const getSize = (state: IRootState) => state.system.size;
+export const getIsRec = (state: IRootState) => state.system.isRec;

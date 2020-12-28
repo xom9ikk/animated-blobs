@@ -19,4 +19,5 @@ export interface ISystem {
   quality: number;
   fps: number;
   size: number;
+  isRec: boolean;
 }

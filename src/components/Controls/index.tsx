@@ -91,6 +91,9 @@ export const Controls: FC<{}> = () => {
   const handleShowCode = () => {
     setIsOpenModal(true);
   };
+  const handleRec = () => {
+    dispatch(SystemActions.switchIsRec());
+  };
 
   const handleCopy = () => {
     setIsCopied(true);
@@ -137,6 +140,7 @@ export const Controls: FC<{}> = () => {
                       max={60}
                       defaultValue={30}
                       label="FPS"
+                      tooltip="Number of frames per second for the output GIF animations."
                       size="small"
                       onChange={handleFpsChange}
                       isShowCurrentValue
@@ -146,6 +150,7 @@ export const Controls: FC<{}> = () => {
                       max={100}
                       defaultValue={70}
                       label="Quality"
+                      tooltip="Ability to set the quality of GIF animations (when decreasing, the final size becomes less)."
                       size="small"
                       onChange={handleQualityChange}
                       isShowCurrentValue
@@ -156,6 +161,7 @@ export const Controls: FC<{}> = () => {
                       max={2000}
                       defaultValue={440}
                       label="Size"
+                      tooltip="Number of pixels that the GIF animations will contain (large values ​​can provoke a very long processing)."
                       size="small"
                       onChange={handleSizeChange}
                       isShowCurrentValue
@@ -166,6 +172,7 @@ export const Controls: FC<{}> = () => {
                       max={100}
                       defaultValue={100}
                       label="Opacity"
+                      tooltip="Helps you adjust the transparency of each specific blob in the preview. The resulting GIF file will not have this translucency (see description at the bottom of the page)."
                       size="small"
                       onChange={handleOpacityChange}
                       isShowCurrentValue
@@ -176,6 +183,7 @@ export const Controls: FC<{}> = () => {
                       max={10000}
                       defaultValue={1000}
                       label="Duration"
+                      tooltip="Time, in seconds, that it will take for a specific blob to transition from one state to another."
                       size="small"
                       onChange={handleDurationChange}
                       isShowCurrentValue
@@ -186,6 +194,7 @@ export const Controls: FC<{}> = () => {
                       max={10000}
                       defaultValue={0}
                       label="Delay"
+                      tooltip="Delay for the first transition of a specific blob. It is needed to desynchronize state transition if duration is the same."
                       size="small"
                       onChange={handleDelayChange}
                       isShowCurrentValue
@@ -245,6 +254,12 @@ export const Controls: FC<{}> = () => {
             >
               <img src="/svg/dice.svg" alt="dice" />
             </RandomButton>
+            <Button
+              onClick={handleRec}
+              mode="circle"
+            >
+              <img src="/svg/info.svg" alt="rec" />
+            </Button>
           </div>
         </div>
       </div>

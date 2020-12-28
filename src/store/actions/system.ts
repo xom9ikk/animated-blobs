@@ -19,6 +19,7 @@ enum Type {
   SET_QUALITY = 'SYSTEM/SET_QUALITY',
   SET_FPS = 'SYSTEM/SET_FPS',
   SET_SIZE = 'SYSTEM/SET_SIZE',
+  SWITCH_IS_REC = 'SYSTEM/SWITCH_IS_REC',
 }
 
 const setColors = createAction<ISetSystemColors>(Type.SET_COLORS);
@@ -36,11 +37,12 @@ const setQuality = createAction(
   Type.SET_QUALITY, (quality: ISetSystemQuality) => ({ quality }),
 );
 const setFps = createAction(
-  Type.SET_SIZE, (fps: ISetSystemFps) => ({ fps }),
+  Type.SET_FPS, (fps: ISetSystemFps) => ({ fps }),
 );
 const setSize = createAction(
   Type.SET_SIZE, (size: ISetSystemSize) => ({ size }),
 );
+const switchIsRec = createAction(Type.SWITCH_IS_REC);
 
 export const SystemActions = {
   Type,
@@ -56,4 +58,5 @@ export const SystemActions = {
   setQuality,
   setFps,
   setSize,
+  switchIsRec,
 };

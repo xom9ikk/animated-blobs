@@ -15,13 +15,11 @@ export const Header: FC<{}> = () => (
               width={LOGO_BLOB_SIZE}
               height={LOGO_BLOB_SIZE}
               colors={['#8A3FFC', '#8332FC']}
-              isLoop
               duration={5000}
-              blobOptions={{
-                size: LOGO_BLOB_SIZE,
-                extraPoints: 3,
-                randomness: 3,
-              }}
+              size={LOGO_BLOB_SIZE}
+              extraPoints={3}
+              randomness={3}
+              seed={Math.random()}
             />
             <img
               className="header__logo"

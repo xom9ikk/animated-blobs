@@ -75,3 +75,50 @@ svg {
 }
 
 
+#tooltip {
+  z-index: 2;
+  border-radius: 12px !important;
+  padding: 12px !important;
+  font-size: 12px !important;
+  background: darken($background-primary-color, 2) !important;
+  box-shadow: 20px 20px 60px #d9d9d9, -10px -10px 60px #fff;;
+  font-family: 'Nunito Light', sans-serif;
+  color: $text-color;
+  max-width: 250px;
+  overflow: scroll;
+  transition: all .1s ease-in,
+  top .0s,
+  left .0s,
+  border-radius .0s,
+  padding .0s,
+  font-size .0s !important;
+  margin: 0 !important;
+
+  &.show {
+    opacity: 0.97 !important;
+  }
+
+  &.place-top {
+    &.show {
+      margin-top: -6px !important;
+    }
+  }
+
+  &.place-left {
+    &.show {
+      margin-left: -6px !important;
+    }
+  }
+
+  &.place-right {
+    &.show {
+      margin-left: 6px !important;
+    }
+  }
+
+  &.place-bottom {
+    &.show {
+      margin-top: 6px !important;
+    }
+  }
+}
