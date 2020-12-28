@@ -1,48 +1,89 @@
-import { FC, useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import {
-  getColors, getRandomness, getExtraPoints, getSeed,
-} from '@store/selectors';
+  FC, useEffect, useRef,
+} from 'react';
+import { useSelector } from 'react-redux';
+import { getBlobs } from '@store/selectors';
 import { BlobSvg } from '@components/BlobSvg';
+import { useRouter } from 'next/router';
+import { BlobAggregator } from '@components/BlobAggregator';
 
 const BLOB_SIZE = 440;
 
 export const BlobPreview : FC<{}> = () => {
-  const colors = useSelector(getColors);
-  const randomness = useSelector(getRandomness);
-  const extraPoints = useSelector(getExtraPoints);
-  const seed = useSelector(getSeed);
+  const router = useRouter();
+  const isGif = router.asPath === '/gif';
 
-  const blobOptions = useMemo(() => ({
-    size: BLOB_SIZE,
-    extraPoints,
-    randomness,
-  }), [extraPoints, randomness]);
+  const resultedCanvas = useRef<HTMLCanvasElement | null>(null);
+  const resultedCanvasCtx = useRef<CanvasRenderingContext2D | null>(null);
+
+  const blobs = useSelector(getBlobs);
+
+  const handleMergedFrames = (frame: CanvasImageSource) => {
+    resultedCanvasCtx.current!.drawImage(frame, 0, 0);
+  };
+
+  const handleNextFrame = () => {
+    resultedCanvasCtx.current!.clearRect(0, 0, BLOB_SIZE, BLOB_SIZE);
+  };
 
   return (
     <div className="blob-preview">
       <div className="blob-preview__wrapper">
         <div className="blob-preview__inner">
-          {/* <Blob */}
-          {/*  id="blob-preview" */}
-          {/*  width={BLOB_SIZE} */}
-          {/*  height={BLOB_SIZE} */}
-          {/*  colors={colors} */}
-          {/*  isLoop */}
-          {/*  duration={5000} */}
-          {/*  blobOptions={{ */}
-          {/*    size: BLOB_SIZE, */}
-          {/*    extraPoints: 3, */}
-          {/*    randomness: 3, */}
-          {/*  }} */}
-          {/* /> */}
-          <BlobSvg
-            width={BLOB_SIZE}
-            height={BLOB_SIZE}
-            colors={colors}
-            blobOptions={blobOptions}
-            seed={seed}
-          />
+          {
+            isGif ? (
+              <>
+                <BlobAggregator
+                  onFrames={handleMergedFrames}
+                  onNextFrame={handleNextFrame}
+                />
+                <canvas
+                  ref={(ref) => {
+                    if (resultedCanvas.current === null) {
+                      resultedCanvas.current = ref;
+                      resultedCanvas.current!.width = BLOB_SIZE;
+                      resultedCanvas.current!.height = BLOB_SIZE;
+                      resultedCanvasCtx.current = resultedCanvas.current!.getContext('2d');
+                    }
+                  }}
+                  width={BLOB_SIZE}
+                  height={BLOB_SIZE}
+                />
+                {/* <Blob */}
+                {/*  id="blob-preview" */}
+                {/*  width={BLOB_SIZE} */}
+                {/*  height={BLOB_SIZE} */}
+                {/*  colors={colors} */}
+                {/*  duration={duration} */}
+                {/*  opacity={opacity} */}
+                {/*  blobOptions={blobOptions} */}
+                {/*  onFrame={handleFrame} */}
+                {/* /> */}
+                {/* <Blob */}
+                {/*  id="blob-1preview" */}
+                {/*  width={BLOB_SIZE} */}
+                {/*  height={BLOB_SIZE} */}
+                {/*  colors={colors} */}
+                {/*  duration={duration} */}
+                {/*  opacity={opacity} */}
+                {/*  blobOptions={blobOptions} */}
+                {/*  onFrame={handleFrame} */}
+                {/* /> */}
+              </>
+            ) : (
+              <BlobSvg
+                width={BLOB_SIZE}
+                height={BLOB_SIZE}
+                colors={blobs[0].colors}
+                blobOptions={{
+                  size: BLOB_SIZE,
+                  extraPoints: blobs[0].extraPoints,
+                  randomness: blobs[0].randomness,
+                  seed: blobs[0].seed,
+                }}
+              />
+            )
+          }
         </div>
       </div>
     </div>

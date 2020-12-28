@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
 import {
   ISetSystemColor,
-  ISetSystemColors,
-  ISetSystemExtraPoints,
-  ISetSystemRandomness, ISetSystemSeed, ISetSystemSvg,
+  ISetSystemColors, ISetSystemDelay, ISetSystemDuration,
+  ISetSystemExtraPoints, ISetSystemFps, ISetSystemOpacity, ISetSystemQuality,
+  ISetSystemRandomness, ISetSystemSeed, ISetSystemSize, ISetSystemSvg,
 } from '@type/actions';
 
 enum Type {
@@ -12,22 +12,34 @@ enum Type {
   SET_RANDOMNESS = 'SYSTEM/SET_RANDOMNESS',
   SET_EXTRA_POINTS = 'SYSTEM/SET_EXTRA_POINTS',
   SET_SEED = 'SYSTEM/SET_SEED',
+  SET_OPACITY = 'SYSTEM/SET_OPACITY',
+  SET_DURATION = 'SYSTEM/SET_DURATION',
+  SET_DELAY = 'SYSTEM/SET_DELAY',
   SET_SVG = 'SYSTEM/SET_SVG',
+  SET_QUALITY = 'SYSTEM/SET_QUALITY',
+  SET_FPS = 'SYSTEM/SET_FPS',
+  SET_SIZE = 'SYSTEM/SET_SIZE',
 }
 
-const setColors = createAction(Type.SET_COLORS, (colors: ISetSystemColors) => ({ colors }));
+const setColors = createAction<ISetSystemColors>(Type.SET_COLORS);
 const setColor = createAction<ISetSystemColor>(Type.SET_COLOR);
-const setRandomness = createAction(
-  Type.SET_RANDOMNESS, (randomness: ISetSystemRandomness) => ({ randomness }),
-);
-const setExtraPoints = createAction(
-  Type.SET_EXTRA_POINTS, (extraPoints: ISetSystemExtraPoints) => ({ extraPoints }),
-);
-const setSeed = createAction(
-  Type.SET_SEED, (seed: ISetSystemSeed) => ({ seed }),
-);
+const setRandomness = createAction<ISetSystemRandomness>(Type.SET_RANDOMNESS);
+const setExtraPoints = createAction<ISetSystemExtraPoints>(Type.SET_EXTRA_POINTS);
+const setSeed = createAction<ISetSystemSeed>(Type.SET_SEED);
+const setOpacity = createAction<ISetSystemOpacity>(Type.SET_OPACITY);
+const setDuration = createAction<ISetSystemDuration>(Type.SET_DURATION);
+const setDelay = createAction<ISetSystemDelay>(Type.SET_DELAY);
 const setSvg = createAction(
   Type.SET_SVG, (svg: ISetSystemSvg) => ({ svg }),
+);
+const setQuality = createAction(
+  Type.SET_QUALITY, (quality: ISetSystemQuality) => ({ quality }),
+);
+const setFps = createAction(
+  Type.SET_SIZE, (fps: ISetSystemFps) => ({ fps }),
+);
+const setSize = createAction(
+  Type.SET_SIZE, (size: ISetSystemSize) => ({ size }),
 );
 
 export const SystemActions = {
@@ -37,5 +49,11 @@ export const SystemActions = {
   setRandomness,
   setExtraPoints,
   setSeed,
+  setOpacity,
+  setDuration,
+  setDelay,
   setSvg,
+  setQuality,
+  setFps,
+  setSize,
 };

@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import debounce from 'lodash.debounce';
 
 interface ITabPointer {
-  refs: [{
+  refs: Array<{
     current?: {
       offsetLeft: number;
       getBoundingClientRect: () => void;
     }
-  }],
+  }>,
   previousRoute?: string;
   activeRoute: string;
   finishAnimating: () => void;

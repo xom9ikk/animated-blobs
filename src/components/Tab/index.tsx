@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 interface ITab {
-  active: boolean;
+  isActive: boolean;
   item: {
     name: string;
     route: string;
@@ -12,14 +12,17 @@ interface ITab {
 }
 
 const TabComponent = ({
-  active, item, animating, startAnimating,
+  isActive,
+  item,
+  animating,
+  startAnimating,
 }: ITab, ref: React.Ref<any>) => (
   <li className="tab" key={`tab-${item.route}`}>
     <Link
       href={item.route}
     >
       <a
-        className={`tab__inner ${active ? 'active' : 'inactive'} ${animating ? 'animating' : ''}`}
+        className={`tab__inner tab__inner--${isActive ? 'active' : 'inactive'} ${animating ? 'tab__inner--animating' : ''}`}
         ref={ref}
         onClick={startAnimating}
       >

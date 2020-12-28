@@ -21,7 +21,6 @@ interface IBlobSvg {
   height: number,
   colors: IColors,
   blobOptions?: IBlobOptions,
-  seed: number,
 }
 
 export const BlobSvg: FC<IBlobSvg> = ({
@@ -29,7 +28,6 @@ export const BlobSvg: FC<IBlobSvg> = ({
   height,
   colors,
   blobOptions,
-  seed,
 }) => {
   const dispatch = useDispatch();
   const { getRandomInt } = useUtils();
@@ -41,7 +39,7 @@ export const BlobSvg: FC<IBlobSvg> = ({
     const defaultBlobOptions = {
       extraPoints: getRandomInt(3, 5),
       randomness: getRandomInt(15, 30),
-      seed,
+      seed: Math.random(),
       size: getRandomInt(width - width / 5, width),
     };
     const svgPath = blobs2.svgPath({
@@ -49,14 +47,13 @@ export const BlobSvg: FC<IBlobSvg> = ({
       ...blobOptions,
     });
     setPath(svgPath);
-  }, [seed, blobOptions]);
+  }, [blobOptions]);
 
   const isGradient = colors[1] !== null;
 
   useEffect(() => {
     const svg = generateSvg(path, width, height, colors);
     dispatch(SystemActions.setSvg(svg));
-    console.log(svg);
   }, [path, width, height, colors]);
 
   return useMemo(() => (

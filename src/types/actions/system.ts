@@ -1,11 +1,40 @@
 import { IColor } from '@type/entitines';
 
-export type ISetSystemColors = [IColor] | [IColor, IColor];
+export type ISetSystemColors = {
+  id: string;
+  colors: [IColor] | [IColor, IColor];
+};
 export interface ISetSystemColor {
+  id: string;
   color: IColor;
   index: number;
 }
-export type ISetSystemRandomness = number;
-export type ISetSystemExtraPoints = number;
-export type ISetSystemSeed = number;
+export interface ISetSystemRandomness {
+  id: string;
+  randomness: number;
+}
+export interface ISetSystemExtraPoints {
+  id: string;
+  extraPoints: number;
+}
+export interface ISetSystemSeed {
+  id: string;
+  seed: number;
+}
+export interface ISetSystemOpacity {
+  id: string;
+  opacity: number;
+}
+export interface ISetSystemDuration {
+  id: string;
+  duration: number;
+}
+export interface ISetSystemDelay {
+  id: string;
+  delay: number;
+}
+
 export type ISetSystemSvg = string;
+export type ISetSystemQuality = number;
+export type ISetSystemFps = number;
+export type ISetSystemSize = number;

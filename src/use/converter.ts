@@ -5,7 +5,7 @@ export const useConverter = () => {
     const b = parseInt(hex.slice(5, 7), 16);
 
     if (alpha) {
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      return `rgba(${r}, ${g}, ${b}, ${alpha / 100})`;
     }
     return `rgb(${r}, ${g}, ${b})`;
   };

@@ -28,7 +28,6 @@
     box-shadow: rgba(0, 0, 0, 0.01) 0 1px 0, rgba(0, 0, 0, 0.025) 0 0 8px, rgba(0, 0, 0, 0.075) 0 20px 30px;
     &--picker {
       display: flex;
-      //width: 100%;
       input {
         width: 140px;
       }
@@ -36,6 +35,17 @@
     &--slider {
       display: flex;
       flex: 1;
+    }
+    &--gif {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      .slider {
+        min-width: 33%;
+        margin: 15px 0;
+      }
     }
     &--buttons {
       display: flex;

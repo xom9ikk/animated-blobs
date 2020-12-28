@@ -1,6 +1,7 @@
 $background-color: #ffffff;
 $primary-color: #8a3ffc;
 $text-color: #424242;
+$text-color-light: lighten($text-color, 30);
 $text-primary-color: #8a3ffc;
 $blob-border-color: #eeeeee;
 $background-primary-color: #f3f4f5;

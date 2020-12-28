@@ -20,6 +20,7 @@ export const useBlob = () => {
       ctx.fillStyle = gradient;
     } else if (colors[0] !== null) {
       ctx.fillStyle = hexToRgb(colors[0], opacity);
+      console.log(hexToRgb(colors[0], opacity));
     }
   };
 

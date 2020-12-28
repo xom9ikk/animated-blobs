@@ -10,10 +10,12 @@ interface IInput {
   onFocus?: (event: BaseSyntheticEvent) => void;
   onBlur?: (event: BaseSyntheticEvent) => void;
   // onKeyDown?: (event:any) => void;
-  value?: string,
+  value?: string | number,
   // placeholder?: string,
   // label?: string,
   style?: CSSProperties,
+  min: number;
+  max: number;
   // isLight?: boolean,
   // isDisable?: boolean,
   // children?: any,
@@ -33,24 +35,44 @@ export const Input: FC<IInput> = ({
   // placeholder,
   // label,
   style,
+  min,
+  max,
   // isLight,
   // isDisable,
   children,
   // ...attrs
-}) => (
-  <div className="input">
-    <input
-      type={type}
-      name={name}
-      value={value}
-      onChange={onChange}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      style={style}
-      className="input__field"
-    />
-    <div className="input__overlay">
-      {children}
+}) => {
+  let normalizeValue = value;
+
+  if (min || max) {
+    const number = Number(value);
+    const isMax = number > max;
+    const isMin = number < min;
+    if (isMax) {
+      normalizeValue = max;
+    }
+    if (isMin) {
+      normalizeValue = min;
+    }
+  }
+
+  return (
+    <div className="input">
+      <input
+        type={type}
+        name={name}
+        value={normalizeValue}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        style={style}
+        min={min}
+        max={max}
+        className="input__field"
+      />
+      <div className="input__overlay">
+        {children}
+      </div>
     </div>
-  </div>
-);
+  );
+};

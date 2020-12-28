@@ -80,6 +80,7 @@ export const ColorPicker: FC<IColorPicker> = ({
           className="color-picker__pointer"
           style={{
             background: currentColor || undefined,
+            backgroundImage: !currentColor ? 'url("/svg/transparency.svg")' : undefined,
             opacity: isValidColor ? 1 : 0.5,
           }}
         />
