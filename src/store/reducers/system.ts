@@ -1,8 +1,12 @@
 import { handleActions } from 'redux-actions';
 import { ISystem } from '@type/entitines';
+import { useUtils } from '@use/utils';
 import { SystemActions } from '../actions';
 
+const { getRandomInt } = useUtils();
+
 const initialState = {
+  backgroundSvg: `/svg/wave-${getRandomInt(0, 6)}.svg`,
   activeBlobId: 'blob-0',
   blobs: [{
     id: 'blob-0',
@@ -24,7 +28,7 @@ const initialState = {
     delay: 2000,
   }],
   svg: '',
-  quality: 70,
+  quality: 10,
   fps: 30,
   size: 440,
   isRec: false,

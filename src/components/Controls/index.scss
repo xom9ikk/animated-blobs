@@ -26,6 +26,14 @@
     padding: 24px 20px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.01) 0 1px 0, rgba(0, 0, 0, 0.025) 0 0 8px, rgba(0, 0, 0, 0.075) 0 20px 30px;
+
+    &-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      align-items: center;
+      flex-wrap: wrap;
+    }
     &--picker {
       display: flex;
       input {
@@ -41,6 +49,7 @@
       width: 100%;
       justify-content: center;
       margin-bottom: 20px;
+      margin-top: 20px;
       flex-wrap: wrap;
       .slider {
         min-width: 33%;

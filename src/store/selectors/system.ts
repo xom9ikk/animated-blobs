@@ -1,5 +1,6 @@
 import { IRootState } from '@store/state';
 
+export const getBackgroundSvg = (state: IRootState) => state.system.backgroundSvg;
 export const getActiveBlobId = (state: IRootState) => state.system.activeBlobId;
 export const getBlobs = (state: IRootState) => state.system.blobs;
 export const getColors = (id: string) => (state: IRootState) => state.system.blobs

@@ -43,7 +43,7 @@ export const Blob: FC<IBlob> = ({
   isRec = false,
   delay = 0,
   fps = 30,
-  quality = 70,
+  quality = 90,
   onFrame,
   style,
 }) => {
@@ -124,14 +124,12 @@ export const Blob: FC<IBlob> = ({
         seed: seedRef.current,
       },
     };
-    console.log('start', id, config);
 
     renderAnimation.current = (prevSeedValue: number, currentSeed: MutableRefObject<number>) => {
       handleFrame();
       ctx.clearRect(0, 0, width, height);
       ctx.fill(animation.current.renderFrame());
       if (prevSeedValue === currentSeed.current) {
-        console.log('requestAnimationFrame');
         requestAnimationFrame(() => renderAnimation.current(prevSeedValue, currentSeed));
       }
     };
@@ -140,7 +138,7 @@ export const Blob: FC<IBlob> = ({
 
     if (isLoop) {
       loopAnimation.current = () => {
-        const a = {
+        animation.current.transition({
           duration,
           timingFunction: 'ease',
           callback: loopAnimation.current,
@@ -151,9 +149,7 @@ export const Blob: FC<IBlob> = ({
             size: size || defaultBlobOptions.size,
             seed: Math.random(), // new shape for transition
           },
-        };
-        console.log('trs', a);
-        animation.current.transition(a);
+        });
       };
       config.callback = loopAnimation.current;
     }

@@ -13,6 +13,7 @@ interface IBlob {
 }
 
 export interface ISystem {
+  backgroundSvg: string;
   activeBlobId: string;
   blobs: Array<IBlob>;
   svg: string;

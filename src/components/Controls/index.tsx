@@ -1,5 +1,5 @@
 import {
-  BaseSyntheticEvent, FC, useEffect, useState,
+  FC, useEffect, useState,
 } from 'react';
 import { Slider } from '@components/Slider';
 import { useUtils } from '@use/utils';
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SystemActions } from '@store/actions';
 import { IColor } from '@type/entitines';
 import {
-  getActiveBlobId,
+  getActiveBlobId, getBackgroundSvg,
   getColors, getSvg,
 } from '@store/selectors';
 import { useThrottle } from '@use/throttle';
@@ -24,11 +24,11 @@ export const Controls: FC<{}> = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
+  const backgroundSvg = useSelector(getBackgroundSvg);
   const activeBlobId = useSelector(getActiveBlobId);
   const currentColors = useSelector(getColors(activeBlobId));
   const svg = useSelector(getSvg);
 
-  const { getRandomInt } = useUtils();
   const { downloadText } = useDownload();
 
   const handleRandomClick = useThrottle(() => {
@@ -112,14 +112,12 @@ export const Controls: FC<{}> = () => {
     return () => clearTimeout(timeout);
   }, [isCopied]);
 
-  const backgroundSrc = `/svg/wave-${getRandomInt(0, 6)}.svg`;
-
   return (
     <div className="controls">
       <div
         className="controls__wrapper"
         style={{
-          backgroundImage: `url("${backgroundSrc}")`,
+          backgroundImage: `url("${backgroundSvg}")`,
         }}
       >
         <div className="controls__panel">
@@ -128,139 +126,183 @@ export const Controls: FC<{}> = () => {
               {
                 name: 'SVG static',
                 route: 'svg',
-                render: () => (<></>),
+                render: () => (
+                  <>
+                    <div className="controls__panel-wrapper">
+                      <div className="controls__panel--picker">
+                        <ColorPicker
+                          currentColor={currentColors[0]}
+                          onColorPick={handleFirstColorPick}
+                        />
+                        <ColorPicker
+                          currentColor={currentColors[1]}
+                          onColorPick={handleSecondColorPick}
+                          isRemovableColor
+                        />
+                      </div>
+                      <div className="controls__panel--slider">
+                        <Slider
+                          minImageSrc="/svg/slider-randomness-min.svg"
+                          maxImageSrc="/svg/slider-randomness-max.svg"
+                          min={1}
+                          max={30}
+                          defaultValue={5}
+                          onChange={handleExtraPointsChange}
+                          isDisabledTrack
+                        />
+                        <Slider
+                          minImageSrc="/svg/slider-points-min.svg"
+                          maxImageSrc="/svg/slider-points-max.svg"
+                          min={2}
+                          max={30}
+                          defaultValue={5}
+                          onChange={handleRandomnessChange}
+                          isDisabledTrack
+                        />
+                      </div>
+                    </div>
+                    <div className="controls__panel--buttons">
+                      <Button
+                        onClick={handleDownload}
+                        mode="circle"
+                      >
+                        <img src="/svg/download.svg" alt="download" />
+                      </Button>
+                      <Button
+                        onClick={handleShowCode}
+                        mode="circle"
+                      >
+                        <img src="/svg/code.svg" alt="code" />
+                      </Button>
+                      <RandomButton onClick={handleRandomClick}>
+                        <img src="/svg/dice.svg" alt="dice" />
+                      </RandomButton>
+                    </div>
+                  </>
+                ),
               },
               {
                 name: 'GIF animation',
                 route: 'gif',
                 render: () => (
-                  <div className="controls__panel--gif">
-                    <Slider
-                      min={1}
-                      max={60}
-                      defaultValue={30}
-                      label="FPS"
-                      tooltip="Number of frames per second for the output GIF animations."
-                      size="small"
-                      onChange={handleFpsChange}
-                      isShowCurrentValue
-                    />
-                    <Slider
-                      min={1}
-                      max={100}
-                      defaultValue={70}
-                      label="Quality"
-                      tooltip="Ability to set the quality of GIF animations (when decreasing, the final size becomes less)."
-                      size="small"
-                      onChange={handleQualityChange}
-                      isShowCurrentValue
-                      valueTransformer={(value) => `${value} %`}
-                    />
-                    <Slider
-                      min={100}
-                      max={2000}
-                      defaultValue={440}
-                      label="Size"
-                      tooltip="Number of pixels that the GIF animations will contain (large values ​​can provoke a very long processing)."
-                      size="small"
-                      onChange={handleSizeChange}
-                      isShowCurrentValue
-                      valueTransformer={(value) => `${value}px`}
-                    />
-                    <Slider
-                      min={1}
-                      max={100}
-                      defaultValue={100}
-                      label="Opacity"
-                      tooltip="Helps you adjust the transparency of each specific blob in the preview. The resulting GIF file will not have this translucency (see description at the bottom of the page)."
-                      size="small"
-                      onChange={handleOpacityChange}
-                      isShowCurrentValue
-                      valueTransformer={(value) => `${value} %`}
-                    />
-                    <Slider
-                      min={100}
-                      max={10000}
-                      defaultValue={1000}
-                      label="Duration"
-                      tooltip="Time, in seconds, that it will take for a specific blob to transition from one state to another."
-                      size="small"
-                      onChange={handleDurationChange}
-                      isShowCurrentValue
-                      valueTransformer={(value) => `${(value / 1000).toFixed(2)} s`}
-                    />
-                    <Slider
-                      min={1}
-                      max={10000}
-                      defaultValue={0}
-                      label="Delay"
-                      tooltip="Delay for the first transition of a specific blob. It is needed to desynchronize state transition if duration is the same."
-                      size="small"
-                      onChange={handleDelayChange}
-                      isShowCurrentValue
-                      valueTransformer={(value) => `${(value / 1000).toFixed(2)} s`}
-                    />
+                  <div className="controls__panel-wrapper">
+                    <div className="controls__panel--gif">
+                      <Slider
+                        min={1}
+                        max={100}
+                        defaultValue={100}
+                        label="Opacity"
+                        tooltip="Helps you adjust the transparency of each specific blob in the preview. The resulting GIF file will not have this translucency (see description at the bottom of the page)."
+                        size="small"
+                        onChange={handleOpacityChange}
+                        isShowCurrentValue
+                        valueTransformer={(value) => `${value} %`}
+                      />
+                      <Slider
+                        min={100}
+                        max={10000}
+                        defaultValue={1000}
+                        label="Duration"
+                        tooltip="Time, in seconds, that it will take for a specific blob to transition from one state to another."
+                        size="small"
+                        onChange={handleDurationChange}
+                        isShowCurrentValue
+                        valueTransformer={(value) => `${(value / 1000).toFixed(2)} s`}
+                      />
+                      <Slider
+                        min={1}
+                        max={10000}
+                        defaultValue={0}
+                        label="Delay"
+                        tooltip="Delay for the first transition of a specific blob. It is needed to desynchronize state transition if duration is the same."
+                        size="small"
+                        onChange={handleDelayChange}
+                        isShowCurrentValue
+                        valueTransformer={(value) => `${(value / 1000).toFixed(2)} s`}
+                      />
+                    </div>
+                    <div className="controls__panel--picker">
+                      <ColorPicker
+                        currentColor={currentColors[0]}
+                        onColorPick={handleFirstColorPick}
+                      />
+                      <ColorPicker
+                        currentColor={currentColors[1]}
+                        onColorPick={handleSecondColorPick}
+                        isRemovableColor
+                      />
+                    </div>
+                    <div className="controls__panel--slider">
+                      <Slider
+                        minImageSrc="/svg/slider-randomness-min.svg"
+                        maxImageSrc="/svg/slider-randomness-max.svg"
+                        min={1}
+                        max={30}
+                        defaultValue={5}
+                        onChange={handleExtraPointsChange}
+                        isDisabledTrack
+                      />
+                      <Slider
+                        minImageSrc="/svg/slider-points-min.svg"
+                        maxImageSrc="/svg/slider-points-max.svg"
+                        min={2}
+                        max={30}
+                        defaultValue={5}
+                        onChange={handleRandomnessChange}
+                        isDisabledTrack
+                      />
+                    </div>
+                    <div className="controls__panel--gif">
+                      <Slider
+                        min={1}
+                        max={60}
+                        defaultValue={30}
+                        label="FPS"
+                        tooltip="Number of frames per second for the output GIF animations."
+                        size="small"
+                        onChange={handleFpsChange}
+                        isShowCurrentValue
+                      />
+                      <Slider
+                        min={100}
+                        max={2000}
+                        defaultValue={440}
+                        label="Size"
+                        tooltip="Number of pixels that the GIF animations will contain (large values ​​can provoke a very long processing)."
+                        size="small"
+                        onChange={handleSizeChange}
+                        isShowCurrentValue
+                        valueTransformer={(value) => `${value}px`}
+                      />
+                      <Slider
+                        min={1}
+                        max={100}
+                        defaultValue={90}
+                        label="Quality"
+                        tooltip="Sets the quality of color quantization. Higher values produce better colors, but slow down processing significantly. The default value of 90 provides good color reproduction at a reasonable speed."
+                        size="small"
+                        onChange={handleQualityChange}
+                        isShowCurrentValue
+                        valueTransformer={(value) => `${value} %`}
+                      />
+                    </div>
+                    <div className="controls__panel--buttons">
+                      <Button
+                        onClick={handleRec}
+                        mode="circle"
+                      >
+                        <img src="/svg/rec.svg" alt="rec" />
+                      </Button>
+                      <RandomButton onClick={handleRandomClick}>
+                        <img src="/svg/dice.svg" alt="dice" />
+                      </RandomButton>
+                    </div>
                   </div>
+
                 ),
               },
             ]}
           />
-          <div className="controls__panel--picker">
-            <ColorPicker
-              currentColor={currentColors[0]}
-              onColorPick={handleFirstColorPick}
-            />
-            <ColorPicker
-              currentColor={currentColors[1]}
-              onColorPick={handleSecondColorPick}
-              isRemovableColor
-            />
-          </div>
-          <div className="controls__panel--slider">
-            <Slider
-              minImageSrc="/svg/slider-randomness-min.svg"
-              maxImageSrc="/svg/slider-randomness-max.svg"
-              min={1}
-              max={30}
-              defaultValue={5}
-              onChange={handleExtraPointsChange}
-              isDisabledTrack
-            />
-            <Slider
-              minImageSrc="/svg/slider-points-min.svg"
-              maxImageSrc="/svg/slider-points-max.svg"
-              min={2}
-              max={30}
-              defaultValue={5}
-              onChange={handleRandomnessChange}
-              isDisabledTrack
-            />
-          </div>
-          <div className="controls__panel--buttons">
-            <Button
-              onClick={handleDownload}
-              mode="circle"
-            >
-              <img src="/svg/download.svg" alt="download" />
-            </Button>
-            <Button
-              onClick={handleShowCode}
-              mode="circle"
-            >
-              <img src="/svg/code.svg" alt="code" />
-            </Button>
-            <RandomButton
-              onClick={handleRandomClick}
-            >
-              <img src="/svg/dice.svg" alt="dice" />
-            </RandomButton>
-            <Button
-              onClick={handleRec}
-              mode="circle"
-            >
-              <img src="/svg/info.svg" alt="rec" />
-            </Button>
-          </div>
         </div>
       </div>
       <Modal

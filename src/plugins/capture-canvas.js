@@ -3,7 +3,7 @@ import { GIFEncoder } from './jsgif';
 
 const defaultOptions = {
   fps: 30,
-  quality: 30,
+  quality: 90,
   downloadFileName: 'captured.gif',
   loopToInitialState: true,
 };
@@ -22,15 +22,24 @@ export class CaptureCanvas {
     };
   }
 
-  startWorker = (payload, imagesData) => {
+  endRecording = async () => {
+    await this.extractImageData();
+    this.startWorker({
+      id: this.options.id,
+      fps: this.options.fps,
+      quality: 100 - this.options.quality,
+      loopToInitialState: this.options.loopToInitialState,
+      downloadFileName: this.options.downloadFileName,
+      index: this.index,
+    }, this.imagesData);
+  };
+
+  startWorker = async (payload, imagesData) => {
     console.log('start worker...', payload);
     if (Worker !== undefined) {
       if (this.worker === undefined) {
         this.worker = new Worker('worker.js', { type: 'module' });
-        imagesData.map((imageData) => this.worker.postMessage({
-          type: 'imageData',
-          payload: imageData,
-        }));
+        await this.sendImageDataToWorker(imagesData);
         this.worker.postMessage({
           type: 'start',
           payload,
@@ -91,7 +100,6 @@ export class CaptureCanvas {
   nonBlockingIncrement = (n, callback, done, isRevert) => {
     let i = isRevert ? n - 1 : 0;
     const step = isRevert ? -1 : 1;
-
     const loop = () => {
       const isNeedLoop = isRevert ? i >= 0 : i < n
       if (isNeedLoop) {
@@ -103,7 +111,6 @@ export class CaptureCanvas {
         done();
       }
     }
-
     loop();
   }
 
@@ -117,23 +124,22 @@ export class CaptureCanvas {
     })
   }
 
-  endRecording = async () => {
-    await this.extractImageData();
-    this.startWorker({
-      id: this.options.id,
-      fps: this.options.fps,
-      quality: this.options.quality,
-      loopToInitialState: this.options.loopToInitialState,
-      downloadFileName: this.options.downloadFileName,
-      index: this.index,
-    }, this.imagesData);
-  };
-
   addFrames = (encoder, isRevert) => {
     return new Promise((resolve) => {
       this.nonBlockingIncrement(this.imagesData.length, (i) => {
         encoder.addFrame(this.imagesData[i], true);
       }, resolve, isRevert);
+    })
+  }
+
+  sendImageDataToWorker = (imagesData) => {
+    return new Promise((resolve) => {
+      this.nonBlockingIncrement(imagesData.length, (i) => {
+        this.worker.postMessage({
+          type: 'imageData',
+          payload: imagesData[i],
+        })
+      }, resolve);
     })
   }
 

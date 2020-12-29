@@ -38,7 +38,11 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
     resultedCanvasCtx.current?.clearRect(0, 0, previewSize, previewSize);
     for (let i = 0; i < keys.length; i += 1) {
       const frame = blobsData.current[keys[i]][processedFrame.current];
-      resultedCanvasCtx.current.drawImage(frame, 0, 0, previewSize, previewSize);
+      try {
+        resultedCanvasCtx.current.drawImage(frame, 0, 0, previewSize, previewSize);
+      } catch (e) {
+        // console.error(e);
+      }
     }
   };
 

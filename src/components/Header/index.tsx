@@ -19,7 +19,7 @@ export const Header: FC<{}> = () => (
               size={LOGO_BLOB_SIZE}
               extraPoints={3}
               randomness={3}
-              seed={Math.random()}
+              seed={1}
             />
             <img
               className="header__logo"
