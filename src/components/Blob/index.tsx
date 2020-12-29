@@ -66,7 +66,7 @@ export const Blob: FC<IBlob> = ({
     timingFunction: 'ease',
     extraPoints: getRandomInt(3, 5),
     randomness: getRandomInt(15, 30),
-    size: getRandomInt(width - width / 5, width),
+    size: width,
   }), [width]);
 
   useEffect(() => () => {

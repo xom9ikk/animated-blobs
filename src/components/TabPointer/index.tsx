@@ -31,7 +31,6 @@ export const TabPointer: FC<ITabPointer> = ({
   }, [activeId, refs]);
 
   useEffect(() => {
-    console.log('updateAttr', tabCounter, activeId);
     updateAttributes();
   }, [activeId, refs, updateAttributes, tabCounter]);
 

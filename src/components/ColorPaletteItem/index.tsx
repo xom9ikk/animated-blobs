@@ -3,10 +3,11 @@ import { useConverter } from '@use/converter';
 import { IColor } from '@type/entitines';
 
 interface IColorPaletteItem {
-  color: IColor;
-  isActive: boolean;
+  color?: IColor;
+  isActive?: boolean;
   onPickColor: (color: IColor) => void;
   isRemovableColor?: boolean;
+  iconSrc?: string;
 }
 
 export const ColorPaletteItem: FC<IColorPaletteItem> = ({
@@ -14,6 +15,7 @@ export const ColorPaletteItem: FC<IColorPaletteItem> = ({
   isActive,
   onPickColor,
   isRemovableColor,
+  iconSrc,
 }) => {
   const [isPressed, setIsPressed] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -64,6 +66,8 @@ export const ColorPaletteItem: FC<IColorPaletteItem> = ({
         ['--active-box-shadow-color' as any]: activeRgba,
       }}
       onClick={handleColorPick}
-    />
+    >
+      {iconSrc && <img src={iconSrc} alt="icon" />}
+    </button>
   );
 };

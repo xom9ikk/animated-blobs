@@ -49,8 +49,8 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    right: -6px;
-    top: -6px;
+    right: -8px;
+    top: 8px;
     background-image: url("/svg/remove.svg");
     background-repeat: no-repeat;
     background-position: center center;
@@ -62,21 +62,18 @@
     &:hover {
       filter: none;
       transform: scale(1.1);
-      animation: .8s shake infinite;
+      animation: shake .15s 2 linear;;
     }
 
     @keyframes shake {
       0% {
-        right: -6px;
-      }
-      12% {
-        right: -7px;
-      }
-      25% {
-        right: -5px;
+        transform: translate(2px, 0);
       }
       50% {
-        right: -6px;
+        transform: translate(-2px, 0);
+      }
+      100% {
+        transform: translate(0, 0);
       }
     }
   }

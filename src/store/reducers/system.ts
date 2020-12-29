@@ -5,23 +5,21 @@ import { SystemActions } from '../actions';
 
 const { getRandomInt } = useUtils();
 
-const DEFAULT_BLOB = () => ({
+const generateDefaultBlob = (id: string) => ({
+  id,
   colors: ['#8A3FFC', null],
-  randomness: getRandomInt(2, 10),
+  randomness: getRandomInt(2, 20),
   extraPoints: getRandomInt(2, 15),
   seed: Math.random(),
-  opacity: getRandomInt(30, 50),
+  opacity: getRandomInt(10, 50),
   duration: getRandomInt(350, 1500),
   delay: 0,
 });
 
 const initialState = {
-  backgroundSvg: `/svg/wave-${getRandomInt(0, 6)}.svg`,
+  backgroundSvg: '',
   activeBlobId: 'blob-0',
-  blobs: [{
-    id: 'blob-0',
-    ...DEFAULT_BLOB(),
-  }],
+  blobs: [],
   svg: '',
   quality: 10,
   fps: 30,
@@ -172,17 +170,21 @@ export const SystemReducer = handleActions<ISystem, any>({
             ...state,
             blobs: [
               ...state.blobs,
-              {
-                ...DEFAULT_BLOB(),
-                id: blobId,
-              }],
+              generateDefaultBlob(blobId)],
             activeBlobId: blobId,
             createdBlobCount: state.createdBlobCount + 1,
           };
         },
   [SystemActions.Type.REMOVE_BLOB]:
-        (state, action) => ({
-          ...state,
-          blobs: state.blobs.filter((blob) => blob.id !== action.payload.id),
-        }),
+        (state, action) => {
+          const blobs = state.blobs.filter((blob) => blob.id !== action.payload.id);
+          const activeBlobId = blobs[0].id;
+          return {
+            ...state,
+            blobs,
+            activeBlobId,
+          };
+        },
+  [SystemActions.Type.SET_BACKGROUND_SRC]:
+        (state, action) => ({ ...state, backgroundSrc: action.payload.backgroundSrc }),
 }, initialState);

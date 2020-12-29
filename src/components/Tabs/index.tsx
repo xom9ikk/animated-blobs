@@ -18,7 +18,6 @@ export const Tabs: FC<ITabs> = ({
   const [activeId, setActiveId] = React.useState(initialActiveId);
 
   useEffect(() => {
-    console.log('activeBlobId', initialActiveId);
     setActiveId(initialActiveId);
   }, [initialActiveId]);
 

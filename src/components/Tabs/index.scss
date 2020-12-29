@@ -7,6 +7,11 @@
   margin-bottom: 20px;
   &__list {
     display: flex;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      height: 0;
+      width: 0;
+    }
   }
   &__content {
     width: 100%;

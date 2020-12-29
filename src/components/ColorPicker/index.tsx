@@ -7,23 +7,7 @@ import { useHexValidator } from '@use/hex-validator';
 import { useOutsideHandler } from '@use/outsideHandler';
 import { IColor } from '@type/entitines';
 import { useEventListener } from '@use/event-listener';
-
-const palette = [
-  '#8A3FFC',
-  '#FF0066',
-  '#FA4D56',
-  '#F1C21B',
-  '#08BDBA',
-  '#0F62FE',
-  '#24A148',
-  '#A7F0BA',
-  '#9EF0F0',
-  '#BAE6FF',
-  '#D0E2FF',
-  '#E8DAFF',
-  '#FFD6E8',
-  '#F2F4F8',
-];
+import { palette } from '../../constants';
 
 interface IColorPicker {
   currentColor: IColor;
@@ -67,6 +51,17 @@ export const ColorPicker: FC<IColorPicker> = ({
     onColorPick(color);
   };
 
+  const background = currentColor || undefined;
+  const backgroundImage = !currentColor ? 'url("/svg/transparency.svg")' : undefined;
+  const opacity = isValidColor ? 1 : 0.5;
+  const style = background ? {
+    opacity,
+    background,
+  } : {
+    opacity,
+    backgroundImage,
+  };
+
   return (
     <div
       ref={ref}
@@ -81,11 +76,7 @@ export const ColorPicker: FC<IColorPicker> = ({
       >
         <div
           className="color-picker__pointer"
-          style={{
-            background: currentColor || undefined,
-            backgroundImage: !currentColor ? 'url("/svg/transparency.svg")' : undefined,
-            opacity: isValidColor ? 1 : 0.5,
-          }}
+          style={style}
         />
       </Input>
       {

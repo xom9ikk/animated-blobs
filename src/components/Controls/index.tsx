@@ -145,11 +145,11 @@ export const Controls: FC<{}> = () => {
   const activeRoute = router.asPath.split('/')[1];
   const normalizedActiveRoute = ['svg', 'gif'].includes(activeRoute) ? activeRoute : 'svg';
 
-  if (normalizedActiveRoute === 'svg') {
+  if (normalizedActiveRoute === 'svg' && blobs[0]) {
     dispatch(SystemActions.setActiveBlobId(blobs[0].id));
   }
 
-  return (
+  return currentBlob ? (
     <div className="controls">
       <div
         className="controls__wrapper"
@@ -362,5 +362,5 @@ export const Controls: FC<{}> = () => {
         </CodePreview>
       </Modal>
     </div>
-  );
+  ) : null;
 };

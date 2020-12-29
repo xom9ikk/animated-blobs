@@ -13,7 +13,7 @@ export const BlobPreview : FC<{}> = () => {
 
   const blobs = useSelector(getBlobs);
 
-  return (
+  return blobs.length && (
     <div className="blob-preview">
       <div className="blob-preview__wrapper">
         <div className="blob-preview__inner">

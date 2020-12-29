@@ -6,10 +6,12 @@ import { Footer } from '@components/Footer';
 
 const Index = () => (
   <Layout title="Blobs Generator - Make GIF animation">
-    <BlobPreview />
-    <Controls />
-    <Info />
-    <Footer />
+    <main>
+      <BlobPreview />
+      <Controls />
+      <Info />
+      <Footer />
+    </main>
   </Layout>
 );
 

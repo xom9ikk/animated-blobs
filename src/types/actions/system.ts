@@ -40,3 +40,4 @@ export type ISetSystemFps = number;
 export type ISetSystemActiveBlobId = string;
 export type ISetSystemSize = number;
 export type IRemoveSystemBlobId = number;
+export type ISetSystemBackgroundSrc = string;
