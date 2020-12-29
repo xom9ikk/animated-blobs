@@ -165,6 +165,8 @@ export const SystemReducer = handleActions<ISystem, any>({
         (state, action) => ({ ...state, fps: action.payload.fps }),
   [SystemActions.Type.SET_SIZE]:
         (state, action) => ({ ...state, size: action.payload.size }),
+  [SystemActions.Type.SET_ACTIVE_BLOB_ID]:
+        (state, action) => ({ ...state, activeBlobId: action.payload.activeBlobId }),
   [SystemActions.Type.SWITCH_IS_REC]:
         (state) => ({ ...state, isRec: !state.isRec }),
 }, initialState);

@@ -8,7 +8,7 @@ interface ITab {
   isActive?: boolean;
   onClick?: (id: string) => void;
   // eslint-disable-next-line react/no-unused-prop-types
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const TabComponent = ({

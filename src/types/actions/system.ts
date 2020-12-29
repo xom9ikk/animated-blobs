@@ -37,4 +37,5 @@ export interface ISetSystemDelay {
 export type ISetSystemSvg = string;
 export type ISetSystemQuality = number;
 export type ISetSystemFps = number;
+export type ISetSystemActiveBlobId = string;
 export type ISetSystemSize = number;

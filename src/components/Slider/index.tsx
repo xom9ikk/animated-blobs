@@ -6,7 +6,7 @@ interface ISlider {
   maxImageSrc?: string;
   min: number;
   max: number;
-  defaultValue?: number;
+  value?: number;
   onChange: (value: number)=>void;
   label?: string;
   tooltip?: string;
@@ -21,7 +21,7 @@ export const Slider: FC<ISlider> = ({
   maxImageSrc,
   min,
   max,
-  defaultValue,
+  value,
   onChange,
   label,
   tooltip,
@@ -30,11 +30,16 @@ export const Slider: FC<ISlider> = ({
   valueTransformer,
   isDisabledTrack,
 }) => {
-  const [value, setValue] = useState<number>(defaultValue || 0);
+  const [internalValue, setInternalValue] = useState<number>(value || 0);
 
   useEffect(() => {
-    onChange(value);
+    setInternalValue(value);
   }, [value]);
+
+  const handleChange = (newValue: number) => {
+    setInternalValue(newValue);
+    onChange(newValue);
+  };
 
   return (
     <div className={`slider slider--${size} ${isDisabledTrack ? 'slider--disable-track' : ''}`}>
@@ -54,12 +59,12 @@ export const Slider: FC<ISlider> = ({
       <SliderComponent
         min={min}
         max={max}
-        defaultValue={defaultValue}
-        onChange={setValue}
+        value={internalValue}
+        onChange={handleChange}
       />
       { isShowCurrentValue ? (
         <span className="slider__label">
-          {valueTransformer ? valueTransformer(value) : value}
+          {valueTransformer ? valueTransformer(internalValue) : internalValue}
         </span>
       ) : null}
       { maxImageSrc && <img className="slider__image" src={maxImageSrc} alt="max" />}

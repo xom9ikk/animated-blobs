@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import {
+  ISetSystemActiveBlobId,
   ISetSystemColor,
   ISetSystemColors, ISetSystemDelay, ISetSystemDuration,
   ISetSystemExtraPoints, ISetSystemFps, ISetSystemOpacity, ISetSystemQuality,
@@ -19,6 +20,7 @@ enum Type {
   SET_QUALITY = 'SYSTEM/SET_QUALITY',
   SET_FPS = 'SYSTEM/SET_FPS',
   SET_SIZE = 'SYSTEM/SET_SIZE',
+  SET_ACTIVE_BLOB_ID = 'SYSTEM/SET_ACTIVE_BLOB_ID',
   SWITCH_IS_REC = 'SYSTEM/SWITCH_IS_REC',
 }
 
@@ -42,6 +44,9 @@ const setFps = createAction(
 const setSize = createAction(
   Type.SET_SIZE, (size: ISetSystemSize) => ({ size }),
 );
+const setActiveBlobId = createAction(
+  Type.SET_ACTIVE_BLOB_ID, (activeBlobId: ISetSystemActiveBlobId) => ({ activeBlobId }),
+);
 const switchIsRec = createAction(Type.SWITCH_IS_REC);
 
 export const SystemActions = {
@@ -58,5 +63,6 @@ export const SystemActions = {
   setQuality,
   setFps,
   setSize,
+  setActiveBlobId,
   switchIsRec,
 };

@@ -9,8 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SystemActions } from '@store/actions';
 import { IColor } from '@type/entitines';
 import {
-  getActiveBlobId, getBackgroundSvg,
-  getColors, getSvg,
+  getActiveBlobId, getBackgroundSvg, getBlob, getBlobs, getFps, getQuality, getSize, getSvg,
 } from '@store/selectors';
 import { useThrottle } from '@use/throttle';
 import { useDownload } from '@use/download';
@@ -19,6 +18,7 @@ import { CodePreview } from '@components/CodePreview';
 import { Tabs } from '@components/Tabs';
 import { Tab } from '@components/Tab';
 import { useRouter } from 'next/router';
+import { useUtils } from '@use/utils';
 
 export const Controls: FC<{}> = () => {
   const dispatch = useDispatch();
@@ -29,14 +29,19 @@ export const Controls: FC<{}> = () => {
 
   const backgroundSvg = useSelector(getBackgroundSvg);
   const activeBlobId = useSelector(getActiveBlobId);
-  const currentColors = useSelector(getColors(activeBlobId));
+  const currentBlob = useSelector(getBlob(activeBlobId));
   const svg = useSelector(getSvg);
+  const fps = useSelector(getFps);
+  const quality = useSelector(getQuality);
+  const size = useSelector(getSize);
+  const blobs = useSelector(getBlobs);
 
   const { downloadText } = useDownload();
+  const { convertBlobIdToText } = useUtils();
 
   const handleRandomClick = useThrottle(() => {
     dispatch(SystemActions.setSeed({ id: activeBlobId, seed: Math.random() }));
-  }, 250);
+  }, 250, [activeBlobId]);
 
   const handleFirstColorPick = (color: IColor) => {
     dispatch(SystemActions.setColor({
@@ -56,35 +61,35 @@ export const Controls: FC<{}> = () => {
 
   const handleRandomnessChange = useThrottle((randomness: number) => {
     dispatch(SystemActions.setRandomness({ id: activeBlobId, randomness }));
-  }, 250);
+  }, 250, [activeBlobId]);
 
-  const handleExtraPointsChange = (extraPoints: number) => {
+  const handleExtraPointsChange = useThrottle((extraPoints: number) => {
     dispatch(SystemActions.setExtraPoints({ id: activeBlobId, extraPoints }));
-  };
+  }, 250, [activeBlobId]);
 
-  const handleQualityChange = useThrottle((quality: number) => {
-    dispatch(SystemActions.setQuality(quality));
-  }, 250);
+  const handleQualityChange = useThrottle((value: number) => {
+    dispatch(SystemActions.setQuality(value));
+  }, 250, [activeBlobId]);
 
-  const handleFpsChange = useThrottle((fps: number) => {
-    dispatch(SystemActions.setFps(fps));
-  }, 250);
+  const handleFpsChange = useThrottle((value: number) => {
+    dispatch(SystemActions.setFps(value));
+  }, 250, [activeBlobId]);
 
-  const handleSizeChange = useThrottle((size: number) => {
-    dispatch(SystemActions.setSize(size));
-  }, 250);
+  const handleSizeChange = useThrottle((value: number) => {
+    dispatch(SystemActions.setSize(value));
+  }, 250, [activeBlobId]);
 
   const handleOpacityChange = useThrottle((opacity: number) => {
     dispatch(SystemActions.setOpacity({ id: activeBlobId, opacity }));
-  }, 250);
+  }, 250, [activeBlobId]);
 
   const handleDurationChange = useThrottle((duration: number) => {
     dispatch(SystemActions.setDuration({ id: activeBlobId, duration }));
-  }, 250);
+  }, 250, [activeBlobId]);
 
   const handleDelayChange = useThrottle((delay: number) => {
     dispatch(SystemActions.setDelay({ id: activeBlobId, delay }));
-  }, 250);
+  }, 250, [activeBlobId]);
 
   const handleDownload = () => {
     downloadText(svg, 'svg-blob', 'svg');
@@ -110,6 +115,10 @@ export const Controls: FC<{}> = () => {
     if (typeof window !== 'undefined') {
       router.push(`/${id}`);
     }
+  };
+
+  const handleChangeActiveBlob = (id) => {
+    dispatch(SystemActions.setActiveBlobId(id));
   };
 
   useEffect(() => {
@@ -138,11 +147,11 @@ export const Controls: FC<{}> = () => {
               <div className="controls__panel-wrapper">
                 <div className="controls__panel--picker">
                   <ColorPicker
-                    currentColor={currentColors[0]}
+                    currentColor={currentBlob.colors[0]}
                     onColorPick={handleFirstColorPick}
                   />
                   <ColorPicker
-                    currentColor={currentColors[1]}
+                    currentColor={currentBlob.colors[1]}
                     onColorPick={handleSecondColorPick}
                     isRemovableColor
                   />
@@ -153,7 +162,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-randomness-max.svg"
                     min={1}
                     max={30}
-                    defaultValue={5}
+                    value={currentBlob.randomness}
                     onChange={handleExtraPointsChange}
                     isDisabledTrack
                   />
@@ -162,7 +171,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-points-max.svg"
                     min={2}
                     max={30}
-                    defaultValue={5}
+                    value={currentBlob.extraPoints}
                     onChange={handleRandomnessChange}
                     isDisabledTrack
                   />
@@ -188,11 +197,22 @@ export const Controls: FC<{}> = () => {
             </Tab>
             <Tab id="gif" text="GIF animation">
               <div className="controls__panel-wrapper">
+                <Tabs activeId={activeBlobId} onChange={handleChangeActiveBlob}>
+                  {
+                    blobs.map((blob) => (
+                      <Tab
+                        key={blob.id}
+                        id={blob.id}
+                        text={convertBlobIdToText(blob.id)}
+                      />
+                    ))
+                  }
+                </Tabs>
                 <div className="controls__panel--gif">
                   <Slider
                     min={1}
                     max={100}
-                    defaultValue={100}
+                    value={currentBlob.opacity}
                     label="Opacity"
                     tooltip="Helps you adjust the transparency of each specific blob in the preview. The resulting GIF file will not have this translucency (see description at the bottom of the page)."
                     size="small"
@@ -203,7 +223,7 @@ export const Controls: FC<{}> = () => {
                   <Slider
                     min={100}
                     max={10000}
-                    defaultValue={1000}
+                    value={currentBlob.duration}
                     label="Duration"
                     tooltip="Time, in seconds, that it will take for a specific blob to transition from one state to another."
                     size="small"
@@ -214,7 +234,7 @@ export const Controls: FC<{}> = () => {
                   <Slider
                     min={1}
                     max={10000}
-                    defaultValue={0}
+                    value={currentBlob.delay}
                     label="Delay"
                     tooltip="Delay for the first transition of a specific blob. It is needed to desynchronize state transition if duration is the same."
                     size="small"
@@ -225,11 +245,11 @@ export const Controls: FC<{}> = () => {
                 </div>
                 <div className="controls__panel--picker">
                   <ColorPicker
-                    currentColor={currentColors[0]}
+                    currentColor={currentBlob.colors[0]}
                     onColorPick={handleFirstColorPick}
                   />
                   <ColorPicker
-                    currentColor={currentColors[1]}
+                    currentColor={currentBlob.colors[1]}
                     onColorPick={handleSecondColorPick}
                     isRemovableColor
                   />
@@ -240,7 +260,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-randomness-max.svg"
                     min={1}
                     max={30}
-                    defaultValue={5}
+                    value={currentBlob.randomness}
                     onChange={handleExtraPointsChange}
                     isDisabledTrack
                   />
@@ -249,7 +269,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-points-max.svg"
                     min={2}
                     max={30}
-                    defaultValue={5}
+                    value={currentBlob.extraPoints}
                     onChange={handleRandomnessChange}
                     isDisabledTrack
                   />
@@ -258,7 +278,7 @@ export const Controls: FC<{}> = () => {
                   <Slider
                     min={1}
                     max={60}
-                    defaultValue={30}
+                    value={fps}
                     label="FPS"
                     tooltip="Number of frames per second for the output GIF animations."
                     size="small"
@@ -268,7 +288,7 @@ export const Controls: FC<{}> = () => {
                   <Slider
                     min={100}
                     max={2000}
-                    defaultValue={440}
+                    value={size}
                     label="Size"
                     tooltip="Number of pixels that the GIF animations will contain (large values ​​can provoke a very long processing)."
                     size="small"
@@ -279,7 +299,7 @@ export const Controls: FC<{}> = () => {
                   <Slider
                     min={1}
                     max={100}
-                    defaultValue={90}
+                    value={quality}
                     label="Quality"
                     tooltip="Sets the quality of color quantization. Higher values produce better colors, but slow down processing significantly. The default value of 90 provides good color reproduction at a reasonable speed."
                     size="small"

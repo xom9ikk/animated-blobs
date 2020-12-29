@@ -60,9 +60,6 @@ export const Blob: FC<IBlob> = ({
   const isRecRef = useRef<boolean>(isRec);
   const captureCanvas = useRef<CaptureCanvas>();
 
-  useEffect(() => {
-    isRecRef.current = isRec;
-  }, [isRec]);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>();
 
   const defaultBlobOptions = useMemo(() => ({
@@ -157,25 +154,24 @@ export const Blob: FC<IBlob> = ({
     animation.current.transition(config);
   }, [ctx, width, height, duration, delay, seed, randomness, extraPoints, size]);
 
-  useEffect(() => {
-    captureCanvas.current = new CaptureCanvas({
-      id,
-      fps,
-      quality,
-      width,
-      height,
-      downloadFileName: `blob-${id}-opacity-${opacity}.gif`,
-      loopToInitialState: true,
-    });
-  }, [id, opacity, fps, quality, width, height]);
-
   const handleStop = () => {
     console.log('stop recording');
     captureCanvas.current.endRecording();
   };
 
   useEffect(() => {
-    if (!isRec && prevIsRecRef.current) {
+    isRecRef.current = isRec;
+    if (isRec) {
+      captureCanvas.current = new CaptureCanvas({
+        id,
+        fps,
+        quality,
+        width,
+        height,
+        downloadFileName: `blob-${id}-opacity-${opacity}.gif`,
+        loopToInitialState: true,
+      });
+    } else if (!isRec && prevIsRecRef.current) {
       handleStop();
     }
     prevIsRecRef.current = isRec;

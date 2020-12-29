@@ -58,8 +58,6 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
     }
   };
 
-  console.log('blob', blobs);
-
   return useMemo(() => (
     <>
       <canvas

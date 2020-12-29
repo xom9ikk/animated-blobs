@@ -4,7 +4,15 @@ export const useUtils = () => {
     ) + Math.ceil(min),
   );
 
+  const capitalizeFirstLetter = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+  const convertBlobIdToText = (
+    id: string,
+  ) => capitalizeFirstLetter(id.replace('-', ' #'));
+
   return {
     getRandomInt,
+    capitalizeFirstLetter,
+    convertBlobIdToText,
   };
 };
