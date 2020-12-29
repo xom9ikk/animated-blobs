@@ -3,44 +3,26 @@ import { BaseSyntheticEvent, CSSProperties, FC } from 'react';
 interface IInput {
   type: string,
   name?: string,
-  // width?: string,
-  // touched?: boolean,
-  // error?: string,
   onChange: (event: BaseSyntheticEvent) => void;
   onFocus?: (event: BaseSyntheticEvent) => void;
   onBlur?: (event: BaseSyntheticEvent) => void;
-  // onKeyDown?: (event:any) => void;
   value?: string | number,
-  // placeholder?: string,
-  // label?: string,
   style?: CSSProperties,
-  min: number;
-  max: number;
-  // isLight?: boolean,
-  // isDisable?: boolean,
-  // children?: any,
+  min?: number;
+  max?: number;
 }
 
 export const Input: FC<IInput> = ({
   type,
   name,
-  // width,
-  // touched,
-  // error,
   onChange,
   onFocus,
   onBlur,
-  // onKeyDown,
   value,
-  // placeholder,
-  // label,
   style,
   min,
   max,
-  // isLight,
-  // isDisable,
   children,
-  // ...attrs
 }) => {
   let normalizeValue = value;
 

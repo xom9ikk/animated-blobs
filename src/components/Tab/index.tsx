@@ -1,35 +1,33 @@
-import React from 'react';
-import Link from 'next/link';
+import { forwardRef, ReactNode, Ref } from 'react';
 
 interface ITab {
-  isActive: boolean;
-  item: {
-    name: string;
-    route: string;
-  }
-  animating: boolean;
-  startAnimating: () => void;
+  id: string;
+  text: string;
+  animating?: boolean;
+  startAnimating?: () => void;
+  isActive?: boolean;
+  onClick?: (id: string) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  children: ReactNode;
 }
 
 const TabComponent = ({
-  isActive,
-  item,
+  id,
+  text,
   animating,
   startAnimating,
-}: ITab, ref: React.Ref<any>) => (
-  <li className="tab" key={`tab-${item.route}`}>
-    <Link
-      href={item.route}
+  isActive,
+  onClick,
+}: ITab, ref: Ref<HTMLLIElement>) => (
+  <li className="tab" key={`tab-${id}`} onClick={() => onClick(id)}>
+    <span
+      className={`tab__inner tab__inner--${isActive ? 'active' : 'inactive'} ${animating ? 'tab__inner--animating' : ''}`}
+      ref={ref}
+      onClick={startAnimating}
     >
-      <a
-        className={`tab__inner tab__inner--${isActive ? 'active' : 'inactive'} ${animating ? 'tab__inner--animating' : ''}`}
-        ref={ref}
-        onClick={startAnimating}
-      >
-        {item.name}
-      </a>
-    </Link>
+      {text}
+    </span>
   </li>
 );
 
-export const Tab = React.forwardRef(TabComponent);
+export const Tab = forwardRef(TabComponent);

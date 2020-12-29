@@ -6,6 +6,7 @@ import { ColorPalette } from '@components/ColorPalette';
 import { useHexValidator } from '@use/hex-validator';
 import { useOutsideHandler } from '@use/outsideHandler';
 import { IColor } from '@type/entitines';
+import { useEventListener } from '@use/event-listener';
 
 const palette = [
   '#8A3FFC',
@@ -51,6 +52,7 @@ export const ColorPicker: FC<IColorPicker> = ({
   };
 
   useOutsideHandler(ref, outsideClickHandler);
+  useEventListener('keydown', outsideClickHandler, 'Escape');
 
   const handleColorChange = (e: BaseSyntheticEvent) => {
     const newValue = e.target.value.toUpperCase();
@@ -69,6 +71,7 @@ export const ColorPicker: FC<IColorPicker> = ({
     <div
       ref={ref}
       className="color-picker"
+      onClick={handleFocus}
     >
       <Input
         type="text"

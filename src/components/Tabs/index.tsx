@@ -1,77 +1,82 @@
-import React, { FC } from 'react';
+import React, {
+  FC, ReactElement, useEffect, useRef,
+} from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useRouter } from 'next/router';
-import { Tab } from '@components/Tab';
 import { TabPointer } from '@components/TabPointer';
 
 interface ITabs {
-  items: Array<{
-    name: string,
-    route: string,
-    render: () => any;
-  }>
+  activeId: string;
+  onChange: (id: string) => void;
 }
 
 export const Tabs: FC<ITabs> = ({
-  items = [],
+  activeId: initialActiveId,
+  onChange,
+  children,
 }) => {
   const [animating, setAnimating] = React.useState(false);
+  const [activeId, setActiveId] = React.useState(initialActiveId);
 
-  const tabRefs = items.reduce((acc, item) => {
-    // @ts-ignore
-    acc[item.route] = React.createRef();
-    return acc;
-  }, {});
+  useEffect(() => {
+    setActiveId(initialActiveId);
+  }, [initialActiveId]);
 
-  const router = useRouter();
+  const tabRefs = useRef<any>({});
 
-  const activeTab = items.find((item) => router.asPath === `/${item.route}`);
+  React.Children.forEach(children, (child: ReactElement) => {
+    tabRefs.current[child.props.id] = React.createRef();
+  });
 
-  const activeRoute = activeTab && activeTab.route;
+  const handleTabClick = (id: string) => {
+    setActiveId(id);
+    onChange(id);
+  };
+
+  const handleStartAnimating = () => setAnimating(true);
+
+  const handleFinishAnimating = () => setAnimating(false);
 
   return (
     <>
       <div className="tabs">
         <ul role="tablist" aria-orientation="horizontal" className="tabs__list">
-          {
-            items.map((item) => (
-              <Tab
-                key={item.route}
-                item={item}
-                // @ts-ignore
-                ref={tabRefs[item.route]}
-                isActive={activeRoute === item.route}
-                animating={animating}
-                startAnimating={() => setAnimating(true)}
-              />
-            ))
-          }
+          {React.Children.map(children, (child: ReactElement) => (
+            React.cloneElement(
+              child,
+              {
+                ...child.props,
+                children: null,
+                isActive: activeId === child.props.id,
+                ref: (ref) => {
+                  tabRefs.current[child.props.id] = ref;
+                },
+                onClick: handleTabClick,
+                startAnimating: handleStartAnimating,
+              },
+            )
+          ))}
         </ul>
         <TabPointer
-          // @ts-ignore
-          refs={tabRefs}
-          activeRoute={activeRoute || ''}
-          finishAnimating={() => setAnimating(false)}
+          refs={tabRefs.current}
+          activeId={activeId}
+          finishAnimating={handleFinishAnimating}
           animating={animating}
         />
       </div>
-      <div style={{ width: '100%' }}>
+      <div className="tabs__content">
         <AnimatePresence exitBeforeEnter>
-          {
-            items.map((item) => {
-              const isActive = activeRoute === item.route;
-              return isActive && (
+          {React.Children.map(children, (child: ReactElement) => (
+            activeId === child.props.id && (
               <motion.div
-                key={item.name}
+                key={`tab-content-${child.props.id}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                {item.render()}
+                {child.props.children}
               </motion.div>
-              );
-            })
-          }
+            )
+          ))}
         </AnimatePresence>
       </div>
     </>

@@ -3,47 +3,35 @@ import { motion } from 'framer-motion';
 import debounce from 'lodash.debounce';
 
 interface ITabPointer {
-  refs: Array<{
-    current?: {
-      offsetLeft: number;
-      getBoundingClientRect: () => void;
-    }
-  }>,
-  previousRoute?: string;
-  activeRoute: string;
+  refs: {
+    [id: string]: HTMLSpanElement,
+  },
+  activeId: string;
   finishAnimating: () => void;
   animating: boolean;
 }
 
 export const TabPointer: FC<ITabPointer> = ({
   refs,
-  activeRoute,
+  activeId,
   finishAnimating,
   animating,
 }) => {
-  const [{ x, width }, setAttributes] = React.useState({
-    x: 0,
-    width: 0,
-  });
+  const [{ x, width }, setAttributes] = React.useState({ x: 0, width: 0 });
 
   const updateAttributes = React.useCallback(() => {
-    // @ts-ignore
-    if (refs && activeRoute && refs[activeRoute]) {
+    if (activeId && refs?.[activeId]) {
       setAttributes({
-        // @ts-ignore
-        x: refs[activeRoute].current.offsetLeft,
-        // @ts-ignore
-        width: refs[activeRoute].current.getBoundingClientRect().width,
+        x: refs[activeId].offsetLeft,
+        width: refs[activeId].getBoundingClientRect().width,
       });
     }
-  }, [activeRoute, refs]);
+  }, [activeId, refs]);
 
-  // Update attributes if active route changes (or refs change)
   useEffect(() => {
     updateAttributes();
-  }, [activeRoute, refs, updateAttributes]);
+  }, [activeId, refs, updateAttributes]);
 
-  // After window resize, recalculate
   useEffect(() => {
     const recalculateAttrs = debounce(() => {
       updateAttributes();

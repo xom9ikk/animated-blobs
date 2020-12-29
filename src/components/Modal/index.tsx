@@ -5,6 +5,7 @@ import React, {
 import usePortal from 'react-useportal/dist/usePortal';
 import { useOutsideHandler } from '@use/outsideHandler';
 import { Button } from '@components/Button';
+import { useEventListener } from '@use/event-listener';
 
 interface IModal {
   isOpen: boolean,
@@ -38,17 +39,7 @@ export const Modal: FC<IModal> = ({
 
   useOutsideHandler(ref, outsideClickHandler);
 
-  useEffect(() => {
-    const handleKeydown = (e: KeyboardEvent) => {
-      if (e.code === 'Escape') {
-        onClose(e);
-      }
-    };
-    if (isSoftExit) {
-      document.addEventListener('keydown', handleKeydown);
-    }
-    return () => document.removeEventListener('keydown', handleKeydown);
-  }, []);
+  useEventListener('keydown', onClose, 'Escape');
 
   const classes = ['modal'];
 

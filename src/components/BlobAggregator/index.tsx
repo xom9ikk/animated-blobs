@@ -1,4 +1,6 @@
-import { FC, useEffect, useRef } from 'react';
+import {
+  FC, useEffect, useMemo, useRef,
+} from 'react';
 import { useSelector } from 'react-redux';
 import {
   getSize, getBlobs, getIsRec, getQuality, getFps,
@@ -56,7 +58,9 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
     }
   };
 
-  return (
+  console.log('blob', blobs);
+
+  return useMemo(() => (
     <>
       <canvas
         ref={(ref) => {
@@ -94,5 +98,5 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
         }
       </div>
     </>
-  );
+  ), [blobs, previewSize, isRec, size, fps, quality]);
 };

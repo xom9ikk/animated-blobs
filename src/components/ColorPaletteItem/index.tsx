@@ -44,8 +44,8 @@ export const ColorPaletteItem: FC<IColorPaletteItem> = ({
     onPickColor(color);
   };
 
-  const focusedRgba = useMemo(() => color && hexToRgb(color, 0.8), [color]);
-  const activeRgba = useMemo(() => color && hexToRgb(color, 0.3), [color]);
+  const focusedRgba = useMemo(() => color && hexToRgb(color, 80), [color]);
+  const activeRgba = useMemo(() => color && hexToRgb(color, 30), [color]);
 
   return (
     <button
