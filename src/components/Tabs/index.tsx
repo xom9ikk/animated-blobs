@@ -18,6 +18,7 @@ export const Tabs: FC<ITabs> = ({
   const [activeId, setActiveId] = React.useState(initialActiveId);
 
   useEffect(() => {
+    console.log('activeBlobId', initialActiveId);
     setActiveId(initialActiveId);
   }, [initialActiveId]);
 
@@ -27,8 +28,10 @@ export const Tabs: FC<ITabs> = ({
     tabRefs.current[child.props.id] = React.createRef();
   });
 
-  const handleTabClick = (id: string) => {
-    setActiveId(id);
+  const handleTabClick = (id: string, isDisabled?: boolean) => {
+    if (!isDisabled) {
+      setActiveId(id);
+    }
     onChange(id);
   };
 
@@ -61,6 +64,7 @@ export const Tabs: FC<ITabs> = ({
           activeId={activeId}
           finishAnimating={handleFinishAnimating}
           animating={animating}
+          tabCounter={Object.keys(tabRefs.current).length}
         />
       </div>
       <div className="tabs__content">

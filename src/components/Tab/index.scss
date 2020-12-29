@@ -33,12 +33,51 @@
       color: $text-primary-color;
 
       &:after {
-        background-color: #f3f4f5;
+        background-color: $background-primary-color;
       }
     }
 
     &--active, &--animating:after {
       background-color: transparent;
+    }
+  }
+
+  &__remove {
+    position: absolute;
+    background: darken($background-primary-color, 10);
+    opacity: 0.8;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right: -6px;
+    top: -6px;
+    background-image: url("/svg/remove.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    filter: grayscale(1);
+    cursor: pointer;
+
+    transition: filter .2s ease-in-out, transform .2s ease-in-out, right .5s linear;
+
+    &:hover {
+      filter: none;
+      transform: scale(1.1);
+      animation: .8s shake infinite;
+    }
+
+    @keyframes shake {
+      0% {
+        right: -6px;
+      }
+      12% {
+        right: -7px;
+      }
+      25% {
+        right: -5px;
+      }
+      50% {
+        right: -6px;
+      }
     }
   }
 

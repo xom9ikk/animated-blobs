@@ -9,6 +9,7 @@ interface ITabPointer {
   activeId: string;
   finishAnimating: () => void;
   animating: boolean;
+  tabCounter: number;
 }
 
 export const TabPointer: FC<ITabPointer> = ({
@@ -16,6 +17,7 @@ export const TabPointer: FC<ITabPointer> = ({
   activeId,
   finishAnimating,
   animating,
+  tabCounter,
 }) => {
   const [{ x, width }, setAttributes] = React.useState({ x: 0, width: 0 });
 
@@ -29,8 +31,9 @@ export const TabPointer: FC<ITabPointer> = ({
   }, [activeId, refs]);
 
   useEffect(() => {
+    console.log('updateAttr', tabCounter, activeId);
     updateAttributes();
-  }, [activeId, refs, updateAttributes]);
+  }, [activeId, refs, updateAttributes, tabCounter]);
 
   useEffect(() => {
     const recalculateAttrs = debounce(() => {

@@ -105,6 +105,7 @@ export const Blob: FC<IBlob> = ({
     if (!ctx) {
       return;
     }
+
     animation.current = blobs2Animate.canvasPath();
 
     seedRef.current = Math.random();

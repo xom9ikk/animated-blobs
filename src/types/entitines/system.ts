@@ -21,4 +21,5 @@ export interface ISystem {
   fps: number;
   size: number;
   isRec: boolean;
+  createdBlobCount: number;
 }

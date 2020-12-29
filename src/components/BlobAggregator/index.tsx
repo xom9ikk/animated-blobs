@@ -28,19 +28,25 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
   const blobs = useSelector(getBlobs);
 
   useEffect(() => {
+    console.log('start reduce');
     blobsData.current = blobs.reduce((acc, blob) => ({
       ...acc,
       [blob.id]: [],
     }), {});
     blobKeys.current = Object.keys(blobsData.current);
-  }, []);
+    processedFrame.current = 0;
+    console.log('end reduce');
+  }, [blobs.length]);
 
   const mergeFrame = () => {
+    console.log('start mergeFrame');
     const keys = blobKeys.current;
     resultedCanvasCtx.current?.clearRect(0, 0, previewSize, previewSize);
+    console.log('clearRect mergeFrame');
     for (let i = 0; i < keys.length; i += 1) {
       const frame = blobsData.current[keys[i]][processedFrame.current];
       try {
+        console.log('clearRect drawImage');
         resultedCanvasCtx.current.drawImage(frame, 0, 0, previewSize, previewSize);
       } catch (e) {
         // console.error(e);
@@ -50,6 +56,7 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
 
   const handleFrame = (id: string, canvasElement: HTMLCanvasElement) => {
     blobsData.current[id].push(canvasElement);
+    console.log('handleFrame');
     const isReadyForProcess = blobKeys.current
       .every((key: string) => blobsData.current[key][processedFrame.current] !== undefined);
     if (isReadyForProcess && id === blobs[0].id) {

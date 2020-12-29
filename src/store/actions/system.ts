@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import {
+  IRemoveSystemBlobId,
   ISetSystemActiveBlobId,
   ISetSystemColor,
   ISetSystemColors, ISetSystemDelay, ISetSystemDuration,
@@ -22,6 +23,8 @@ enum Type {
   SET_SIZE = 'SYSTEM/SET_SIZE',
   SET_ACTIVE_BLOB_ID = 'SYSTEM/SET_ACTIVE_BLOB_ID',
   SWITCH_IS_REC = 'SYSTEM/SWITCH_IS_REC',
+  ADD_BLOB = 'SYSTEM/ADD_BLOB',
+  REMOVE_BLOB = 'SYSTEM/REMOVE_BLOB',
 }
 
 const setColors = createAction<ISetSystemColors>(Type.SET_COLORS);
@@ -48,6 +51,10 @@ const setActiveBlobId = createAction(
   Type.SET_ACTIVE_BLOB_ID, (activeBlobId: ISetSystemActiveBlobId) => ({ activeBlobId }),
 );
 const switchIsRec = createAction(Type.SWITCH_IS_REC);
+const addBlob = createAction(Type.ADD_BLOB);
+const removeBlob = createAction(
+  Type.REMOVE_BLOB, (id: IRemoveSystemBlobId) => ({ id }),
+);
 
 export const SystemActions = {
   Type,
@@ -65,4 +72,6 @@ export const SystemActions = {
   setSize,
   setActiveBlobId,
   switchIsRec,
+  addBlob,
+  removeBlob,
 };

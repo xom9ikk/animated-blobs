@@ -20,6 +20,8 @@ import { Tab } from '@components/Tab';
 import { useRouter } from 'next/router';
 import { useUtils } from '@use/utils';
 
+const NEW_BLOB_TAB_ID = 'new-blob';
+
 export const Controls: FC<{}> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -61,6 +63,7 @@ export const Controls: FC<{}> = () => {
 
   const handleRandomnessChange = useThrottle((randomness: number) => {
     dispatch(SystemActions.setRandomness({ id: activeBlobId, randomness }));
+    handleRandomClick();
   }, 250, [activeBlobId]);
 
   const handleExtraPointsChange = useThrottle((extraPoints: number) => {
@@ -118,7 +121,16 @@ export const Controls: FC<{}> = () => {
   };
 
   const handleChangeActiveBlob = (id) => {
-    dispatch(SystemActions.setActiveBlobId(id));
+    if (id === NEW_BLOB_TAB_ID) {
+      dispatch(SystemActions.addBlob());
+    } else {
+      console.log('set active', id);
+      dispatch(SystemActions.setActiveBlobId(id));
+    }
+  };
+
+  const handleRemoveBlob = (id) => {
+    dispatch(SystemActions.removeBlob(id));
   };
 
   useEffect(() => {
@@ -132,6 +144,10 @@ export const Controls: FC<{}> = () => {
 
   const activeRoute = router.asPath.split('/')[1];
   const normalizedActiveRoute = ['svg', 'gif'].includes(activeRoute) ? activeRoute : 'svg';
+
+  if (normalizedActiveRoute === 'svg') {
+    dispatch(SystemActions.setActiveBlobId(blobs[0].id));
+  }
 
   return (
     <div className="controls">
@@ -162,7 +178,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-randomness-max.svg"
                     min={1}
                     max={30}
-                    value={currentBlob.randomness}
+                    value={currentBlob.extraPoints}
                     onChange={handleExtraPointsChange}
                     isDisabledTrack
                   />
@@ -171,7 +187,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-points-max.svg"
                     min={2}
                     max={30}
-                    value={currentBlob.extraPoints}
+                    value={currentBlob.randomness}
                     onChange={handleRandomnessChange}
                     isDisabledTrack
                   />
@@ -203,10 +219,19 @@ export const Controls: FC<{}> = () => {
                       <Tab
                         key={blob.id}
                         id={blob.id}
+                        isRemovable={blobs.length !== 1}
+                        onRemove={handleRemoveBlob}
                         text={convertBlobIdToText(blob.id)}
                       />
                     ))
                   }
+                  <Tab
+                    key={NEW_BLOB_TAB_ID}
+                    id={NEW_BLOB_TAB_ID}
+                    text="Add"
+                    isDisabled
+                    style={{ background: '#f5f6f7', borderRadius: 12 }}
+                  />
                 </Tabs>
                 <div className="controls__panel--gif">
                   <Slider
@@ -260,7 +285,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-randomness-max.svg"
                     min={1}
                     max={30}
-                    value={currentBlob.randomness}
+                    value={currentBlob.extraPoints}
                     onChange={handleExtraPointsChange}
                     isDisabledTrack
                   />
@@ -269,7 +294,7 @@ export const Controls: FC<{}> = () => {
                     maxImageSrc="/svg/slider-points-max.svg"
                     min={2}
                     max={30}
-                    value={currentBlob.extraPoints}
+                    value={currentBlob.randomness}
                     onChange={handleRandomnessChange}
                     isDisabledTrack
                   />

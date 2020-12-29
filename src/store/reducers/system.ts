@@ -5,33 +5,29 @@ import { SystemActions } from '../actions';
 
 const { getRandomInt } = useUtils();
 
+const DEFAULT_BLOB = () => ({
+  colors: ['#8A3FFC', null],
+  randomness: getRandomInt(2, 10),
+  extraPoints: getRandomInt(2, 15),
+  seed: Math.random(),
+  opacity: getRandomInt(30, 50),
+  duration: getRandomInt(350, 1500),
+  delay: 0,
+});
+
 const initialState = {
   backgroundSvg: `/svg/wave-${getRandomInt(0, 6)}.svg`,
   activeBlobId: 'blob-0',
   blobs: [{
     id: 'blob-0',
-    colors: ['#8A3FFC', null],
-    randomness: 3,
-    extraPoints: 5,
-    seed: 37,
-    opacity: 100,
-    duration: 1000,
-    delay: 0,
-  }, {
-    id: 'blob-2',
-    colors: ['#ff3344', '#aa3355'],
-    randomness: 23,
-    extraPoints: 33,
-    seed: 74,
-    opacity: 33,
-    duration: 1000,
-    delay: 2000,
+    ...DEFAULT_BLOB(),
   }],
   svg: '',
   quality: 10,
   fps: 30,
   size: 440,
   isRec: false,
+  createdBlobCount: 0,
 };
 
 export const SystemReducer = handleActions<ISystem, any>({
@@ -169,4 +165,24 @@ export const SystemReducer = handleActions<ISystem, any>({
         (state, action) => ({ ...state, activeBlobId: action.payload.activeBlobId }),
   [SystemActions.Type.SWITCH_IS_REC]:
         (state) => ({ ...state, isRec: !state.isRec }),
+  [SystemActions.Type.ADD_BLOB]:
+        (state) => {
+          const blobId = `blob-${state.createdBlobCount + 1}`;
+          return {
+            ...state,
+            blobs: [
+              ...state.blobs,
+              {
+                ...DEFAULT_BLOB(),
+                id: blobId,
+              }],
+            activeBlobId: blobId,
+            createdBlobCount: state.createdBlobCount + 1,
+          };
+        },
+  [SystemActions.Type.REMOVE_BLOB]:
+        (state, action) => ({
+          ...state,
+          blobs: state.blobs.filter((blob) => blob.id !== action.payload.id),
+        }),
 }, initialState);
