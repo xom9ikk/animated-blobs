@@ -16,7 +16,7 @@ export const BlobPreview : FC<{}> = () => {
   const isRec = useSelector(getIsRec);
   const { blobSize } = useBlobSize();
 
-  return blobs.length && (
+  return blobs.length > 0 && (
     <div className="blob-preview">
       <div className="blob-preview__wrapper">
         <div className={`blob-preview__inner ${isRec ? 'blob-preview__inner--rec' : ''}`}>

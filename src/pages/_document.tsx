@@ -18,7 +18,7 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#000000" />
-          <meta name="description" content="Official website for... something." />
+          <meta name="description" content="Animated Blobs - Create cool animated GIF or SVG shapes for your designs" />
           <meta name="build version" content={pkg.version} />
           {
             faviconSizes.map((size) => (
