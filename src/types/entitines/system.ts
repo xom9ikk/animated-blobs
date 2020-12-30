@@ -12,6 +12,11 @@ interface IBlob {
   delay: number;
 }
 
+interface IProgress {
+  id: string;
+  progress: number;
+}
+
 export interface ISystem {
   backgroundSvg: string;
   activeBlobId: string;
@@ -22,4 +27,5 @@ export interface ISystem {
   size: number;
   isRec: boolean;
   createdBlobCount: number;
+  convertProgress: Array<IProgress>;
 }

@@ -12,7 +12,7 @@
 
   &:active, &:focus {
     box-shadow: $box-shadow;
-    border-color: #fff;
+    border-color: $white;
   }
 
   &__inner {
@@ -45,7 +45,7 @@
 
   &--primary {
     background: $primary-color;
-    color: #ffffff;
+    color: $white;
     &:hover {
       cursor: pointer;
       background: darken($primary-color, 2);

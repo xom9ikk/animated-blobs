@@ -1,6 +1,6 @@
 .random-button {
 
-  border: 1px solid #ffffff;
+  border: 1px solid $white;
   margin: 5px;
   border-radius: 50%;
   overflow: hidden;
@@ -39,6 +39,6 @@
 
   &:active, &:focus {
     box-shadow: $box-shadow;
-    border-color: #fff;
+    border-color: $white;
   }
 }

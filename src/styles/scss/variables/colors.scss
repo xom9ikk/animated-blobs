@@ -1,7 +1,9 @@
-$background-color: #ffffff;
+$white: #ffffff;
+$background-color: $white;
 $primary-color: #8a3ffc;
-$text-color: #424242;
-$text-color-light: lighten($text-color, 30);
+$text-color: #676d81;
+$text-color-light: lighten($text-color, 20);
 $text-primary-color: #8a3ffc;
 $blob-border-color: #eeeeee;
 $background-primary-color: #f3f4f5;
+$danger: #ff3344;

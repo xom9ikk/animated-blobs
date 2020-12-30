@@ -19,6 +19,8 @@ import { Tabs } from '@components/Tabs';
 import { Tab } from '@components/Tab';
 import { useRouter } from 'next/router';
 import { useUtils } from '@use/utils';
+import { ConvertProgress } from '@components/ConvertProgress';
+import { RecordButton } from '@components/RecordButton';
 
 const NEW_BLOB_TAB_ID = 'new-blob';
 
@@ -100,9 +102,6 @@ export const Controls: FC<{}> = () => {
 
   const handleShowCode = () => {
     setIsOpenModal(true);
-  };
-  const handleRec = () => {
-    dispatch(SystemActions.switchIsRec());
   };
 
   const handleCopy = () => {
@@ -334,15 +333,13 @@ export const Controls: FC<{}> = () => {
                   />
                 </div>
                 <div className="controls__panel--buttons">
-                  <Button
-                    onClick={handleRec}
-                    mode="circle"
-                  >
-                    <img src="/svg/rec.svg" alt="rec" />
-                  </Button>
                   <RandomButton onClick={handleRandomClick}>
                     <img src="/svg/dice.svg" alt="dice" />
                   </RandomButton>
+                  <RecordButton />
+                </div>
+                <div className="controls__panel--progress">
+                  <ConvertProgress />
                 </div>
               </div>
             </Tab>

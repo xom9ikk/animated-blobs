@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import {
   FC, MutableRefObject, CSSProperties,
   useEffect, useRef, useMemo, useState,
@@ -6,6 +7,8 @@ import * as blobs2Animate from 'blobs/v2/animate';
 import { useUtils } from '@use/utils';
 import { IColors } from '@type/entitines';
 import { useBlob } from '@use/blob';
+import { SystemActions } from '@store/actions';
+import { useDispatch } from 'react-redux';
 import { CaptureCanvas } from '../../plugins/capture-canvas';
 
 interface IBlob {
@@ -47,6 +50,7 @@ export const Blob: FC<IBlob> = ({
   onFrame,
   style,
 }) => {
+  const dispatch = useDispatch();
   const { getRandomInt } = useUtils();
   const { setColors } = useBlob();
 
@@ -160,6 +164,15 @@ export const Blob: FC<IBlob> = ({
     captureCanvas.current.endRecording();
   };
 
+  const handleProgress = (payload) => {
+    const { type, id, progress } = payload;
+    if (type === 'progress') {
+      dispatch(SystemActions.updateProgress({ id, progress }));
+    } else {
+      dispatch(SystemActions.resetProgress(id));
+    }
+  };
+
   useEffect(() => {
     isRecRef.current = isRec;
     if (isRec) {
@@ -171,8 +184,9 @@ export const Blob: FC<IBlob> = ({
         height,
         downloadFileName: `blob-${id}-opacity-${opacity}.gif`,
         loopToInitialState: true,
-      });
+      }, handleProgress);
     } else if (!isRec && prevIsRecRef.current) {
+      dispatch(SystemActions.updateProgress({ id, progress: 0 }));
       handleStop();
     }
     prevIsRecRef.current = isRec;

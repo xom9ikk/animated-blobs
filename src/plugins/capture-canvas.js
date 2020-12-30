@@ -9,13 +9,14 @@ const defaultOptions = {
 };
 
 export class CaptureCanvas {
-  constructor(options) {
+  constructor(options, onProgress) {
     console.log('new Capture', options);
     this.worker = undefined;
     this.ctxData = [];
     this.imagesData = [];
     this.index = 0;
     this.interval = 0;
+    this.onProgress = onProgress;
     this.options = {
       ...defaultOptions,
       ...options,
@@ -51,11 +52,11 @@ export class CaptureCanvas {
           case 'result': {
             this.downloadGif(payload);
             this.stopWorker();
-            console.log('STOP worker', payload);
+            this.onProgress({ type:'done', id: this.options.id })
             break;
           }
           case 'progress': {
-            console.log(payload);
+            this.onProgress({ ...payload, type:'progress' });
             break;
           }
           default:

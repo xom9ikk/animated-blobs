@@ -4,7 +4,7 @@
   border-radius: 4px;
   margin: 3px;
   cursor: pointer;
-  border: 2px solid #ffffff;
+  border: 2px solid $white;
   transition: border .2s ease-in-out, box-shadow .2s ease-in-out;
 
   &--active {
@@ -13,7 +13,7 @@
   }
 
   &--focused {
-    border: 2px solid #ffffff;
+    border: 2px solid $white;
     box-shadow: var(--focused-box-shadow-color) 0 0 0 2px, var(--focused-box-shadow-color) 0 0 0 2px;
 
     img {

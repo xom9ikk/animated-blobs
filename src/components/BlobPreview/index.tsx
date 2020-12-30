@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { getBlobs } from '@store/selectors';
+import { getBlobs, getIsRec } from '@store/selectors';
 import { BlobSvg } from '@components/BlobSvg';
 import { useRouter } from 'next/router';
 import { BlobAggregator } from '@components/BlobAggregator';
@@ -12,11 +12,12 @@ export const BlobPreview : FC<{}> = () => {
   const isGif = router.asPath === '/gif';
 
   const blobs = useSelector(getBlobs);
+  const isRec = useSelector(getIsRec);
 
   return blobs.length && (
     <div className="blob-preview">
       <div className="blob-preview__wrapper">
-        <div className="blob-preview__inner">
+        <div className={`blob-preview__inner ${isRec ? 'blob-preview__inner--rec' : ''}`}>
           {
             isGif ? (
               <BlobAggregator previewSize={BLOB_PREVIEW_SIZE} />

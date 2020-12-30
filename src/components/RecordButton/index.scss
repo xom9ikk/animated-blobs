@@ -1,0 +1,171 @@
+$bg: #000;
+$white: #000;
+$grey: rgb(162, 162, 162);
+$cont-size: 60px;
+$outer-size: $cont-size - 15;
+$inner-size: $outer-size - 10;
+$border-size: 0px;
+$sec: 1s;
+$bezier: cubic-bezier(.4, -.9, .9, 1);
+
+@mixin animation($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation-use($name, $time, $easing) {
+  animation: $name $time infinite $easing;
+}
+
+@mixin animate($val, $colon) {
+  @include animation(to_ + $val) {
+    @for $i from 1 to $val {
+      #{100/$val*$i}% {
+        @if ($i < 10) {
+          content: $colon + '0' + $i;
+        } @else {
+          content: $colon + '' + $i;
+        }
+      }
+    }
+  }
+}
+
+@mixin pseudo($content) {
+  position: relative;
+  content: $content;
+}
+
+@mixin center($val) {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: $val;
+  height: $val;
+  margin: -$val/2 0 -$val/2;
+}
+
+@mixin delay($time) {
+  animation-delay: $time;
+}
+
+@mixin once() {
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@include animate(60, '');
+@include animate(100, ':');
+
+@include animation(time) {
+  to {
+    top: 100%;
+    opacity: 1;
+  }
+}
+
+@include animation(stop) {
+  70% {
+    border-radius: 4px;
+    @include center($inner-size - 20);
+  }
+  100% {
+    border-radius: 4px;
+    @include center($inner-size - 15);
+  }
+}
+
+
+.record-button {
+  @include center($cont-size);
+
+  &:disabled {
+     & label:after {
+      filter: grayscale(1) brightness(2);
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+    & .slider__info {
+      position: absolute;
+      top: 10px;
+      right: -5px;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    width: $cont-size;
+    height: $cont-size;
+    margin: 5px;
+  }
+
+  #btn {
+    display: none;
+
+    & + label:before {
+      @include center($outer-size);
+      content: '';
+      -webkit-transform: translate(-$border-size, -$border-size);
+      -ms-transform: translate(-$border-size, -$border-size);
+      transform: translate(-$border-size, -$border-size);
+      border-radius: 50%;
+      box-shadow: #e9e9e9 0 0 0 3px;
+      cursor: pointer;
+    }
+
+    & + label:after {
+      @include center($inner-size);
+      content: '';
+      border-radius: $inner-size/2;
+      background: $danger;
+      cursor: pointer;
+    }
+
+    &:checked {
+      & + label:after {
+        @include animation-use(stop, 0.4*$sec, $bezier);
+        @include once();
+      }
+
+      & ~ .time {
+        @include animation-use(time, 0.2*$sec, linear);
+        @include once();
+        animation-delay: 0.3*$sec;
+      }
+
+      & ~ .time .s_ms:before {
+        @include animation-use(to_60, 60*$sec, linear);
+        @include delay(.5*$sec);
+      }
+
+      & ~ .time .s_ms:after {
+        @include animation-use(to_100, $sec, linear);
+      }
+    }
+  }
+
+  .time {
+    position: absolute;
+    width: 100%;
+    top: 110%;
+    opacity: 0;
+
+    & > * {
+      display: inline-block;
+      color: $text-color-light;
+      font-family: 'Fjalla One', sans-serif;
+      font-size: 14px;
+    }
+
+    .s_ms:before {
+      @include pseudo('00');
+    }
+
+    .s_ms:after {
+      @include pseudo(':00');
+    }
+  }
+}

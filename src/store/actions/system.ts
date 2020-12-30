@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
 import {
-  IRemoveSystemBlobId,
+  IRemoveSystemBlobId, IResetSystemProgress,
   ISetSystemActiveBlobId, ISetSystemBackgroundSrc,
   ISetSystemColor,
   ISetSystemColors, ISetSystemDelay, ISetSystemDuration,
   ISetSystemExtraPoints, ISetSystemFps, ISetSystemOpacity, ISetSystemQuality,
-  ISetSystemRandomness, ISetSystemSeed, ISetSystemSize, ISetSystemSvg,
+  ISetSystemRandomness, ISetSystemSeed, ISetSystemSize, ISetSystemSvg, IUpdateSystemProgress,
 } from '@type/actions';
 
 enum Type {
@@ -26,6 +26,8 @@ enum Type {
   ADD_BLOB = 'SYSTEM/ADD_BLOB',
   REMOVE_BLOB = 'SYSTEM/REMOVE_BLOB',
   SET_BACKGROUND_SRC = 'SYSTEM/SET_BACKGROUND_SRC',
+  UPDATE_PROGRESS = 'SYSTEM/UPDATE_PROGRESS',
+  RESET_PROGRESS = 'SYSTEM/RESET_PROGRESS',
 }
 
 const setColors = createAction<ISetSystemColors>(Type.SET_COLORS);
@@ -59,6 +61,10 @@ const removeBlob = createAction(
 const setBackgroundSrc = createAction(
   Type.SET_BACKGROUND_SRC, (backgroundSrc: ISetSystemBackgroundSrc) => ({ backgroundSrc }),
 );
+const updateProgress = createAction<IUpdateSystemProgress>(Type.UPDATE_PROGRESS);
+const resetProgress = createAction(
+  Type.RESET_PROGRESS, (id: IResetSystemProgress) => ({ id }),
+);
 
 export const SystemActions = {
   Type,
@@ -79,4 +85,6 @@ export const SystemActions = {
   addBlob,
   removeBlob,
   setBackgroundSrc,
+  updateProgress,
+  resetProgress,
 };

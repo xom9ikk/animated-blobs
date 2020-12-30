@@ -26,6 +26,7 @@ const initialState = {
   size: 440,
   isRec: false,
   createdBlobCount: 0,
+  convertProgress: [],
 };
 
 export const SystemReducer = handleActions<ISystem, any>({
@@ -187,4 +188,37 @@ export const SystemReducer = handleActions<ISystem, any>({
         },
   [SystemActions.Type.SET_BACKGROUND_SRC]:
         (state, action) => ({ ...state, backgroundSrc: action.payload.backgroundSrc }),
+  [SystemActions.Type.UPDATE_PROGRESS]:
+        (state, action) => {
+          const isAlreadyInProgress = state.convertProgress
+            .find((progress) => progress.id === action.payload.id);
+          if (isAlreadyInProgress) {
+            return {
+              ...state,
+              convertProgress: state.convertProgress.map((progress) => {
+                if (progress.id === action.payload.id) {
+                  return {
+                    id: action.payload.id,
+                    progress: progress.progress < action.payload.progress
+                      ? action.payload.progress
+                      : progress.progress,
+                  };
+                }
+                return {
+                  ...progress,
+                };
+              }),
+            };
+          }
+          return {
+            ...state,
+            convertProgress: [...state.convertProgress, action.payload],
+          };
+        },
+  [SystemActions.Type.RESET_PROGRESS]:
+        (state, action) => ({
+          ...state,
+          convertProgress: state.convertProgress
+            .filter((progress) => progress.id !== action.payload.id),
+        }),
 }, initialState);

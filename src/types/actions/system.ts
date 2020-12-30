@@ -33,7 +33,6 @@ export interface ISetSystemDelay {
   id: string;
   delay: number;
 }
-
 export type ISetSystemSvg = string;
 export type ISetSystemQuality = number;
 export type ISetSystemFps = number;
@@ -41,3 +40,8 @@ export type ISetSystemActiveBlobId = string;
 export type ISetSystemSize = number;
 export type IRemoveSystemBlobId = number;
 export type ISetSystemBackgroundSrc = string;
+export interface IUpdateSystemProgress {
+  id: string;
+  progress: number;
+}
+export type IResetSystemProgress = string;

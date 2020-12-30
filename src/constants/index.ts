@@ -1,4 +1,4 @@
-export const palette = [
+export const PALETTE = [
   '#8A3FFC',
   '#FF0066',
   '#FA4D56',
@@ -13,3 +13,4 @@ export const palette = [
   '#E8DAFF',
   '#FFD6E8',
 ];
+export const MAX_REC_MS_TIME = 15 * 1000;

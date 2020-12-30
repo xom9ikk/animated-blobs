@@ -7,7 +7,7 @@ import { useHexValidator } from '@use/hex-validator';
 import { useOutsideHandler } from '@use/outsideHandler';
 import { IColor } from '@type/entitines';
 import { useEventListener } from '@use/event-listener';
-import { palette } from '../../constants';
+import { PALETTE } from '../../constants';
 
 interface IColorPicker {
   currentColor: IColor;
@@ -82,7 +82,7 @@ export const ColorPicker: FC<IColorPicker> = ({
       {
         isFocused && (
           <ColorPalette
-            palette={palette}
+            palette={PALETTE}
             activeColor={currentColor}
             onPickColor={handlePickColor}
             isRemovableColor={isRemovableColor}

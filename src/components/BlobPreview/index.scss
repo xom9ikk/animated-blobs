@@ -16,5 +16,20 @@
     height: 480px;
     width: 480px;
     border: 2px dashed $blob-border-color;
+    &--rec {
+      animation: border 2s infinite linear;
+
+      @keyframes border {
+        33% {
+          border: 2px dashed $blob-border-color;
+        }
+        66% {
+          border: 2px dashed lighten($danger, 20);
+        }
+        99% {
+          border: 2px dashed $blob-border-color;
+        }
+      }
+    }
   }
 }

@@ -55,7 +55,7 @@
         height: 20px;
         &:active, &:focus {
           box-shadow: rgba(120, 63, 252, 0.5) 0 0 0 2px;
-          border-color: #fff;
+          border-color: $white;
         }
 
         &:active {
@@ -84,7 +84,7 @@
     height: 30px;
     top: -4px;
     background: $primary-color;
-    border: 2px solid #fff;
+    border: 2px solid $white;
     transform-origin: 0 50%;
     transition: top .2s ease,
     width .2s ease,
@@ -95,12 +95,12 @@
     cursor: pointer;
 
     &:hover {
-      border-color: #fff;
+      border-color: $white;
     }
 
     &:active, &:focus {
       box-shadow: $box-shadow;
-      border-color: #fff;
+      border-color: $white;
     }
 
     &:active {
