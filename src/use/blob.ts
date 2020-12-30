@@ -13,7 +13,7 @@ export const useBlob = () => {
     let gradient;
     if (colors[0] !== null && colors[1] !== null) {
       const fromRgba = hexToRgb(colors[0], opacity);
-      const toRgba = hexToRgb(colors[1], opacity);
+      const toRgba = hexToRgb(colors[1], opacity) || fromRgba;
       gradient = ctx.createLinearGradient(0, 0, height, 0);
       gradient.addColorStop(0, fromRgba);
       gradient.addColorStop(1, toRgba);

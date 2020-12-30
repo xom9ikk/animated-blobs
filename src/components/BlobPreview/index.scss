@@ -13,9 +13,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 480px;
-    width: 480px;
+    max-height: 480px;
+    max-width: 480px;
+    padding: 20px;
     border: 2px dashed $blob-border-color;
+    z-index: -2;
     &--rec {
       animation: border 2s infinite linear;
 

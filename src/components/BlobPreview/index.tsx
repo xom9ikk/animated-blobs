@@ -4,8 +4,9 @@ import { getBlobs, getIsRec } from '@store/selectors';
 import { BlobSvg } from '@components/BlobSvg';
 import { useRouter } from 'next/router';
 import { BlobAggregator } from '@components/BlobAggregator';
+import { useBlobSize } from '@use/blobSize';
 
-const BLOB_PREVIEW_SIZE = 440;
+// const BLOB_PREVIEW_SIZE = 440;
 
 export const BlobPreview : FC<{}> = () => {
   const router = useRouter();
@@ -13,6 +14,7 @@ export const BlobPreview : FC<{}> = () => {
 
   const blobs = useSelector(getBlobs);
   const isRec = useSelector(getIsRec);
+  const { blobSize } = useBlobSize();
 
   return blobs.length && (
     <div className="blob-preview">
@@ -20,14 +22,14 @@ export const BlobPreview : FC<{}> = () => {
         <div className={`blob-preview__inner ${isRec ? 'blob-preview__inner--rec' : ''}`}>
           {
             isGif ? (
-              <BlobAggregator previewSize={BLOB_PREVIEW_SIZE} />
+              <BlobAggregator previewSize={blobSize} />
             ) : (
               <BlobSvg
-                width={BLOB_PREVIEW_SIZE}
-                height={BLOB_PREVIEW_SIZE}
+                width={blobSize}
+                height={blobSize}
                 colors={blobs[0].colors}
                 blobOptions={{
-                  size: BLOB_PREVIEW_SIZE,
+                  size: blobSize,
                   extraPoints: blobs[0].extraPoints,
                   randomness: blobs[0].randomness,
                   seed: blobs[0].seed,

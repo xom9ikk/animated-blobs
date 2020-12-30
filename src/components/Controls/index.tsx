@@ -156,9 +156,9 @@ export const Controls: FC<{}> = () => {
           backgroundImage: `url("${backgroundSvg}")`,
         }}
       >
-        <div className="controls__panel">
-          <Tabs activeId={normalizedActiveRoute} onChange={handleTabChange}>
-            <Tab id="svg" text="SVG static">
+        <Tabs activeId={normalizedActiveRoute} onChange={handleTabChange}>
+          <Tab id="svg" text="SVG static">
+            <div className="controls__panel">
               <div className="controls__panel-wrapper">
                 <div className="controls__panel--picker">
                   <ColorPicker
@@ -209,8 +209,10 @@ export const Controls: FC<{}> = () => {
                   <img src="/svg/dice.svg" alt="dice" />
                 </RandomButton>
               </div>
-            </Tab>
-            <Tab id="gif" text="GIF animation">
+            </div>
+          </Tab>
+          <Tab id="gif" text="GIF animation">
+            <div className="controls__panel">
               <div className="controls__panel-wrapper">
                 <Tabs activeId={activeBlobId} onChange={handleChangeActiveBlob}>
                   {
@@ -342,9 +344,10 @@ export const Controls: FC<{}> = () => {
                   <ConvertProgress />
                 </div>
               </div>
-            </Tab>
-          </Tabs>
-        </div>
+            </div>
+          </Tab>
+        </Tabs>
+
       </div>
       <Modal
         isOpen={isOpenModal}

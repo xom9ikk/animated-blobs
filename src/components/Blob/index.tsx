@@ -182,7 +182,7 @@ export const Blob: FC<IBlob> = ({
         quality,
         width,
         height,
-        downloadFileName: `blob-${id}-opacity-${opacity}.gif`,
+        downloadFileName: `${id}-opacity-${opacity}.gif`,
         loopToInitialState: true,
       }, handleProgress);
     } else if (!isRec && prevIsRecRef.current) {

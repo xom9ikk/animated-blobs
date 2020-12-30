@@ -4,6 +4,8 @@ export const useConverter = () => {
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
 
+    if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(b)) return null;
+
     if (alpha) {
       return `rgba(${r}, ${g}, ${b}, ${alpha / 100})`;
     }

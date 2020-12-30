@@ -44,7 +44,7 @@ export const Info: FC<{}> = () => (
         .
       </p>
       <h2>
-        🚀 How to use
+        🚀 How to use?
       </h2>
       <p className="info__text">
         Using the toolbar, you can change the

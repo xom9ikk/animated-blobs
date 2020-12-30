@@ -17,6 +17,7 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
   const blobsData = useRef<any>();
   const blobKeys = useRef<any>();
   const processedFrame = useRef<any>(0);
+  const previewSizeRef = useRef<any>(0);
 
   const resultedCanvas = useRef<HTMLCanvasElement | null>(null);
   const resultedCanvasCtx = useRef<CanvasRenderingContext2D | null>(null);
@@ -40,13 +41,19 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
     processedFrame.current = 0;
   }, [blobs.length]);
 
+  useEffect(() => {
+    previewSizeRef.current = previewSize;
+  }, [previewSize]);
+
   const mergeFrame = () => {
     const keys = blobKeys.current;
-    resultedCanvasCtx.current?.clearRect(0, 0, previewSize, previewSize);
+    resultedCanvasCtx.current?.clearRect(0, 0, previewSizeRef.current, previewSizeRef.current);
     for (let i = 0; i < keys.length; i += 1) {
       const frame = blobsData.current[keys[i]][processedFrame.current];
       try {
-        resultedCanvasCtx.current.drawImage(frame, 0, 0, previewSize, previewSize);
+        resultedCanvasCtx.current.drawImage(
+          frame, 0, 0, previewSizeRef.current, previewSizeRef.current,
+        );
       } catch (e) {
         // console.error(e);
       }
