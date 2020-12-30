@@ -8,6 +8,7 @@
   border: none;
   background: none;
   outline: none;
+  scroll-behavior: smooth;
 }
 
 @include font-face(
