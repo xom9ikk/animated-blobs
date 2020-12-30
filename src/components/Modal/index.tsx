@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React, {
-  BaseSyntheticEvent, FC, useEffect, useRef,
+  BaseSyntheticEvent, FC, useRef,
 } from 'react';
 import usePortal from 'react-useportal/dist/usePortal';
 import { useOutsideHandler } from '@use/outsideHandler';

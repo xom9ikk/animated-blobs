@@ -1,0 +1,20 @@
+version: "3.5"
+services:
+  blobs-prod:
+    image: blobs-prod
+    container_name: blobs-prod
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "172.50.12.1:8080:3000"
+    networks:
+      blobs-prod_net:
+        ipv4_address: 172.50.12.11
+
+networks:
+  blobs-prod_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.50.12.0/24"

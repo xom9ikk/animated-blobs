@@ -160,7 +160,6 @@ export const Blob: FC<IBlob> = ({
   }, [ctx, width, height, duration, delay, seed, randomness, extraPoints, size]);
 
   const handleStop = () => {
-    console.log('stop recording');
     captureCanvas.current.endRecording();
   };
 

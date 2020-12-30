@@ -44,7 +44,7 @@ export const Slider: FC<ISlider> = ({
   return (
     <div className={`slider slider--${size} ${isDisabledTrack ? 'slider--disable-track' : ''}`}>
       { label && (
-        <label className="slider__label">
+        <span className="slider__label">
           {label}
           <img
             className="slider__info"
@@ -53,7 +53,7 @@ export const Slider: FC<ISlider> = ({
             data-for="tooltip"
             data-tip={tooltip}
           />
-        </label>
+        </span>
       )}
       { minImageSrc && <img className="slider__image" src={minImageSrc} alt="min" />}
       <SliderComponent

@@ -1,24 +1,25 @@
-import {GIFEncoder} from "./jsgif.js";
+/* eslint-disable @typescript-eslint/no-throw-literal,no-undef,no-restricted-globals */
+import { GIFEncoder } from './jsgif.js';
 
 const imagesData = [];
 
 const times = (n, func, isRevert) => {
-  let result = [];
+  const result = [];
   if (isRevert) {
-    for (let i = n - 1; i > 0; i--) {
+    for (let i = n - 1; i > 0; i -= 1) {
       result.push(func(i));
     }
   } else {
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < n; i += 1) {
       result.push(func(i));
     }
   }
   return result;
-}
+};
 
 const handleImageData = (data) => {
   imagesData.push(data);
-}
+};
 
 const handleStart = ({
   id,
@@ -31,22 +32,22 @@ const handleStart = ({
   encoder.setRepeat(0);
   encoder.setDelay(1000 / fps);
   encoder.setQuality(quality);
-  encoder.setTransparent([0x00, 0x00, 0x00])
+  encoder.setTransparent([0x00, 0x00, 0x00]);
   encoder.start();
 
   const totalSize = loopToInitialState ? imagesData.length * 2 : imagesData.length; // 1000
-  const step = Number((totalSize/100).toFixed(0)) || 1; // 10 every 10 iterations new percent
+  const step = Number((totalSize / 100).toFixed(0)) || 1; // 10 every 10 iterations new percent
 
   const processFrames = (isRevert) => (i) => {
-    if(i%step===0) {
+    if (i % step === 0) {
       const progress = isRevert ? 100 - (i / step) : i / step;
       postMessage({
         type: 'progress',
         payload: { id, progress },
-      })
+      });
     }
     encoder.addFrame(imagesData[i], true);
-  }
+  };
 
   times(index - 1, processFrames());
 
@@ -66,19 +67,19 @@ const handleStart = ({
   postMessage({
     type: 'result',
     payload: output,
-  })
-}
+  });
+};
 
 self.onmessage = function (msg) {
-  const {type, payload} = msg.data;
+  const { type, payload } = msg.data;
   switch (type) {
     case 'start':
-      handleStart(payload)
+      handleStart(payload);
       break;
     case 'imageData':
-      handleImageData(payload)
+      handleImageData(payload);
       break;
     default:
       throw 'Invalid type';
   }
-}
+};

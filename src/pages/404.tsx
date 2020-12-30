@@ -5,4 +5,5 @@ export default () => {
   if (typeof window !== 'undefined') {
     router.push('/svg');
   }
+  return <></>;
 };

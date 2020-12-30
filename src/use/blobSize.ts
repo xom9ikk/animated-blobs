@@ -13,7 +13,7 @@ const generateBreakpoints = (height: number) => {
 
   return new Array(arraySize > 0 ? arraySize : 5)
     .fill(0)
-    .map((value, index) => index)
+    .map((_, index) => index)
     .map((value) => value * STEP + MIN_BREAKPOINT_VALUE)
     .reverse();
 };

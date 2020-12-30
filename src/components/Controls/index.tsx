@@ -1,11 +1,13 @@
 import {
   FC, useEffect, useState,
 } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import useClipboard from 'react-use-clipboard';
 import { Slider } from '@components/Slider';
 import { ColorPicker } from '@components/ColorPicker';
 import { Button } from '@components/Button';
 import { RandomButton } from '@components/RandomButton';
-import { useDispatch, useSelector } from 'react-redux';
 import { SystemActions } from '@store/actions';
 import { IColor } from '@type/entitines';
 import {
@@ -17,7 +19,6 @@ import { Modal } from '@components/Modal';
 import { CodePreview } from '@components/CodePreview';
 import { Tabs } from '@components/Tabs';
 import { Tab } from '@components/Tab';
-import { useRouter } from 'next/router';
 import { useUtils } from '@use/utils';
 import { ConvertProgress } from '@components/ConvertProgress';
 import { RecordButton } from '@components/RecordButton';
@@ -42,6 +43,7 @@ export const Controls: FC<{}> = () => {
 
   const { downloadText } = useDownload();
   const { convertBlobIdToText } = useUtils();
+  const [, copy] = useClipboard(svg);
 
   const handleRandomClick = useThrottle(() => {
     dispatch(SystemActions.setSeed({ id: activeBlobId, seed: Math.random() }));
@@ -105,6 +107,7 @@ export const Controls: FC<{}> = () => {
   };
 
   const handleCopy = () => {
+    copy();
     setIsCopied(true);
   };
 
@@ -113,7 +116,6 @@ export const Controls: FC<{}> = () => {
   };
 
   const handleTabChange = (id) => {
-    console.log('handleTabChange');
     if (typeof window !== 'undefined') {
       router.push(`/${id}`);
     }
@@ -123,7 +125,6 @@ export const Controls: FC<{}> = () => {
     if (id === NEW_BLOB_TAB_ID) {
       dispatch(SystemActions.addBlob());
     } else {
-      console.log('set active', id);
       dispatch(SystemActions.setActiveBlobId(id));
     }
   };

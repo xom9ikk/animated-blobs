@@ -28,7 +28,7 @@ const TabComponent = ({
   onRemove,
   isDisabled,
   style,
-}: ITab, ref: Ref<HTMLLIElement>) => (
+}: ITab, ref: Ref<HTMLDivElement>) => (
   <li
     className="tab"
     key={`tab-${id}`}
