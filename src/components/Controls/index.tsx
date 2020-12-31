@@ -117,7 +117,8 @@ export const Controls: FC<{}> = () => {
 
   const handleTabChange = (id) => {
     if (typeof window !== 'undefined') {
-      router.push(`/${id}`);
+      const path = id === 'gif' ? '/' : `/${id}`;
+      router.push(path);
     }
   };
 
@@ -143,7 +144,7 @@ export const Controls: FC<{}> = () => {
   }, [isCopied]);
 
   const activeRoute = router.asPath.split('/')[1];
-  const normalizedActiveRoute = ['svg', 'gif'].includes(activeRoute) ? activeRoute : 'svg';
+  const normalizedActiveRoute = ['svg', 'gif'].includes(activeRoute) ? activeRoute : 'gif';
 
   if (normalizedActiveRoute === 'svg' && blobs[0]) {
     dispatch(SystemActions.setActiveBlobId(blobs[0].id));
@@ -158,60 +159,6 @@ export const Controls: FC<{}> = () => {
         }}
       >
         <Tabs activeId={normalizedActiveRoute} onChange={handleTabChange}>
-          <Tab id="svg" text="SVG static">
-            <div className="controls__panel">
-              <div className="controls__panel-wrapper">
-                <div className="controls__panel--picker">
-                  <ColorPicker
-                    currentColor={currentBlob.colors[0]}
-                    onColorPick={handleFirstColorPick}
-                  />
-                  <ColorPicker
-                    currentColor={currentBlob.colors[1]}
-                    onColorPick={handleSecondColorPick}
-                    isRemovableColor
-                  />
-                </div>
-                <div className="controls__panel--slider">
-                  <Slider
-                    minImageSrc="/svg/slider-randomness-min.svg"
-                    maxImageSrc="/svg/slider-randomness-max.svg"
-                    min={1}
-                    max={30}
-                    value={currentBlob.extraPoints}
-                    onChange={handleExtraPointsChange}
-                    isDisabledTrack
-                  />
-                  <Slider
-                    minImageSrc="/svg/slider-points-min.svg"
-                    maxImageSrc="/svg/slider-points-max.svg"
-                    min={2}
-                    max={30}
-                    value={currentBlob.randomness}
-                    onChange={handleRandomnessChange}
-                    isDisabledTrack
-                  />
-                </div>
-              </div>
-              <div className="controls__panel--buttons">
-                <Button
-                  onClick={handleDownload}
-                  mode="circle"
-                >
-                  <img src="/svg/download.svg" alt="download" />
-                </Button>
-                <Button
-                  onClick={handleShowCode}
-                  mode="circle"
-                >
-                  <img src="/svg/code.svg" alt="code" />
-                </Button>
-                <RandomButton onClick={handleRandomClick}>
-                  <img src="/svg/dice.svg" alt="dice" />
-                </RandomButton>
-              </div>
-            </div>
-          </Tab>
           <Tab id="gif" text="GIF animation">
             <div className="controls__panel">
               <div className="controls__panel-wrapper">
@@ -344,6 +291,60 @@ export const Controls: FC<{}> = () => {
                 <div className="controls__panel--progress">
                   <ConvertProgress />
                 </div>
+              </div>
+            </div>
+          </Tab>
+          <Tab id="svg" text="SVG static">
+            <div className="controls__panel">
+              <div className="controls__panel-wrapper">
+                <div className="controls__panel--picker">
+                  <ColorPicker
+                    currentColor={currentBlob.colors[0]}
+                    onColorPick={handleFirstColorPick}
+                  />
+                  <ColorPicker
+                    currentColor={currentBlob.colors[1]}
+                    onColorPick={handleSecondColorPick}
+                    isRemovableColor
+                  />
+                </div>
+                <div className="controls__panel--slider">
+                  <Slider
+                    minImageSrc="/svg/slider-randomness-min.svg"
+                    maxImageSrc="/svg/slider-randomness-max.svg"
+                    min={1}
+                    max={30}
+                    value={currentBlob.extraPoints}
+                    onChange={handleExtraPointsChange}
+                    isDisabledTrack
+                  />
+                  <Slider
+                    minImageSrc="/svg/slider-points-min.svg"
+                    maxImageSrc="/svg/slider-points-max.svg"
+                    min={2}
+                    max={30}
+                    value={currentBlob.randomness}
+                    onChange={handleRandomnessChange}
+                    isDisabledTrack
+                  />
+                </div>
+              </div>
+              <div className="controls__panel--buttons">
+                <Button
+                  onClick={handleDownload}
+                  mode="circle"
+                >
+                  <img src="/svg/download.svg" alt="download" />
+                </Button>
+                <Button
+                  onClick={handleShowCode}
+                  mode="circle"
+                >
+                  <img src="/svg/code.svg" alt="code" />
+                </Button>
+                <RandomButton onClick={handleRandomClick}>
+                  <img src="/svg/dice.svg" alt="dice" />
+                </RandomButton>
               </div>
             </div>
           </Tab>

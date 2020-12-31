@@ -10,7 +10,7 @@ import { useBlobSize } from '@use/blobSize';
 
 export const BlobPreview : FC<{}> = () => {
   const router = useRouter();
-  const isGif = router.asPath === '/gif';
+  const isSvg = router.asPath === '/svg';
 
   const blobs = useSelector(getBlobs);
   const isRec = useSelector(getIsRec);
@@ -21,9 +21,7 @@ export const BlobPreview : FC<{}> = () => {
       <div className="blob-preview__wrapper">
         <div className={`blob-preview__inner ${isRec ? 'blob-preview__inner--rec' : ''}`}>
           {
-            isGif ? (
-              <BlobAggregator previewSize={blobSize} />
-            ) : (
+            isSvg ? (
               <BlobSvg
                 width={blobSize}
                 height={blobSize}
@@ -35,6 +33,8 @@ export const BlobPreview : FC<{}> = () => {
                   seed: blobs[0].seed,
                 }}
               />
+            ) : (
+              <BlobAggregator previewSize={blobSize} />
             )
           }
         </div>

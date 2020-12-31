@@ -19,7 +19,13 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#ffffff" />
-          <meta name="description" content="Animated Blobs - Create cool animated GIF or SVG shapes for your designs" />
+          <meta
+            name="description"
+            content="
+            Create unique animated GIF or SVG shapes for your creative designs.
+            Add blobs on top of each other.
+            Change colors, make gradients, transparency, animation duration, FPS, size, delay and quality. (by @xom9ikk)"
+          />
           <meta name="build version" content={pkg.version} />
           {
             faviconSizes.map((size) => (

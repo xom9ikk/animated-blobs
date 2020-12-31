@@ -5,7 +5,7 @@ import { Info } from '@components/Info';
 import { Footer } from '@components/Footer';
 
 const Index = () => (
-  <Layout title="Blobs Generator - Make GIF animation">
+  <Layout title="Animated Blobs Generator - Create cool animated GIF or SVG shapes for your designs">
     <main>
       <BlobPreview />
       <Controls />
