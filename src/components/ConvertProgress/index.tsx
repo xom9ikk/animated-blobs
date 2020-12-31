@@ -16,7 +16,7 @@ export const ConvertProgress: FC<{ }> = () => {
   }, [convertProgress.length]);
 
   return (
-    <div ref={ref} style={{ scrollBehavior: 'smooth' }}>
+    <div ref={ref}>
       {
       convertProgress.length > 0 && convertProgress.map((progress) => {
         const operation = progress.progress === 0 ? 'Sending data to workers...' : 'Converting';

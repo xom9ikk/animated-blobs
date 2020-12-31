@@ -14,3 +14,5 @@ export const PALETTE = [
   '#FFD6E8',
 ];
 export const MAX_REC_MS_TIME = 15 * 1000;
+export const GA_TRACKING_ID = 'G-W2SPPWLHKZ';
+export const HOTJAR_TRACKING_ID = '2177263';
