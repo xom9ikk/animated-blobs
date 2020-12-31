@@ -12,7 +12,7 @@ const App = ({ Component, pageProps }: any) => {
 
   useEffect(() => {
     dispatch(SystemActions.addBlob());
-    dispatch(SystemActions.setBackgroundSrc(`/svg/wave-${getRandomInt(0, 6)}.sv`));
+    dispatch(SystemActions.setBackgroundSrc(`/svg/wave-${getRandomInt(0, 6)}.svg`));
     const interval = setInterval(() => {
       ReactTooltip.rebuild(); // TODO: fix
     }, 1000);

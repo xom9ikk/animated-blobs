@@ -17,7 +17,7 @@ const generateDefaultBlob = (id: string) => ({
 });
 
 const initialState = {
-  backgroundSvg: '',
+  backgroundSrc: '',
   activeBlobId: 'blob-0',
   blobs: [],
   svg: '',

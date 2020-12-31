@@ -11,7 +11,7 @@ import { RandomButton } from '@components/RandomButton';
 import { SystemActions } from '@store/actions';
 import { IColor } from '@type/entitines';
 import {
-  getActiveBlobId, getBackgroundSvg, getBlob, getBlobs, getFps, getQuality, getSize, getSvg,
+  getActiveBlobId, getBackgroundSrc, getBlob, getBlobs, getFps, getQuality, getSize, getSvg,
 } from '@store/selectors';
 import { useThrottle } from '@use/throttle';
 import { useDownload } from '@use/download';
@@ -32,7 +32,7 @@ export const Controls: FC<{}> = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
-  const backgroundSvg = useSelector(getBackgroundSvg);
+  const backgroundSrc = useSelector(getBackgroundSrc);
   const activeBlobId = useSelector(getActiveBlobId);
   const currentBlob = useSelector(getBlob(activeBlobId));
   const svg = useSelector(getSvg);
@@ -155,7 +155,7 @@ export const Controls: FC<{}> = () => {
       <div
         className="controls__wrapper"
         style={{
-          backgroundImage: `url("${backgroundSvg}")`,
+          backgroundImage: `url("${backgroundSrc}")`,
         }}
       >
         <Tabs activeId={normalizedActiveRoute} onChange={handleTabChange}>

@@ -18,7 +18,7 @@ interface IProgress {
 }
 
 export interface ISystem {
-  backgroundSvg: string;
+  backgroundSrc: string;
   activeBlobId: string;
   blobs: Array<IBlob>;
   svg: string;
