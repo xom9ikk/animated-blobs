@@ -1,0 +1,41 @@
+name: delivery-action
+
+env:
+  APP_NAME: "blobs"
+  PATH_TO_APPS: "~/apps"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  delivery_code:
+    name: Delivery code to server
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    runs-on: ubuntu-16.04
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.APP_NAME }}
+
+      - name: Copy repo
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: ${{ env.APP_NAME }}
+          target: ${{ env.PATH_TO_APPS }}
+
+      - name: Run rebuild script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd ${{ env.PATH_TO_APPS }}/${{ env.APP_NAME }}
+            chmod +x ./rebuild.sh
+            nohup ./rebuild.sh > nohup.out 2> nohup.err < /dev/null &
