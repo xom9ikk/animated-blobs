@@ -6,9 +6,10 @@ import { useDispatch } from 'react-redux';
 import { SystemActions } from '@store/actions';
 import { useUtils } from '@use/utils';
 
+const { getRandomInt } = useUtils();
+
 const App = ({ Component, pageProps }: any) => {
   const dispatch = useDispatch();
-  const { getRandomInt } = useUtils();
 
   useEffect(() => {
     dispatch(SystemActions.addBlob());

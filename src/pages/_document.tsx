@@ -21,8 +21,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#ffffff" />
           <meta
             name="description"
-            content="
-            Create unique animated GIF or SVG shapes for your creative designs.
+            content="Create unique animated GIF or SVG shapes for your creative designs.
             Add blobs on top of each other.
             Change colors, make gradients, transparency, animation duration, FPS, size, delay and quality. (by @xom9ikk)"
           />

@@ -6,8 +6,6 @@ import { useRouter } from 'next/router';
 import { BlobAggregator } from '@components/BlobAggregator';
 import { useBlobSize } from '@use/blobSize';
 
-// const BLOB_PREVIEW_SIZE = 440;
-
 export const BlobPreview : FC<{}> = () => {
   const router = useRouter();
   const isSvg = router.asPath === '/svg';

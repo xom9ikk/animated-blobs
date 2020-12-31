@@ -48,6 +48,15 @@ body {
   margin: 0;
   appearance: none;
   user-select: none;
+  animation: fadein 1s;
+  @keyframes fadein {
+    from {
+      opacity:0;
+    }
+    to {
+      opacity:1;
+    }
+  }
 }
 
 a {
