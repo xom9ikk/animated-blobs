@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "blobs": "^2.1.0",
-    "downloadjs": "^1.4.7",
     "framer-motion": "^3.1.1",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
