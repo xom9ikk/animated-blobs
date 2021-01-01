@@ -3,7 +3,7 @@ import downloadjs from 'downloadjs';
 export const useDownload = () => {
   const download = (link: string) => downloadjs(link);
 
-  const downloadBlobParts = (data: Uint8Array, name: string, type: string) => {
+  const downloadBlobParts = (data: Uint8Array | string, name: string, type: string) => {
     const a = document.createElement('a');
     const file = new Blob([data], { type });
     a.href = URL.createObjectURL(file);
