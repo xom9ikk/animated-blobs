@@ -1,5 +1,5 @@
 import { EnumWorkerType } from '@type/workers/gif';
-import { GIFEncoder } from '../plugins/jsgif.js';
+import { GIFEncoder } from '../lib/jsgif.js';
 
 // eslint-disable-next-line no-restricted-globals
 const ctx: Worker = self as any;
