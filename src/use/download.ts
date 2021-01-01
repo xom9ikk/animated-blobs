@@ -9,7 +9,6 @@ export const useDownload = () => {
   };
 
   return {
-    download,
     downloadBlobParts,
   };
 };
