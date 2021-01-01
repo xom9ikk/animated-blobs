@@ -4,6 +4,7 @@ import {
 import { SystemActions } from '@store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getConvertProcess, getIsRec } from '@store/selectors';
+import ReactTooltip from 'react-tooltip';
 import { MAX_REC_MS_TIME } from '../../constants';
 
 export const RecordButton: FC<{}> = () => {
@@ -43,6 +44,10 @@ export const RecordButton: FC<{}> = () => {
   useEffect(() => {
     isRecRef.current = isRec;
   }, [isRec]);
+
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  });
 
   return (
     <div className="record-button__wrapper">

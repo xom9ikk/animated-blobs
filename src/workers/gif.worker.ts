@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/no-throw-literal,no-undef,no-restricted-globals */
-import { GIFEncoder } from './jsgif.js';
+import { EnumWorkerType } from '@type/workers/gif';
+import { GIFEncoder } from '../plugins/jsgif.js';
+
+// eslint-disable-next-line no-restricted-globals
+const ctx: Worker = self as any;
 
 const imagesData = [];
 
-const times = (n, func, isRevert) => {
+const times = (n, func, isRevert?) => {
   const result = [];
   if (isRevert) {
     for (let i = n - 1; i > 0; i -= 1) {
@@ -26,8 +29,8 @@ const handleStart = ({
   fps,
   quality,
   loopToInitialState,
-  index,
 }) => {
+  // @ts-ignore
   const encoder = new GIFEncoder();
   encoder.setRepeat(0);
   encoder.setDelay(1000 / fps);
@@ -38,45 +41,47 @@ const handleStart = ({
   const totalSize = loopToInitialState ? imagesData.length * 2 : imagesData.length; // 1000
   const step = Number((totalSize / 100).toFixed(0)) || 1; // 10 every 10 iterations new percent
 
-  const processFrames = (isRevert) => (i) => {
+  const processFrames = (isRevert?) => (i) => {
     if (i % step === 0) {
       const progress = isRevert ? 100 - (i / step) : i / step;
-      postMessage({
-        type: 'progress',
+
+      ctx.postMessage({
+        type: EnumWorkerType.Progress,
         payload: { id, progress },
       });
     }
     encoder.addFrame(imagesData[i], true);
   };
 
-  times(index - 1, processFrames());
+  const size = imagesData.length - 1;
+
+  times(size, processFrames());
 
   if (loopToInitialState) {
-    times(index - 1, processFrames(true), true);
+    times(size, processFrames(true), true);
   }
 
-  postMessage({
-    type: 'progress',
+  ctx.postMessage({
+    type: EnumWorkerType.Progress,
     payload: { id, progress: 100 },
   });
 
   encoder.finish();
 
   const output = encoder.getOutput();
-
-  postMessage({
-    type: 'result',
+  ctx.postMessage({
+    type: EnumWorkerType.Result,
     payload: output,
   });
 };
 
-self.onmessage = function (msg) {
+ctx.onmessage = (msg) => {
   const { type, payload } = msg.data;
   switch (type) {
-    case 'start':
+    case EnumWorkerType.Start:
       handleStart(payload);
       break;
-    case 'imageData':
+    case EnumWorkerType.ImageData:
       handleImageData(payload);
       break;
     default:

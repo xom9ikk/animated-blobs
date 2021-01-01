@@ -24,6 +24,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/prefer-default-export': 'off',
     'consistent-return': 'off',
+    '@typescript-eslint/no-throw-literal': 'off',
     'jsx-a11y/control-has-associated-label': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-noninteractive-element-interactions': 'off',

@@ -3,9 +3,9 @@ import downloadjs from 'downloadjs';
 export const useDownload = () => {
   const download = (link: string) => downloadjs(link);
 
-  const downloadText = (text: string, name: string, type: string) => {
+  const downloadBlobParts = (data: Uint8Array, name: string, type: string) => {
     const a = document.createElement('a');
-    const file = new Blob([text], { type });
+    const file = new Blob([data], { type });
     a.href = URL.createObjectURL(file);
     a.download = `${name}.${type}`;
     a.click();
@@ -14,6 +14,6 @@ export const useDownload = () => {
 
   return {
     download,
-    downloadText,
+    downloadBlobParts,
   };
 };

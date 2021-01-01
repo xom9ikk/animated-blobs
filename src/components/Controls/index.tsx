@@ -41,7 +41,7 @@ export const Controls: FC<{}> = () => {
   const size = useSelector(getSize);
   const blobs = useSelector(getBlobs);
 
-  const { downloadText } = useDownload();
+  const { downloadBlobParts } = useDownload();
   const { convertBlobIdToText } = useUtils();
   const [, copy] = useClipboard(svg);
 
@@ -99,7 +99,7 @@ export const Controls: FC<{}> = () => {
   }, 250, [activeBlobId]);
 
   const handleDownload = () => {
-    downloadText(svg, 'svg-blob', 'svg');
+    downloadBlobParts(svg, 'svg-blob', 'svg');
   };
 
   const handleShowCode = () => {

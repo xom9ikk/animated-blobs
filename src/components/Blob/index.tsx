@@ -9,7 +9,7 @@ import { IColors } from '@type/entitines';
 import { useBlob } from '@use/blob';
 import { SystemActions } from '@store/actions';
 import { useDispatch } from 'react-redux';
-import { CaptureCanvas } from '../../plugins/capture-canvas';
+import { useCaptureCanvas } from '@use/capture-canvas';
 
 interface IBlob {
   id: string,
@@ -62,7 +62,29 @@ export const Blob: FC<IBlob> = ({
 
   const prevIsRecRef = useRef<boolean>(false);
   const isRecRef = useRef<boolean>(isRec);
-  const captureCanvas = useRef<CaptureCanvas>();
+
+  const handleProgress = (payload) => {
+    const { type, id, progress } = payload;
+    if (type === 'progress') {
+      dispatch(SystemActions.updateProgress({ id, progress }));
+    } else {
+      dispatch(SystemActions.resetProgress(id));
+    }
+  };
+
+  const { setOptions, endRecording, recordFrame } = useCaptureCanvas();
+
+  useEffect(() => {
+    setOptions({
+      id,
+      fps,
+      quality,
+      width,
+      height,
+      downloadFileName: `${id}-opacity-${opacity}`,
+      loopToInitialState: true,
+    }, handleProgress);
+  }, [id, opacity, fps, quality, width, height]);
 
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>();
 
@@ -79,7 +101,7 @@ export const Blob: FC<IBlob> = ({
     canvas.current = null;
     prevIsRecRef.current = null;
     isRecRef.current = null;
-    captureCanvas.current = null;
+    // captureCanvas.current = null;
   }, []);
 
   useEffect(() => {
@@ -101,7 +123,7 @@ export const Blob: FC<IBlob> = ({
   const handleFrame = () => {
     onFrame?.(id, canvas.current!);
     if (isRecRef.current) {
-      captureCanvas.current.recordFrame(canvas.current);
+      recordFrame(canvas.current);
     }
   };
 
@@ -160,31 +182,12 @@ export const Blob: FC<IBlob> = ({
   }, [ctx, width, height, duration, delay, seed, randomness, extraPoints, size]);
 
   const handleStop = () => {
-    captureCanvas.current.endRecording();
-  };
-
-  const handleProgress = (payload) => {
-    const { type, id, progress } = payload;
-    if (type === 'progress') {
-      dispatch(SystemActions.updateProgress({ id, progress }));
-    } else {
-      dispatch(SystemActions.resetProgress(id));
-    }
+    endRecording();
   };
 
   useEffect(() => {
     isRecRef.current = isRec;
-    if (isRec) {
-      captureCanvas.current = new CaptureCanvas({
-        id,
-        fps,
-        quality,
-        width,
-        height,
-        downloadFileName: `${id}-opacity-${opacity}.gif`,
-        loopToInitialState: true,
-      }, handleProgress);
-    } else if (!isRec && prevIsRecRef.current) {
+    if (!isRec && prevIsRecRef.current) {
       dispatch(SystemActions.updateProgress({ id, progress: 0 }));
       handleStop();
     }

@@ -5,6 +5,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "analyze": "ANALYZE=true npm run build",
     "type-check": "tsc",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix"
@@ -31,6 +32,7 @@
     "sass": "^1.30.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^10.0.4",
     "@types/downloadjs": "^1.4.2",
     "@types/lodash.debounce": "^4.0.6",
     "@types/lodash.throttle": "^4.1.6",
@@ -48,7 +50,10 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "typescript": "4.0"
+    "typescript": "4.0",
+    "worker-loader": "^3.0.7",
+    "worker-plugin": "^5.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "types": "./index.d.ts"
 }

@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import SliderComponent from 'rc-slider';
+import ReactTooltip from 'react-tooltip';
 
 interface ISlider {
   minImageSrc?: string;
@@ -40,6 +41,10 @@ export const Slider: FC<ISlider> = ({
     setInternalValue(newValue);
     onChange(newValue);
   };
+
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  });
 
   return (
     <div className={`slider slider--${size} ${isDisabledTrack ? 'slider--disable-track' : ''}`}>
