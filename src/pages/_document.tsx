@@ -22,14 +22,15 @@ class MyDocument extends Document {
           <meta
             name="description"
             content="Create unique animated GIF or SVG shapes for your creative designs.
-            Add blobs on top of each other.
-            Change colors, make gradients, transparency, animation duration, FPS, size, delay and quality. (by @xom9ikk)"
+            Change colors, make gradients, transparency, set animation duration, FPS, size, delay and quality. (by @xom9ikk)"
           />
+          <meta name="keywords" content="blobs, animation, gif, design, tool" />
           <meta name="build version" content={pkg.version} />
+          <link rel="icon" href="/icons/icon-32x32.png">
           {
             faviconSizes.map((size) => (
               <link
-                rel="shortcut icon"
+                rel="apple-touch-icon"
                 type="image/png"
                 sizes={`${size}x${size}`}
                 href={`/icons/icon-${size}x${size}.png`}
