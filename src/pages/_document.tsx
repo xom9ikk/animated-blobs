@@ -18,7 +18,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta charSet="utf-8" />
-          <meta name="theme-color" content="#ffffff" />
+          <meta name="theme-color" content="#fff" />
           <meta
             name="description"
             content="Create unique animated GIF or SVG shapes for your creative designs.
@@ -37,6 +37,7 @@ class MyDocument extends Document {
               />
             ))
            }
+          <link rel="manifest" href="/manifest.json">
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
