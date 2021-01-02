@@ -26,7 +26,7 @@ class MyDocument extends Document {
           />
           <meta name="keywords" content="blobs, animation, gif, design, tool" />
           <meta name="build version" content={pkg.version} />
-          <link rel="icon" href="/icons/icon-32x32.png" />
+          <link rel="icon" href="/icons/icon-48x48.png" />
           {
             faviconSizes.map((size) => (
               <link
