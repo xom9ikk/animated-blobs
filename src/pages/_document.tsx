@@ -26,7 +26,7 @@ class MyDocument extends Document {
           />
           <meta name="keywords" content="blobs, animation, gif, design, tool" />
           <meta name="build version" content={pkg.version} />
-          <link rel="icon" href="/icons/icon-32x32.png">
+          <link rel="icon" href="/icons/icon-32x32.png" />
           {
             faviconSizes.map((size) => (
               <link
@@ -37,7 +37,7 @@ class MyDocument extends Document {
               />
             ))
            }
-          <link rel="manifest" href="/manifest.json">
+          <link rel="manifest" href="/manifest.json" />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
