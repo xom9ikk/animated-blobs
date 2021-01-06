@@ -1,4 +1,4 @@
-@function str-replace($string, $search, $replace: "") {
+@function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
 
   @if $index {
@@ -18,14 +18,14 @@
 ) {
   $src: null;
   $mods: (
-          eot: '?#iefix',
-          svg: '#' + str-replace($name, ' ', '_'),
+    eot: '?#iefix',
+    svg: '#' + str-replace($name, ' ', '_'),
   );
   $formats: (
-          woff2: 'woff2',
-          woff: 'woff',
-          otf: 'opentype',
-          ttf: 'truetype',
+    woff2: 'woff2',
+    woff: 'woff',
+    otf: 'opentype',
+    ttf: 'truetype',
   );
 
   @each $local in $locals {

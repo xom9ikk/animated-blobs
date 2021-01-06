@@ -47,7 +47,7 @@ html {
 }
 
 body {
-  font-family: "Inter Regular", 'Open Sans', sans-serif;
+  font-family: 'Inter Regular', 'Open Sans', sans-serif;
   margin: 0;
   appearance: none;
   user-select: none;
@@ -83,7 +83,6 @@ ul, li {
 svg {
   path {
     transition: fill, .5s cubic-bezier(.52,.01,.47,1.93);
-    //transition: fill, .3s ease-in-out;
   }
 }
 
@@ -100,38 +99,37 @@ svg {
   max-width: 250px;
   overflow: scroll;
   transition: all .1s ease-in,
-  top .0s,
-  left .0s,
-  border-radius .0s,
-  padding .0s,
-  font-size .0s !important;
+    top .0s,
+    left .0s,
+    border-radius .0s,
+    padding .0s,
+    font-size .0s !important;
   margin: 0 !important;
 
   &.show {
     opacity: 0.97 !important;
   }
 
-  &.place-top {
-    &.show {
-      margin-top: -6px !important;
+  &.place {
+    &-top {
+      &.show {
+        margin-top: -6px !important;
+      }
     }
-  }
-
-  &.place-left {
-    &.show {
-      margin-left: -6px !important;
+    &-left {
+      &.show {
+        margin-left: -6px !important;
+      }
     }
-  }
-
-  &.place-right {
-    &.show {
-      margin-left: 6px !important;
+    &-right {
+      &.show {
+        margin-left: 6px !important;
+      }
     }
-  }
-
-  &.place-bottom {
-    &.show {
-      margin-top: 6px !important;
+    &-bottom {
+      &.show {
+        margin-top: 6px !important;
+      }
     }
   }
 }

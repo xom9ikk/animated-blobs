@@ -1,15 +1,27 @@
 {
   "name": "animated-blobs",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Animated Blobs Generator - Create cool animated GIF or SVG shapes for your designs",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
     "analyze": "ANALYZE=true npm run build",
     "type-check": "tsc",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
-    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./ --fix"
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx ./src --fix"
   },
+  "keywords": ["blobs", "animation", "gif", "design"],
+  "author": "Max Romanyuta <xom9ik.code@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xom9ikk/animated-blobs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xom9ikk/animated-blobs/issues"
+  },
+  "homepage": "https://github.com/xom9ikk/animated-blobs#readme",
   "dependencies": {
     "blobs": "^2.1.0",
     "framer-motion": "^3.1.1",
@@ -27,8 +39,7 @@
     "react-useportal": "^1.0.13",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
-    "redux-devtools-extension": "^2.13.8",
-    "sass": "^1.30.0"
+    "redux-devtools-extension": "^2.13.8"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^10.0.4",
@@ -49,10 +60,9 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "sass": "^1.32.0",
     "typescript": "4.0",
     "worker-loader": "^3.0.7",
     "worker-plugin": "^5.0.0"
-  },
-  "license": "MIT",
-  "types": "./index.d.ts"
+  }
 }

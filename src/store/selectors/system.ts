@@ -3,7 +3,7 @@ import { IRootState } from '@store/state';
 export const getBackgroundSrc = (state: IRootState) => state.system.backgroundSrc;
 export const getActiveBlobId = (state: IRootState) => state.system.activeBlobId;
 export const getBlobs = (state: IRootState) => state.system.blobs;
-export const getBlob = (id: string) => (state: IRootState) => state.system.blobs
+export const getBlobById = (id: string) => (state: IRootState) => state.system.blobs
   .find((blob) => blob.id === id);
 export const getSvg = (state: IRootState) => state.system.svg;
 export const getQuality = (state: IRootState) => state.system.quality;

@@ -1,11 +1,22 @@
 import { createAction } from 'redux-actions';
 import {
-  IRemoveSystemBlobId, IResetSystemProgress,
-  ISetSystemActiveBlobId, ISetSystemBackgroundSrc,
+  IRemoveSystemBlobId,
+  IResetSystemProgress,
+  ISetSystemActiveBlobId,
+  ISetSystemBackgroundSrc,
   ISetSystemColor,
-  ISetSystemColors, ISetSystemDelay, ISetSystemDuration,
-  ISetSystemExtraPoints, ISetSystemFps, ISetSystemOpacity, ISetSystemQuality,
-  ISetSystemRandomness, ISetSystemSeed, ISetSystemSize, ISetSystemSvg, IUpdateSystemProgress,
+  ISetSystemColors,
+  ISetSystemDelay,
+  ISetSystemDuration,
+  ISetSystemExtraPoints,
+  ISetSystemFps,
+  ISetSystemOpacity,
+  ISetSystemQuality,
+  ISetSystemRandomness,
+  ISetSystemSeed,
+  ISetSystemSize,
+  ISetSystemSvg,
+  IUpdateSystemProgress,
 } from '@type/actions';
 
 enum Type {

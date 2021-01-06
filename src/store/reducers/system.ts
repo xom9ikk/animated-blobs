@@ -2,12 +2,13 @@ import { handleActions } from 'redux-actions';
 import { ISystem } from '@type/entitines';
 import { useUtils } from '@use/utils';
 import { SystemActions } from '../actions';
+import { PALETTE } from '../../constants';
 
 const { getRandomInt } = useUtils();
 
 const generateDefaultBlob = (id: string) => ({
   id,
-  colors: ['#8A3FFC', null],
+  colors: [PALETTE[0], null],
   randomness: getRandomInt(2, 20),
   extraPoints: getRandomInt(2, 15),
   seed: Math.random(),

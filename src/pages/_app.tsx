@@ -1,10 +1,10 @@
-import ReactTooltip from 'react-tooltip';
-import { wrapper } from '@store/configureStore';
-import '../styles/index.scss';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import ReactTooltip from 'react-tooltip';
+import { wrapper } from '@store/configureStore';
 import { SystemActions } from '@store/actions';
 import { useUtils } from '@use/utils';
+import '../styles/index.scss';
 
 const { getRandomInt } = useUtils();
 

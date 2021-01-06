@@ -3,9 +3,7 @@ import Document, {
 } from 'next/document';
 
 import pkg from '../../package.json';
-import { GA_TRACKING_ID, HOTJAR_TRACKING_ID } from '../constants';
-
-const faviconSizes = [48, 72, 96, 144, 192, 256, 384, 512];
+import { FAVICON_SIZES, GA_TRACKING_ID, HOTJAR_TRACKING_ID } from '../constants';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -28,7 +26,7 @@ class MyDocument extends Document {
           <meta name="build version" content={pkg.version} />
           <link rel="icon" href="/icons/icon-48x48.png" />
           {
-            faviconSizes.map((size) => (
+            FAVICON_SIZES.map((size) => (
               <link
                 rel="apple-touch-icon"
                 type="image/png"

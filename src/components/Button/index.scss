@@ -5,7 +5,7 @@
   align-items: center;
   margin: 5px;
   font-size: 16px;
-  font-family: "Inter Medium", "Open Sans", sans-serif;
+  font-family: 'Inter Medium', 'Open Sans', sans-serif;
   cursor: pointer;
   transition: box-shadow .2s ease-in-out;
 
@@ -21,6 +21,7 @@
     align-items: center;
     border: 2px solid $primary-color;
     transition: background .2s ease-in-out;
+
     &:hover {
       background: rgba($primary-color, 0.2);
     }
@@ -29,6 +30,7 @@
   &--circle {
     border-radius: 50%;
     overflow: hidden;
+
     #{$block}__inner {
       border-radius: 50%;
       padding: 14px;
@@ -37,6 +39,7 @@
 
   &--rect {
     border-radius: 8px;
+
     #{$block}__inner {
       border-radius: 8px;
       padding: 8px 16px;
@@ -46,6 +49,7 @@
   &--primary {
     background: $primary-color;
     color: $white;
+
     &:hover {
       cursor: pointer;
       background: darken($primary-color, 2);

@@ -11,7 +11,7 @@ import { RandomButton } from '@components/RandomButton';
 import { SystemActions } from '@store/actions';
 import { IColor } from '@type/entitines';
 import {
-  getActiveBlobId, getBackgroundSrc, getBlob, getBlobs, getFps, getQuality, getSize, getSvg,
+  getActiveBlobId, getBackgroundSrc, getBlobById, getBlobs, getFps, getQuality, getSize, getSvg,
 } from '@store/selectors';
 import { useThrottle } from '@use/throttle';
 import { useDownload } from '@use/download';
@@ -34,7 +34,7 @@ export const Controls: FC<{}> = () => {
 
   const backgroundSrc = useSelector(getBackgroundSrc);
   const activeBlobId = useSelector(getActiveBlobId);
-  const currentBlob = useSelector(getBlob(activeBlobId));
+  const currentBlob = useSelector(getBlobById(activeBlobId));
   const svg = useSelector(getSvg);
   const fps = useSelector(getFps);
   const quality = useSelector(getQuality);

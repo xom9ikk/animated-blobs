@@ -1,6 +1,7 @@
 .code-preview {
   background: #424242;
   border-radius: 8px;
+
   &__inner {
     padding: 20px 16px;
     overflow: scroll;
@@ -21,11 +22,13 @@
       }
     }
   }
+
   pre {
     color: $white;
     font-size: 16px;
-    font-family: "IBM Plex Mono", Menlo, monospace;
+    font-family: 'IBM Plex Mono', Menlo, monospace;
     user-select: text;
+
     &::selection {
       background: $background-primary-color;
     }

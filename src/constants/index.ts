@@ -1,3 +1,4 @@
+export const FAVICON_SIZES = [48, 72, 96, 144, 192, 256, 384, 512];
 export const PALETTE = [
   '#8A3FFC',
   '#FF0066',

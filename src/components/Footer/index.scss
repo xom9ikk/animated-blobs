@@ -3,10 +3,12 @@
   justify-content: center;
   flex-direction: column;
   background: $background-primary-color;
+
   img {
     width: 100%;
     margin-bottom: -1px;
   }
+
   &__inner {
     display: flex;
     justify-content: center;
@@ -14,6 +16,7 @@
     background: $primary-color;
     color: $white;
     padding: 24px;
+
     a {
       margin-left: 4px;
       color: $white;

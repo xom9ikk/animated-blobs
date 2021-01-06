@@ -13,9 +13,11 @@ $third-breakpoint: 768px;
     &__panel {
       padding: 18px 20px;
       max-width: 90%;
+
       &--picker {
         margin-bottom: 10px;
       }
+
       &--gif {
         margin-bottom: 10px;
       }
@@ -33,19 +35,24 @@ $third-breakpoint: 768px;
     &__panel {
       flex-flow: column wrap;
       align-items: flex-start;
+
       &--picker {
         margin-bottom: 20px;
         width: 100%;
+
         input {
           width: 100%;
         }
       }
+
       &--slider {
         margin-bottom: 20px;
         width: 100%;
       }
+
       &--gif {
         flex-direction: column;
+
         .slider {
           margin-bottom: 20px;
           width: 100%;
@@ -59,6 +66,7 @@ $third-breakpoint: 768px;
   .controls {
     &__panel {
       max-width: 100%;
+
       &--slider {
         flex-direction: column;
       }
@@ -73,6 +81,7 @@ $third-breakpoint: 768px;
     &__wrapper {
       padding: 24px 24px 16px;
     }
+
     canvas {
       height: 80px;
       width: 80px;

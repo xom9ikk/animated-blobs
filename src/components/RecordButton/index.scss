@@ -1,5 +1,4 @@
 $bg: #000;
-$white: #000;
 $grey: rgb(162, 162, 162);
 $cont-size: 60px;
 $outer-size: $cont-size - 15;
@@ -81,13 +80,14 @@ $bezier: cubic-bezier(.4, -.9, .9, 1);
   @include center($cont-size);
 
   &:disabled {
-     & label:after {
+    & label:after {
       filter: grayscale(1) brightness(2);
     }
   }
 
   &__wrapper {
     position: relative;
+
     & .slider__info {
       position: absolute;
       top: 10px;
