@@ -1,8 +1,8 @@
 <p align="center"><a href='https://blobs.xom9ik.com'><img src='https://github.com/xom9ikk/animated-blobs/raw/master/public/icons/icon-512x512.png' height='60' alt='Blobs Logo' aria-label='blobs.xom9ik.com' /></a></p>
-<p align="center"><img src='https://github.com/xom9ikk/animated-blobs/raw/master/screenshots/main.png' alt='Blobs Screenshot' aria-label='blobs.xom9ik.com' /></p>
 <p align="center">
   <a href='https://blobs.xom9ik.com'>Animated blobs generator</a>
 </p>
+<p align="center"><img src='https://github.com/xom9ikk/animated-blobs/raw/master/screenshots/main.png' alt='Blobs Screenshot' aria-label='blobs.xom9ik.com' /></p>
 
 # For users 😀
 **Blob animation** is a tool for generating **animated** blobs.
