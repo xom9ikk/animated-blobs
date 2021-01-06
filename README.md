@@ -1,4 +1,6 @@
-# For users
+# <a href='https://blobs.xom9ik.com'><img src='https://github.com/xom9ikk/animated-blobs/raw/master/public/icons/icon-512x512.png' height='60' alt='Blobs Logo' aria-label='blobs.xom9ik.com' /></a>
+
+# For users 😀
 **Blob animation** is a tool for generating **animated** blobs.
 With it, you can generate absolutely any blob animation.
 This tool also supports **gradients**.
@@ -31,7 +33,7 @@ And thanks for the inspiration to [blobmaker.app](https://www.blobmaker.app/) �
 
 I hope this will be useful to someone. For all contacts with me, use either github [@xom9ikk](https://github.com/xom9ikk) or telegram [@xom9ik](https://t.me/xom9ik).
 
-# For developers
+# For developers 🤔
 
 ## Installation and Development server
 
@@ -55,3 +57,7 @@ Build for `production` and run server. `production` server will run at `http://l
 $ npm run build
 $ npm start
 ```
+
+## License
+
+[MIT](LICENSE.md)
