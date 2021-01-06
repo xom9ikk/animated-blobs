@@ -18,7 +18,6 @@ export const BlobAggregator : FC<IBlobAggregator> = ({
   const blobKeys = useRef<any>();
   const processedFrame = useRef<any>(0);
   const previewSizeRef = useRef<any>(0);
-
   const resultedCanvas = useRef<HTMLCanvasElement | null>(null);
   const resultedCanvasCtx = useRef<CanvasRenderingContext2D | null>(null);
 

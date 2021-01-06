@@ -8,8 +8,6 @@ import { getConvertProcess, getIsRec } from '@store/selectors';
 import { MAX_REC_MS_TIME } from '../../constants';
 
 export const RecordButton: FC<{}> = () => {
-  const dispatch = useDispatch();
-
   const startTimeRef = useRef<number>();
   const isRecRef = useRef<boolean>();
   const interval = useRef<any>();
@@ -17,6 +15,8 @@ export const RecordButton: FC<{}> = () => {
   const isRec = useSelector(getIsRec);
   const convertProcess = useSelector(getConvertProcess);
   const isConverting = convertProcess.length > 0;
+
+  const dispatch = useDispatch();
 
   const handleChange = () => {
     if (isConverting) return;

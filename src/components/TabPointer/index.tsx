@@ -1,4 +1,6 @@
-import React, { FC, useEffect } from 'react';
+import {
+  FC, useCallback, useEffect, useState,
+} from 'react';
 import { motion } from 'framer-motion';
 import debounce from 'lodash.debounce';
 
@@ -19,9 +21,9 @@ export const TabPointer: FC<ITabPointer> = ({
   animating,
   tabCounter,
 }) => {
-  const [{ x, width }, setAttributes] = React.useState({ x: 0, width: 0 });
+  const [{ x, width }, setAttributes] = useState({ x: 0, width: 0 });
 
-  const updateAttributes = React.useCallback(() => {
+  const updateAttributes = useCallback(() => {
     if (activeId && refs?.[activeId]) {
       setAttributes({
         x: refs[activeId].offsetLeft,

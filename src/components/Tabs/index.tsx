@@ -1,5 +1,5 @@
 import React, {
-  FC, ReactElement, useEffect, useRef,
+  FC, ReactElement, useEffect, useRef, useState,
 } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TabPointer } from '@components/TabPointer';
@@ -14,8 +14,8 @@ export const Tabs: FC<ITabs> = ({
   onChange,
   children,
 }) => {
-  const [animating, setAnimating] = React.useState(false);
-  const [activeId, setActiveId] = React.useState(initialActiveId);
+  const [animating, setAnimating] = useState(false);
+  const [activeId, setActiveId] = useState(initialActiveId);
 
   useEffect(() => {
     setActiveId(initialActiveId);

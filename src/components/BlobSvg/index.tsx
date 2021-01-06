@@ -29,11 +29,11 @@ export const BlobSvg: FC<IBlobSvg> = ({
   colors,
   blobOptions,
 }) => {
+  const [path, setPath] = useState<string>('');
+
   const dispatch = useDispatch();
   const { getRandomInt } = useUtils();
   const { generateSvg } = useSvgBlob();
-
-  const [path, setPath] = useState<string>('');
 
   useEffect(() => {
     const defaultBlobOptions = {

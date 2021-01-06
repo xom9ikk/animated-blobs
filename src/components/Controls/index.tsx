@@ -26,9 +26,6 @@ import { useUtils } from '@use/utils';
 const NEW_BLOB_TAB_ID = 'new-blob';
 
 export const Controls: FC<{}> = () => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
@@ -41,6 +38,8 @@ export const Controls: FC<{}> = () => {
   const size = useSelector(getSize);
   const blobs = useSelector(getBlobs);
 
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { downloadBlobParts } = useDownload();
   const { convertBlobIdToText } = useUtils();
   const [, copy] = useClipboard(svg);

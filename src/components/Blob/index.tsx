@@ -50,18 +50,17 @@ export const Blob: FC<IBlob> = ({
   onFrame,
   style,
 }) => {
-  const dispatch = useDispatch();
-  const { getRandomInt } = useUtils();
-  const { setColors } = useBlob();
-
   const seedRef = useRef<number>(0);
   const animation = useRef<any>(null);
   const loopAnimation = useRef<any>(null);
   const renderAnimation = useRef<any>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-
   const prevIsRecRef = useRef<boolean>(false);
   const isRecRef = useRef<boolean>(isRec);
+
+  const dispatch = useDispatch();
+  const { getRandomInt } = useUtils();
+  const { setColors } = useBlob();
 
   const handleProgress = (payload) => {
     const { type, id, progress } = payload;

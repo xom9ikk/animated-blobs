@@ -27,16 +27,16 @@ export const ColorPicker: FC<IColorPicker> = ({
 
   const { isPotentiallyValid, isValid } = useHexValidator();
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
   const outsideClickHandler = () => {
     setIsFocused(false);
   };
 
   useOutsideHandler(ref, outsideClickHandler);
   useEventListener('keydown', outsideClickHandler, 'Escape');
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
 
   const handleColorChange = (e: BaseSyntheticEvent) => {
     const newValue = e.target.value.toUpperCase();

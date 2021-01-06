@@ -8,11 +8,12 @@ import { useBlobSize } from '@use/blob-size';
 
 export const BlobPreview : FC<{}> = () => {
   const router = useRouter();
+  const { blobSize } = useBlobSize();
+
   const isSvg = router.asPath === '/svg';
 
   const blobs = useSelector(getBlobs);
   const isRec = useSelector(getIsRec);
-  const { blobSize } = useBlobSize();
 
   return blobs.length > 0 && (
     <div className="blob-preview">

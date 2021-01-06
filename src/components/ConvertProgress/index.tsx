@@ -6,7 +6,9 @@ import { useUtils } from '@use/utils';
 
 export const ConvertProgress: FC<{ }> = () => {
   const ref = useRef<HTMLDivElement>();
+
   const convertProgress = useSelector(getConvertProcess);
+
   const { convertBlobIdToText } = useUtils();
 
   useEffect(() => {

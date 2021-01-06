@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, {
+import {
   BaseSyntheticEvent, FC, useRef,
 } from 'react';
 import usePortal from 'react-useportal/dist/usePortal';
@@ -31,15 +31,16 @@ export const Modal: FC<IModal> = ({
   children,
 }) => {
   const ref = useRef<any>();
+
   const { Portal } = usePortal();
+
+  useEventListener('keydown', onClose, 'Escape');
 
   const outsideClickHandler = (e: BaseSyntheticEvent) => {
     if (isSoftExit) onClose(e);
   };
 
   useOutsideHandler(ref, outsideClickHandler);
-
-  useEventListener('keydown', onClose, 'Escape');
 
   const classes = ['modal'];
 
