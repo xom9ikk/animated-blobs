@@ -8,20 +8,20 @@ import { Slider } from '@components/Slider';
 import { ColorPicker } from '@components/ColorPicker';
 import { Button } from '@components/Button';
 import { RandomButton } from '@components/RandomButton';
-import { SystemActions } from '@store/actions';
-import { IColor } from '@type/entitines';
-import {
-  getActiveBlobId, getBackgroundSrc, getBlobById, getBlobs, getFps, getQuality, getSize, getSvg,
-} from '@store/selectors';
-import { useThrottle } from '@use/throttle';
-import { useDownload } from '@use/download';
 import { Modal } from '@components/Modal';
 import { CodePreview } from '@components/CodePreview';
 import { Tabs } from '@components/Tabs';
 import { Tab } from '@components/Tab';
-import { useUtils } from '@use/utils';
 import { ConvertProgress } from '@components/ConvertProgress';
 import { RecordButton } from '@components/RecordButton';
+import { SystemActions } from '@store/actions';
+import {
+  getActiveBlobId, getBackgroundSrc, getBlobById, getBlobs, getFps, getQuality, getSize, getSvg,
+} from '@store/selectors';
+import { IColor } from '@type/entitines';
+import { useDownload } from '@use/download';
+import { useThrottle } from '@use/throttle';
+import { useUtils } from '@use/utils';
 
 const NEW_BLOB_TAB_ID = 'new-blob';
 

@@ -3,10 +3,10 @@ import {
 } from 'react';
 import { Input } from '@components/Input';
 import { ColorPalette } from '@components/ColorPalette';
-import { useHexValidator } from '@use/hex-validator';
-import { useOutsideHandler } from '@use/outsideHandler';
 import { IColor } from '@type/entitines';
 import { useEventListener } from '@use/event-listener';
+import { useHexValidator } from '@use/hex-validator';
+import { useOutsideHandler } from '@use/outside-handler';
 import { PALETTE } from '../../constants';
 
 interface IColorPicker {

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { wrapper } from '@store/configureStore';
 import { SystemActions } from '@store/actions';
+import { wrapper } from '@store/configureStore';
 import { useUtils } from '@use/utils';
 import '../styles/index.scss';
 

@@ -3,13 +3,13 @@ import {
   FC, MutableRefObject, CSSProperties,
   useEffect, useRef, useMemo, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
 import * as blobs2Animate from 'blobs/v2/animate';
-import { useUtils } from '@use/utils';
+import { SystemActions } from '@store/actions';
 import { IColors } from '@type/entitines';
 import { useBlob } from '@use/blob';
-import { SystemActions } from '@store/actions';
-import { useDispatch } from 'react-redux';
 import { useCaptureCanvas } from '@use/capture-canvas';
+import { useUtils } from '@use/utils';
 
 interface IBlob {
   id: string,

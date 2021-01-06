@@ -1,10 +1,10 @@
 import {
   FC, useEffect, useRef,
 } from 'react';
-import { SystemActions } from '@store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { getConvertProcess, getIsRec } from '@store/selectors';
 import ReactTooltip from 'react-tooltip';
+import { SystemActions } from '@store/actions';
+import { getConvertProcess, getIsRec } from '@store/selectors';
 import { MAX_REC_MS_TIME } from '../../constants';
 
 export const RecordButton: FC<{}> = () => {

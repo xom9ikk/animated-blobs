@@ -2,10 +2,10 @@ import {
   FC, useEffect, useMemo, useRef,
 } from 'react';
 import { useSelector } from 'react-redux';
+import { Blob } from '@components/Blob';
 import {
   getSize, getBlobs, getIsRec, getQuality, getFps,
 } from '@store/selectors';
-import { Blob } from '@components/Blob';
 
 interface IBlobAggregator {
   previewSize: number;

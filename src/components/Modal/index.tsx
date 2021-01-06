@@ -3,9 +3,9 @@ import React, {
   BaseSyntheticEvent, FC, useRef,
 } from 'react';
 import usePortal from 'react-useportal/dist/usePortal';
-import { useOutsideHandler } from '@use/outsideHandler';
 import { Button } from '@components/Button';
 import { useEventListener } from '@use/event-listener';
+import { useOutsideHandler } from '@use/outside-handler';
 
 interface IModal {
   isOpen: boolean,

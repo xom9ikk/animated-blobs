@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { getBlobs, getIsRec } from '@store/selectors';
-import { BlobSvg } from '@components/BlobSvg';
 import { useRouter } from 'next/router';
+import { BlobSvg } from '@components/BlobSvg';
 import { BlobAggregator } from '@components/BlobAggregator';
-import { useBlobSize } from '@use/blobSize';
+import { getBlobs, getIsRec } from '@store/selectors';
+import { useBlobSize } from '@use/blob-size';
 
 export const BlobPreview : FC<{}> = () => {
   const router = useRouter();

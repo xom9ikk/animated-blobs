@@ -2,12 +2,12 @@
 import {
   FC, useEffect, useMemo, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
 import * as blobs2 from 'blobs/v2';
-import { useUtils } from '@use/utils';
+import { SystemActions } from '@store/actions';
 import { IColors } from '@type/entitines';
 import { useSvgBlob } from '@use/svg-blob';
-import { SystemActions } from '@store/actions';
-import { useDispatch } from 'react-redux';
+import { useUtils } from '@use/utils';
 
 interface IBlobOptions {
   seed?: number | string;

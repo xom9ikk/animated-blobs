@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
-import { Progress } from '@components/Progress';
 import { useSelector } from 'react-redux';
+import { Progress } from '@components/Progress';
 import { getConvertProcess } from '@store/selectors';
 import { useUtils } from '@use/utils';
 
