@@ -1,41 +1,57 @@
-# TypeScript Next.js example
+# For users
+**Blob animation** is a tool for generating **animated** blobs.
+With it, you can generate absolutely any blob animation.
+This tool also supports **gradients**.
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+## 🪵 What can be generated?
+You can generate:
+- **one animated** blob;
+- **several animated** blobs that you can overlay on top of each other in the future (GIF does not support *translucency*, so there is such a limitation);
+- non-animated **SVG blob**;
+- for all of the above, you can use a **gradient**;
 
-## Deploy your own
+## 🚀 How to use?
+Using the toolbar, you can change the **complexity** of the generated blob. 
+You can change the **number of points**, blob **color** and **gradients**!
+To generate a new blob with the previously specified parameters, press **dice button**.
+And when you find a suitable blob form for you, save it by clicking on the **download button**.
 
-Deploy the example using [Vercel](https://vercel.com):
+## 📦 Where can these animations be used?
+They can be used on websites, in mobile applications, etc. 
+For me personally, they came in handy for creating blob animations in one of my [React Native](https://reactnative.dev/) applications.
+Because generating and animating such blobs in real time takes quite a lot of resources, which cannot be said about GIF animation.
+After generation, I just overlaid these blobs and made them transparent, and after that I got this result.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
+## ✨ Words of gratitude
+Special thanks for the library for generating blobs, I want to say [@g-harel](https://github.com/g-harel/blobs) 🔥
 
-## How to use it?
+Thanks for porting the library for creating GIF animations [@antimatter15](https://github.com/antimatter15/jsgif) 💪
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+And thanks for the inspiration to [blobmaker.app](https://www.blobmaker.app/) 💡
 
+I hope this will be useful to someone. For all contacts with me, use either github [@xom9ikk](https://github.com/xom9ikk) or telegram [@xom9ik](https://t.me/xom9ik).
+
+# For developers
+
+## Installation and Development server
+
+Clone repo
 ```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
+$ git clone https://github.com/xom9ikk/animated-blobs.git
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
-
-```
-npm install --save-dev typescript
+Install the dependencies
+```bash
+$ npm i
 ```
 
-To enable TypeScript's features, we install the type declarations for React and Node.
-
+Run in `dev` mode with hot reload. `dev` server will run at `http://localhost:3000`
+```bash
+$ npm run dev
 ```
-npm install --save-dev @types/react @types/react-dom @types/node
+
+Build for `production` and run server. `production` server will run at `http://localhost:3000`
+```bash
+$ npm run build
+$ npm start
 ```
-
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.

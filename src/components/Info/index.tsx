@@ -104,7 +104,7 @@ export const Info: FC<{}> = () => (
       <p className="info__text">
         And thanks for the inspiration to
         {' '}
-        <a href="https://www.blobmaker.app/">blobmaker.app</a>
+        <a href="">blobmaker.app</a>
         💡
       </p>
       <p className="info__text">
