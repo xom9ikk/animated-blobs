@@ -1,4 +1,4 @@
-# <a href='https://blobs.xom9ik.com'><img src='https://github.com/xom9ikk/animated-blobs/raw/master/public/icons/icon-512x512.png' height='60' alt='Blobs Logo' aria-label='blobs.xom9ik.com' /></a>
+# <a href='https://blobs.xom9ik.com'><img src='https://github.com/xom9ikk/animated-blobs/raw/master/public/icons/icon-512x512.png' height='60' alt='Blobs Logo' aria-label='blobs.xom9ik.com' /></a> Animated blobs generator
 
 # For users 😀
 **Blob animation** is a tool for generating **animated** blobs.
