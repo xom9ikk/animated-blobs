@@ -12,7 +12,7 @@ This tool also supports **gradients**.
 ## 🪵 What can be generated?
 You can generate:
 - **one animated** blob;
-- **several animated** blobs that you can overlay on top of each other in the future (GIF does not support *translucency*, so there is such a limitation);
+- **several animated** blobs that you can overlay on top of each other in the future (*GIF* does not support *translucency*, so there is such a limitation);
 - non-animated **SVG blob**;
 - for all of the above, you can use a **gradient**;
 
