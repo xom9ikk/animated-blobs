@@ -2,6 +2,7 @@ version: "3.5"
 services:
   blobs-prod:
     image: blobs-prod
+    restart: always
     container_name: blobs-prod
     build:
       context: ./
