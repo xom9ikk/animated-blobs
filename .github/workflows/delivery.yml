@@ -28,7 +28,6 @@ jobs:
           key: ${{ secrets.KEY }}
           source: ${{ env.APP_NAME }}
           target: ${{ env.PATH_TO_APPS }}
-          rm: true
 
       - name: Run rebuild script
         uses: appleboy/ssh-action@master
