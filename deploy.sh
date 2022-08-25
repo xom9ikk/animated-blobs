@@ -25,9 +25,9 @@ echo "server {
             application/xml
             application/rss+xml
             image/svg+xml/javascript;
-        location ~* \.(jpg|jpeg|png|gif|ico|svg|woff|woff2)$ {
-            expires 7d;
-        }
+#        location ~* \.(jpg|jpeg|png|gif|ico|svg|woff|woff2)$ {
+#            expires 7d;
+#        }
         location / {
             proxy_pass $DOCKER_ADDRESS;
             proxy_http_version 1.1;
